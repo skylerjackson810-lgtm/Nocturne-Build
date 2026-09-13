@@ -26,6 +26,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     @Published var invertY = false
     @Published var reducedMotion = false
     @Published var soundEnabled = true
+    @Published var audioStatus = "Use Test sound to check the current iPhone output."
     let input = InputRouter()
     private(set) var view: ARView?
     private let voice = SpeechRecognitionService()
@@ -109,6 +110,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
                         self?.voiceStatus = message; self?.voiceActive = false
                     }
                 self.prewarmEffects(root: arena.root)
+                self.activatePlayback()
                 self.targets = arena.targets.enumerated().map {
                     Target(entity: $0.element, position: $0.element.position, nextAttack: Tick(240 + $0.offset * 90))
                 }
@@ -137,12 +139,42 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
             entity.isEnabled = false
             return Spark(entity: entity)
         }
-        for key in ["cast", "impact", "hurt"] {
-            if let url = Bundle.main.url(forResource: key, withExtension: "wav"),
-               let player = try? AVAudioPlayer(contentsOf: url) {
-                player.prepareToPlay(); player.volume = 0.22; sound[key] = player
+        prepareSounds()
+    }
+
+    private func prepareSounds() {
+        for key in ["cast", "impact", "hurt"] where sound[key] == nil {
+            guard let url = Bundle.main.url(forResource: key, withExtension: "wav") else {
+                audioStatus = "Missing bundled sound: \(key).wav. Rebuild the app with Resources included."
+                return
             }
+            do {
+                let player = try AVAudioPlayer(contentsOf: url)
+                player.volume = 0.55
+                guard player.prepareToPlay() else {
+                    audioStatus = "Could not prepare \(key).wav for playback."; return
+                }
+                sound[key] = player
+            } catch { audioStatus = "Sound loading failed: \(error.localizedDescription)"; return }
         }
+    }
+
+    private func activatePlayback() {
+        do { try GameAudioSession.activate(recording: voiceActive) }
+        catch { audioStatus = "Audio setup failed: \(error.localizedDescription)" }
+    }
+
+    func testSound() {
+        activatePlayback()
+        prepareSounds()
+        // Diagnostic preview only. Never submits a cast or bypasses voice activation.
+        guard let player = sound["cast"] else { return }
+        player.currentTime = 0
+        if player.play() {
+            let audio = AVAudioSession.sharedInstance()
+            let output = audio.currentRoute.outputs.map(\.portName).joined(separator: ", ")
+            audioStatus = "Test playing on \(output). iPhone volume: \(Int(audio.outputVolume * 100))%."
+        } else { audioStatus = "iOS could not start playback. Check the output device and retry." }
     }
 
     private func resetRound() {
@@ -160,7 +192,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         let permitted = await SpeechRecognitionService.requestAccess()
         guard phase == .playing else { return }
         guard permitted else {
-            voiceStatus = "Microphone permission needed · tap to retry"; voiceActive = false
+            voiceStatus = SpeechRecognitionService.permissionHelp; voiceActive = false
             return
         }
         do { try engine?.start(locale: "en-US"); voiceActive = true }
@@ -176,6 +208,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     func pause() {
         guard phase == .playing else { return }
         phase = .paused; engine?.stop(); voiceActive = false
+        for player in sound.values { player.stop() }
         pending.removeAll(); casts.removeAll(); input.reset()
         link?.isPaused = true; lastFrame = 0; accumulator = 0
     }
@@ -187,6 +220,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     func resume() {
         guard phase == .paused else { return }
         phase = .playing; lastFrame = 0; accumulator = 0; link?.isPaused = false
+        activatePlayback()
         Task { await enableVoice() }
     }
 
@@ -197,7 +231,9 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         link?.invalidate(); link = nil; frameDriver = nil
         view?.scene.anchors.removeAll(); view = nil; arena = nil; rig = nil
         projectiles.removeAll(); sparks.removeAll(); targets.removeAll()
-        pending.removeAll(); casts.removeAll(); input.reset(); sound.removeAll()
+        pending.removeAll(); casts.removeAll(); input.reset()
+        for player in sound.values { player.stop() }
+        sound.removeAll(); GameAudioSession.deactivate()
         phase = .menu
     }
 
@@ -365,7 +401,8 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
 
     private func play(_ key: String) {
         guard soundEnabled, let player = sound[key] else { return }
-        player.currentTime = 0; player.play()
+        player.currentTime = 0
+        if !player.play() { audioStatus = "Sound playback failed. Open Settings → Test sound to reconnect." }
     }
 }
 

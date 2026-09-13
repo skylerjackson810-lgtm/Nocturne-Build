@@ -5,7 +5,7 @@ from pathlib import Path
 from tree_sitter import Language, Parser
 import tree_sitter_swift
 from openstep_parser import OpenStepDecoder
-import json, plistlib, xml.etree.ElementTree as ET, wave
+import array, json, plistlib, sys, xml.etree.ElementTree as ET, wave
 root=Path(__file__).resolve().parents[1]
 parser=Parser(Language(tree_sitter_swift.language()))
 errors=[]
@@ -43,9 +43,17 @@ for path in root.rglob('Contents.json'):
  data=json.loads(path.read_text())
  for image in data.get('images',[]):
   if 'filename' in image:assert (path.parent/image['filename']).is_file()
-for p in (root/'Nocturne/Resources').glob('*.wav'):
+audio_paths={root/'Resources'/f'{name}.wav' for name in ['cast','impact','hurt']}
+bundled_refs={objects[file_id]['fileRef'] for obj in objects.values()
+              if obj['isa']=='PBXResourcesBuildPhase' for file_id in obj['files']}
+bundled_paths={root/objects[ref]['path'] for ref in bundled_refs}
+assert audio_paths <= bundled_paths, 'Sound files must be in Copy Bundle Resources'
+for p in audio_paths:
  with wave.open(str(p)) as sound:
-  assert sound.getnframes()>0 and sound.getnchannels()==1
+  assert sound.getnframes()>0 and sound.getnchannels()==1 and sound.getsampwidth()==2
+  samples=array.array('h',sound.readframes(sound.getnframes()))
+  if sys.byteorder != 'little':samples.byteswap()
+  assert max(abs(sample) for sample in samples)>1000, f'Inaudible sound asset: {p}'
 scheme=ET.parse(root/'Nocturne.xcodeproj/xcshareddata/xcschemes/Nocturne.xcscheme')
 for ref in scheme.findall('.//BuildableReference'):assert ref.attrib['BlueprintIdentifier'] in objects
 info=plistlib.loads((root/'Info.plist').read_bytes())

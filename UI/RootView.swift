@@ -160,6 +160,11 @@ struct SettingsView: View {
                 }
                 Section("The sound of magic") {
                     Toggle("Spell sound effects", isOn: $session.soundEnabled)
+                    Button("Test sound") { session.testSound() }
+                    Text(session.audioStatus).font(.footnote).foregroundStyle(.secondary)
+                    Text("This prototype has cast, impact, and damage sounds, but no background music yet. Test sound plays even when spell effects are switched off.")
+                        .font(.footnote).foregroundStyle(.secondary)
+                    Text(session.voiceStatus).font(.footnote).foregroundStyle(.secondary)
                     Text("Casting uses English on-device speech recognition. A short pause after ‘Fireball’ completes the incantation. No button casts a spell.")
                         .font(.footnote).foregroundStyle(.secondary)
                     Button("Open microphone permissions") {

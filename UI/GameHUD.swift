@@ -71,6 +71,15 @@ struct GameHUD: View {
                                     .background(WizardTheme.ink.opacity(0.70))
                             }.buttonStyle(.plain).frame(maxWidth: 310).disabled(session.requestingVoice)
                                 .accessibilityLabel(session.voiceActive ? "Turn microphone off" : "Enable microphone")
+                            HStack(spacing: 3) {
+                                ForEach(0..<12) { index in
+                                    Capsule().fill(session.voiceActive && session.microphoneLevel > Float(index) / 12
+                                        ? WizardTheme.violet : WizardTheme.muted.opacity(0.2))
+                                        .frame(width: 5, height: 4 + CGFloat(index % 3) * 2)
+                                }
+                            }.accessibilityLabel("Microphone input level")
+                                .accessibilityValue("\(Int(session.microphoneLevel * 100)) percent")
+                                .allowsHitTesting(false)
                         }.frame(maxWidth: 320)
                         Spacer()
                         VStack(spacing: 6) {
