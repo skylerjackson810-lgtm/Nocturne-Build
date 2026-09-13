@@ -1,0 +1,68 @@
+name: Build unsigned iOS IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Select Xcode 16.4
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.4'
+
+      - name: Show build environment
+        run: |
+          xcodebuild -version
+          xcodebuild -showsdks
+
+      - name: Validate project and scheme
+        run: |
+          test -f Nocturne.xcodeproj/project.pbxproj
+          test -f Nocturne.xcodeproj/xcshareddata/xcschemes/Nocturne.xcscheme
+          xcodebuild -list -project Nocturne.xcodeproj
+
+      - name: Build unsigned iPhone application
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project Nocturne.xcodeproj \
+            -scheme Nocturne \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$PWD/build" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY='' \
+            clean build | tee build.log
+
+      - name: Package unsigned IPA for Sideloadly
+        run: |
+          set -euo pipefail
+          APP_PATH="$PWD/build/Build/Products/Release-iphoneos/Nocturne.app"
+          test -d "$APP_PATH"
+          test -x "$APP_PATH/Nocturne"
+          rm -rf Payload Nocturne-unsigned.ipa
+          mkdir Payload
+          ditto "$APP_PATH" Payload/Nocturne.app
+          /usr/bin/zip -qry Nocturne-unsigned.ipa Payload
+          /usr/bin/unzip -t Nocturne-unsigned.ipa
+
+      - name: Upload IPA and build log
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nocturne-unsigned-IPA
+          path: |
+            Nocturne-unsigned.ipa
+            build.log
+          if-no-files-found: error
+          retention-days: 14
