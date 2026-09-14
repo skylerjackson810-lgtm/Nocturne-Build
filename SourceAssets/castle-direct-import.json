@@ -1,0 +1,414 @@
+{
+  "source_file": "Castle+format+1(2).glb",
+  "source_sha256": "68ed413a567f2448d16cc55ae144071ad8d1f121f6b02b830aeee9ca480194cf",
+  "runtime_sha256": "b2857bbc0aefb62527d2798c34980f32592ae90c692f03bdad10c2dfa430c973",
+  "runtime_meshes": 308,
+  "retained_triangles": 86730,
+  "removed_triangles_from_retained_meshes": 0,
+  "maximum_round_trip_position_error": 9.62003696258762e-07,
+  "uniform_scale": 0.991266535273347,
+  "source_origin": [
+    2.869633674621582,
+    1443.322772026062,
+    6.189515350463565
+  ],
+  "runtime_size": [
+    52.0,
+    28.31959130546332,
+    38.64102823540877
+  ],
+  "excluded_detached_primitives": [
+    {
+      "node": "Cube.146",
+      "primitive": 0
+    },
+    {
+      "node": "Plane.017",
+      "primitive": 0
+    },
+    {
+      "node": "Plane.019",
+      "primitive": 0
+    },
+    {
+      "node": "Plane.055",
+      "primitive": 0
+    },
+    {
+      "node": "Plane.057",
+      "primitive": 0
+    },
+    {
+      "node": "Plane.077",
+      "primitive": 0
+    },
+    {
+      "node": "Vert.020",
+      "primitive": 0
+    }
+  ],
+  "texture_images": 30,
+  "images": [
+    {
+      "name": "sloppy-mortar-stone-wall_normal-ogl",
+      "path": "textures/castle_00.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "sloppy-mortar-stone-wall_albedo",
+      "path": "textures/castle_01.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "sloppy-mortar-stone-wall_metallic-sloppy-mortar-stone-wall_roughness",
+      "path": "textures/castle_02.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "limestone5_Normal-ogl",
+      "path": "textures/castle_03.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "limestone5_albedo",
+      "path": "textures/castle_04.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "limestone5_Metallic-limestone5_Roughness",
+      "path": "textures/castle_05.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "subtle-grained-wood_normal-ogl",
+      "path": "textures/castle_06.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "subtle-grained-wood_albedo",
+      "path": "textures/castle_07.jpg",
+      "source_size": [
+        4096,
+        4096
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "subtle-grained-wood_metallic-subtle-grained-wood_roughness",
+      "path": "textures/castle_08.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "old-cedar-shingles_normal-ogl",
+      "path": "textures/castle_09.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "old-cedar-shingles_albedo",
+      "path": "textures/castle_10.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "old-cedar-shingles_metallic-old-cedar-shingles_roughness",
+      "path": "textures/castle_11.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "ocean-rock_normal-ogl",
+      "path": "textures/castle_12.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "ocean-rock_albedo",
+      "path": "textures/castle_13.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "ocean-rock_metallic-ocean-rock_roughness",
+      "path": "textures/castle_14.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "leafy-grass2-normal-ogl",
+      "path": "textures/castle_15.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "leafy-grass2-albedo",
+      "path": "textures/castle_16.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "leafy-grass2-metallic-leafy-grass2-roughness",
+      "path": "textures/castle_17.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "angled-blocks-vegetation_normal-ogl",
+      "path": "textures/castle_18.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "angled-blocks-vegetation_albedo",
+      "path": "textures/castle_19.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "angled-blocks-vegetation_metallic-angled-blocks-vegetation_roughness",
+      "path": "textures/castle_20.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "limestone-cliffs_normal-ogl",
+      "path": "textures/castle_21.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "limestone-cliffs_albedo",
+      "path": "textures/castle_22.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "limestone-cliffs_metallic.png-limestone-cliffs_roughness.png",
+      "path": "textures/castle_23.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "wispy-grass-meadow_normal-ogl",
+      "path": "textures/castle_24.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "wispy-grass-meadow_albedo",
+      "path": "textures/castle_25.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "wispy-grass-meadow_metallic-wispy-grass-meadow_roughness",
+      "path": "textures/castle_26.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "ash-tree-bark_normal-ogl",
+      "path": "textures/castle_27.jpg",
+      "source_size": [
+        4096,
+        4096
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "ash-tree-bark_albedo",
+      "path": "textures/castle_28.jpg",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "name": "ash-tree-bark_metallic-ash-tree-bark_roughness",
+      "path": "textures/castle_29.jpg",
+      "source_size": [
+        4096,
+        4096
+      ],
+      "runtime_size": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "note": "Direct latest GLB conversion; original topology, normals, slot UV transforms and material indices preserved."
+}
