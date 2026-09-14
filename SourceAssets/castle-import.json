@@ -1,0 +1,54 @@
+{
+  "source_sha256": "fe940bf959f1da88880ceb726d81d7f6a2a2cae0a6af75b7c3b5c50ef2426ea8",
+  "runtime_sha256": "081abf5c8e9a7b774e2244d8fd83abe7051c636c9ddcf996d30287b8c4f84879",
+  "excluded_detached_prims": [
+    "/Root/Geom/Cube146",
+    "/Root/Geom/Plane017",
+    "/Root/Geom/Plane019",
+    "/Root/Geom/Plane055",
+    "/Root/Geom/Plane057",
+    "/Root/Geom/Plane077",
+    "/Root/Geom/Vert020"
+  ],
+  "scale": 0.34313070420599695,
+  "runtime_min": [
+    -9.00000008257064,
+    5.094190612453531e-06,
+    -6.8238647641957275
+  ],
+  "runtime_max": [
+    9.000000102857715,
+    10.545398786814246,
+    6.823864805151064
+  ],
+  "runtime_meshes": 309,
+  "texture_images": 30,
+  "materials_and_uvs": "GLB textures and tiling restored; USD geometry/UVs retained",
+  "note": "Original USDZ remains unchanged; textures recovered from separately supplied GLB.",
+  "texture_source_sha256": "0ea40999bd9e0954597671784abb96e18a6a981d23f0b666ba9cf514b3ad865a",
+  "textured_materials": 73,
+  "unmatched_materials": [
+    "/Materials/Material_1067",
+    "/Materials/Grass_003"
+  ],
+  "meshes_without_uvs": [
+    "/Root/Geom/Vert017/mesh_268",
+    "/Root/Geom/Vert017/mesh_268_1",
+    "/Root/Geom/Vert019",
+    "/Root/Geom/Vert045",
+    "/Root/Geom/Vert046",
+    "/Root/Geom/Vert053",
+    "/Root/Geom/Vert078",
+    "/Root/Geom/Vert080",
+    "/Root/Geom/Vert126",
+    "/Root/Geom/Vert135",
+    "/Root/Geom/Vert139",
+    "/Root/Geom/Vert198",
+    "/Root/Geom/Vert216",
+    "/Root/Geom/Vert255",
+    "/Root/Geom/Vert280",
+    "/Root/Geom/Vert285",
+    "/Root/Geom/Vert293"
+  ],
+  "maximum_texture_size": 512
+}

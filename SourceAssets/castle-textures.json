@@ -1,0 +1,4050 @@
+{
+  "source_file": "Castle+format+1.glb",
+  "source_bytes": 308514356,
+  "source_sha256": "0ea40999bd9e0954597671784abb96e18a6a981d23f0b666ba9cf514b3ad865a",
+  "images": [
+    {
+      "name": "sloppy-mortar-stone-wall_normal-ogl",
+      "file": "texture_00.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "9ad2da05d4cba8376cd77330941e5b562208b0ab2b6590b3aa22c1d2d30a74ad"
+    },
+    {
+      "name": "sloppy-mortar-stone-wall_albedo",
+      "file": "texture_01.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "21758ebc745bcdf42cd045f4e366a7e7a24682c5d8685fee948eca2ec97b8a9b"
+    },
+    {
+      "name": "sloppy-mortar-stone-wall_metallic-sloppy-mortar-stone-wall_roughness",
+      "file": "texture_02.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "3dbbb2aeff90588a1f7fd91e66c91b712ddd4fc4df2dd0d512398f020877c6b8"
+    },
+    {
+      "name": "limestone5_Normal-ogl",
+      "file": "texture_03.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "3c22e4ba8392d00e78826541f631874dbcb00c51f37cd926cf4b6c77b0310c6a"
+    },
+    {
+      "name": "limestone5_albedo",
+      "file": "texture_04.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "14672280b10dae0a0453deaebfcf2fb85e07bc771bd2e7226f1b4bbfb030fac5"
+    },
+    {
+      "name": "limestone5_Metallic-limestone5_Roughness",
+      "file": "texture_05.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "d73ffc208624a27d5093e009e7d966295dcedc1c8f4cd784d18de7b97cb83816"
+    },
+    {
+      "name": "subtle-grained-wood_normal-ogl",
+      "file": "texture_06.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "38e4bdb17333e474d001f34c54d11317af1c5c731616a723ecdf8ec9d776845a"
+    },
+    {
+      "name": "subtle-grained-wood_albedo",
+      "file": "texture_07.png",
+      "original_size": [
+        4096,
+        4096
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "e5e48f6a6b045c115ee1a323d7f76d665fdbf1f85429e6c07ca9118aea09472b"
+    },
+    {
+      "name": "subtle-grained-wood_metallic-subtle-grained-wood_roughness",
+      "file": "texture_08.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "de0ff2820357ae8dec784cdefe3ffcd01a103a829383f1378d4526637c37cb28"
+    },
+    {
+      "name": "old-cedar-shingles_normal-ogl",
+      "file": "texture_09.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "4b6ed30fd5aeb5b5c1ecd7d9ecbe65fc480b3e835e0298f7304b2db96ad10b3a"
+    },
+    {
+      "name": "old-cedar-shingles_albedo",
+      "file": "texture_10.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "2e4d1bb2c5cb576bc2619ef599ba0bcbaedda4583d050c9624bd04710329b3b1"
+    },
+    {
+      "name": "old-cedar-shingles_metallic-old-cedar-shingles_roughness",
+      "file": "texture_11.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "1a84b9efd99cce5a7572db47e0d60a42bc9ba78c9867caf337db3cadf50ce1bf"
+    },
+    {
+      "name": "ocean-rock_normal-ogl",
+      "file": "texture_12.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "b46abc9919726e8034d70945cb22f3dc5f15fc3283d577b430bfc35e1653dee1"
+    },
+    {
+      "name": "ocean-rock_albedo",
+      "file": "texture_13.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "9a58a6e3c5ff118e01d054ec264395b1826ea21508b4fe9bb9326e1981cab73b"
+    },
+    {
+      "name": "ocean-rock_metallic-ocean-rock_roughness",
+      "file": "texture_14.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "bf876619da933ad37b04715f1984348be865876560326c6fccc91fa6906ca624"
+    },
+    {
+      "name": "leafy-grass2-normal-ogl",
+      "file": "texture_15.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "e4bf9a4806859e47db9fb550f76234b686335e1d6836658e8d4c261e29a3bc18"
+    },
+    {
+      "name": "leafy-grass2-albedo",
+      "file": "texture_16.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "53e164364f44e54d1ff6dd4e0e3f06e23de23c7a663f6f0884b30d794655a5bf"
+    },
+    {
+      "name": "leafy-grass2-metallic-leafy-grass2-roughness",
+      "file": "texture_17.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "5d89d76a9b207d3b48bea4ea48ed78b7bd191715e8639703fca79a79a6390047"
+    },
+    {
+      "name": "angled-blocks-vegetation_normal-ogl",
+      "file": "texture_18.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "21c0b7014e07fab5afce5c345dfb032b344a8214ae53f1a003d3f00f9241c631"
+    },
+    {
+      "name": "angled-blocks-vegetation_albedo",
+      "file": "texture_19.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "12777cb8a3da5d606598b928ca71a42fb7408d23b3cfccd3239a717f6cad7617"
+    },
+    {
+      "name": "angled-blocks-vegetation_metallic-angled-blocks-vegetation_roughness",
+      "file": "texture_20.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "6dd7aa35f58ffe4eb611eafb6e0d445f8723ecc12afd67742417658adddf01f0"
+    },
+    {
+      "name": "limestone-cliffs_normal-ogl",
+      "file": "texture_21.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "eaa57784ebd956e0853c1c4408869624996ba0754b08d31a8babff02fdb380d0"
+    },
+    {
+      "name": "limestone-cliffs_albedo",
+      "file": "texture_22.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "c3c7c2242858f262867c66fe21a897e8b788fe55f68f16885ead7b157c060215"
+    },
+    {
+      "name": "limestone-cliffs_metallic.png-limestone-cliffs_roughness.png",
+      "file": "texture_23.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "c6b5c82231d9cc06e404ba504b83b0ff3281f4152ddc1ee46df45b18a569740c"
+    },
+    {
+      "name": "wispy-grass-meadow_normal-ogl",
+      "file": "texture_24.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "d844b1f1e5777c7f68cb533d8e5ac0c7f8b0df8e39dd00d3d7fd00cb7a6d4add"
+    },
+    {
+      "name": "wispy-grass-meadow_albedo",
+      "file": "texture_25.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "148b1225ec3b415a839df7f3266896ab91a377e6e50b0764f9971ba1582563a5"
+    },
+    {
+      "name": "wispy-grass-meadow_metallic-wispy-grass-meadow_roughness",
+      "file": "texture_26.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "fc5034f623fbd7fa77250a19bf735ec6e55e1fecb95d03b7c54a070286619fa1"
+    },
+    {
+      "name": "ash-tree-bark_normal-ogl",
+      "file": "texture_27.png",
+      "original_size": [
+        4096,
+        4096
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "e681e5e75dc12bf9c41ed507bd92d3c2b39de670068602291bfdb00ff0f649fc"
+    },
+    {
+      "name": "ash-tree-bark_albedo",
+      "file": "texture_28.png",
+      "original_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "004d2735ea551296c948fdf9aec1a6cea57fecc0452c0bb832a93d2ec7fbd53d"
+    },
+    {
+      "name": "ash-tree-bark_metallic-ash-tree-bark_roughness",
+      "file": "texture_29.png",
+      "original_size": [
+        4096,
+        4096
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "00c11e458a49a7fc66c7ed7399ac61b24876f9815d26ab7669b05f211d2883e4"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Material",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                5,
+                3
+              ]
+            }
+          },
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.002",
+      "normalTexture": {
+        "index": 3
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -4
+              ],
+              "scale": [
+                5,
+                5
+              ]
+            }
+          },
+          "index": 4
+        },
+        "metallicRoughnessTexture": {
+          "index": 5
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.079",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 6
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 7
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 8
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Wood",
+      "normalTexture": {
+        "index": 9
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 10
+        },
+        "metallicRoughnessTexture": {
+          "index": 11
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Roof",
+      "normalTexture": {
+        "index": 12
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 13
+        },
+        "metallicRoughnessTexture": {
+          "index": 14
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Roof.006",
+      "normalTexture": {
+        "index": 15
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 16
+        },
+        "metallicRoughnessTexture": {
+          "index": 17
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.063",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 18
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 19
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 20
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Roof.005",
+      "normalTexture": {
+        "index": 21
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 22
+        },
+        "metallicRoughnessTexture": {
+          "index": 23
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.057",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 24
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 25
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 26
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.055",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 27
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 28
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 29
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.065",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 30
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 31
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 32
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.059",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 33
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 34
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 35
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.075",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 36
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 37
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 38
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.022",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 39
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 40
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 41
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.010",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 42
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 43
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 44
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.016",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 45
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 46
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 47
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.053",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 48
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 49
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 50
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.030",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 51
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 52
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 53
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.036",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 54
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 55
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 56
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.012",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 57
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 58
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 59
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.032",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 60
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 61
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 62
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.034",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 63
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 64
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 65
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.038",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 66
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 67
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 68
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.018",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 69
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 70
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 71
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.020",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 72
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 73
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 74
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.014",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 75
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 76
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 77
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.024",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 78
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 79
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 80
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.026",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 81
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 82
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 83
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.028",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 84
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 85
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 86
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.078",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 87
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 88
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 89
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.061",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 90
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 91
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 92
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.080",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 93
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 94
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 95
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.077",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 96
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 97
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 98
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.067",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 99
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 100
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 101
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.046",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 102
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 103
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 104
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.048",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 105
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 106
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 107
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.044",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 108
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 109
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 110
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.051",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 111
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 112
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 113
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.042",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 114
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 115
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 116
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.040",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 117
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 118
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 119
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.010",
+      "normalTexture": {
+        "index": 120
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 121
+        },
+        "metallicRoughnessTexture": {
+          "index": 122
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.009",
+      "normalTexture": {
+        "index": 123
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 124
+        },
+        "metallicRoughnessTexture": {
+          "index": 125
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.081",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 126
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 127
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 128
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.076",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 129
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 130
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 131
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.011",
+      "normalTexture": {
+        "index": 132
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 133
+        },
+        "metallicRoughnessTexture": {
+          "index": 134
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Wood.001",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -1
+            ],
+            "scale": [
+              2,
+              2
+            ]
+          }
+        },
+        "index": 135
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -1
+              ],
+              "scale": [
+                2,
+                2
+              ]
+            }
+          },
+          "index": 136
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -1
+              ],
+              "scale": [
+                2,
+                2
+              ]
+            }
+          },
+          "index": 137
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.007",
+      "normalTexture": {
+        "index": 138
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 139
+        },
+        "metallicRoughnessTexture": {
+          "index": 140
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.008",
+      "normalTexture": {
+        "index": 141
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 142
+        },
+        "metallicRoughnessTexture": {
+          "index": 143
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.012",
+      "normalTexture": {
+        "index": 144
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 145
+        },
+        "metallicRoughnessTexture": {
+          "index": 146
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.014",
+      "normalTexture": {
+        "index": 147
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 148
+        },
+        "metallicRoughnessTexture": {
+          "index": 149
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Wall",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.760138988494873,
+          0.760138988494873,
+          0.760138988494873,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Wood.002",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -1
+            ],
+            "scale": [
+              2,
+              2
+            ]
+          }
+        },
+        "index": 150
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -1
+              ],
+              "scale": [
+                2,
+                2
+              ]
+            }
+          },
+          "index": 151
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -1
+              ],
+              "scale": [
+                2,
+                2
+              ]
+            }
+          },
+          "index": 152
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Leaf",
+      "normalTexture": {
+        "index": 153
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 154
+        },
+        "metallicRoughnessTexture": {
+          "index": 155
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Bars",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.34269818663597107,
+          0.23371675610542297,
+          0.1909693479537964,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Black",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.006",
+      "normalTexture": {
+        "index": 156
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 157
+        },
+        "metallicRoughnessTexture": {
+          "index": 158
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Window",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.1239447370171547,
+          0.284494549036026,
+          0.2911919355392456,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.003",
+      "normalTexture": {
+        "index": 159
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -1
+              ],
+              "scale": [
+                7,
+                2
+              ]
+            }
+          },
+          "index": 160
+        },
+        "metallicRoughnessTexture": {
+          "index": 161
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.005",
+      "normalTexture": {
+        "index": 162
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -9
+              ],
+              "scale": [
+                3.9999983310699463,
+                10
+              ]
+            }
+          },
+          "index": 163
+        },
+        "metallicRoughnessTexture": {
+          "index": 164
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.001",
+      "normalTexture": {
+        "index": 165
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -9
+              ],
+              "scale": [
+                50,
+                10
+              ]
+            }
+          },
+          "index": 166
+        },
+        "metallicRoughnessTexture": {
+          "index": 167
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.007",
+      "normalTexture": {
+        "index": 168
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "scale": [
+                5,
+                1
+              ]
+            }
+          },
+          "index": 169
+        },
+        "metallicRoughnessTexture": {
+          "index": 170
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Flag",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8000858426094055,
+          0.1695067584514618,
+          0.030228275805711746,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Roof.004",
+      "normalTexture": {
+        "index": 171
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 172
+        },
+        "metallicRoughnessTexture": {
+          "index": 173
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Path Rocks",
+      "normalTexture": {
+        "index": 174
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 175
+        },
+        "metallicRoughnessTexture": {
+          "index": 176
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Wall Bricks",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.31854474544525146,
+          0.3185471296310425,
+          0.31854698061943054,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Roof.003",
+      "normalTexture": {
+        "index": 177
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 178
+        },
+        "metallicRoughnessTexture": {
+          "index": 179
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Wood.003",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -1
+            ],
+            "scale": [
+              2,
+              2
+            ]
+          }
+        },
+        "index": 180
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -1
+              ],
+              "scale": [
+                2,
+                2
+              ]
+            }
+          },
+          "index": 181
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -1
+              ],
+              "scale": [
+                2,
+                2
+              ]
+            }
+          },
+          "index": 182
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.008",
+      "normalTexture": {
+        "index": 183
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                5,
+                3
+              ]
+            }
+          },
+          "index": 184
+        },
+        "metallicRoughnessTexture": {
+          "index": 185
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Roof.001",
+      "normalTexture": {
+        "index": 186
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 187
+        },
+        "metallicRoughnessTexture": {
+          "index": 188
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Roof.002",
+      "normalTexture": {
+        "index": 189
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 190
+        },
+        "metallicRoughnessTexture": {
+          "index": 191
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material.068",
+      "normalTexture": {
+        "index": 192
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 193
+        },
+        "metallicRoughnessTexture": {
+          "index": 194
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.002",
+      "normalTexture": {
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              0,
+              -2
+            ],
+            "scale": [
+              3,
+              3
+            ]
+          }
+        },
+        "index": 195
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 196
+        },
+        "metallicRoughnessTexture": {
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                0,
+                -2
+              ],
+              "scale": [
+                3,
+                3
+              ]
+            }
+          },
+          "index": 197
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Tree.002",
+      "normalTexture": {
+        "index": 198
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 199
+        },
+        "metallicRoughnessTexture": {
+          "index": 200
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass",
+      "normalTexture": {
+        "index": 201,
+        "texCoord": -1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 202,
+          "texCoord": -1
+        },
+        "metallicRoughnessTexture": {
+          "index": 203,
+          "texCoord": -1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Wood",
+      "normalTexture": {
+        "index": 9,
+        "texCoord": -1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 10,
+          "texCoord": -1
+        },
+        "metallicRoughnessTexture": {
+          "index": 11,
+          "texCoord": -1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Tree.001",
+      "normalTexture": {
+        "index": 204
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 205
+        },
+        "metallicRoughnessTexture": {
+          "index": 206
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Path Rocks.002",
+      "normalTexture": {
+        "index": 207
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 208
+        },
+        "metallicRoughnessTexture": {
+          "index": 209
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Path Rocks.004",
+      "normalTexture": {
+        "index": 210
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 211
+        },
+        "metallicRoughnessTexture": {
+          "index": 212
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Path Rocks",
+      "normalTexture": {
+        "index": 174,
+        "texCoord": -1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 175,
+          "texCoord": -1
+        },
+        "metallicRoughnessTexture": {
+          "index": 176,
+          "texCoord": -1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Path Rocks.001",
+      "normalTexture": {
+        "index": 213
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 214
+        },
+        "metallicRoughnessTexture": {
+          "index": 215
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Path Rocks.003",
+      "normalTexture": {
+        "index": 216
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 217
+        },
+        "metallicRoughnessTexture": {
+          "index": 218
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Grass.013",
+      "normalTexture": {
+        "index": 219
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 220
+        },
+        "metallicRoughnessTexture": {
+          "index": 221
+        }
+      }
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 15
+    },
+    {
+      "sampler": 0,
+      "source": 16
+    },
+    {
+      "sampler": 0,
+      "source": 17
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 21
+    },
+    {
+      "sampler": 0,
+      "source": 22
+    },
+    {
+      "sampler": 0,
+      "source": 23
+    },
+    {
+      "sampler": 0,
+      "source": 24
+    },
+    {
+      "sampler": 0,
+      "source": 25
+    },
+    {
+      "sampler": 0,
+      "source": 26
+    },
+    {
+      "sampler": 0,
+      "source": 27
+    },
+    {
+      "sampler": 0,
+      "source": 28
+    },
+    {
+      "sampler": 0,
+      "source": 29
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 27
+    },
+    {
+      "sampler": 0,
+      "source": 28
+    },
+    {
+      "sampler": 0,
+      "source": 29
+    },
+    {
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "maximum_texture_size": 512,
+  "note": "Optimized images extracted from user GLB; original GLB remains separate."
+}
