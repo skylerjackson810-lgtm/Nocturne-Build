@@ -4,6 +4,7 @@ import simd
 
 enum VolcanoLayout {
     static let boundary: Float = 52
+    static let depthBoundary: Float = 80
     static let bridges: [Float] = [-22, 0, 22]
     static func riverX(_ z: Float, side: Float) -> Float { side * (15 + sin(z * 0.09) * 2.6) }
     static func isLava(_ p: SIMD3<Float>) -> Bool {

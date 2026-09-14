@@ -3,7 +3,7 @@ from pathlib import Path
 import zipfile
 
 root = Path(__file__).resolve().parents[1]
-output = root.parent / 'Nocturne-Moonlit-Valley-Complete.zip'
+output = root.parent / 'Nocturne-Castle-Access-Complete.zip'
 staging = output.with_suffix('.zip.partial')
 directories = ['App', 'Game', 'Gameplay', 'Platform', 'UI', 'Resources', 'Tests',
                'Tools', 'Nocturne.xcodeproj', '.github', 'Preview', 'SourceAssets']
@@ -24,7 +24,8 @@ with zipfile.ZipFile(staging) as archive:
                      '.github/workflows/build.yml', 'App/NocturneApp.swift', 'Resources/Castle.usdz',
                      'SourceAssets/Castle-original.usdz', 'Resources/TerrainRock.jpg',
                      'Game/SceneDetail.swift', 'Game/ValleyAtmosphere.swift', 'Game/WizardHand.swift',
-                     'SourceAssets/castle-direct-import.json']:
+                     'SourceAssets/castle-direct-import.json', 'SourceAssets/castle-navigation.json',
+                     'Game/CastleLayout.swift', 'Tools/validate_castle.py']:
         assert required in names, required
 staging.replace(output)
 print(f'{output}: {len(files)} files, {output.stat().st_size:,} bytes; integrity verified')

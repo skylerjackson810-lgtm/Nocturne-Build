@@ -101,16 +101,36 @@ for index,item in enumerate(doc['materials']):
             shader.GetInput('roughness').ConnectToSource(tex.ConnectableAPI(),'g');shader.GetInput('metallic').ConnectToSource(tex.ConnectableAPI(),'b')
     materials[index]=mat
 
-triangle_count=0;max_error=0
+# glTF permits a primitive without a material. Bind a concrete neutral surface
+# instead of relying on RealityKit's unsupported/unbound-material fallback.
+default=UsdShade.Material.Define(stage, '/Castle/Materials/Unassigned')
+surface=UsdShade.Shader.Define(stage, '/Castle/Materials/Unassigned/Surface')
+surface.CreateIdAttr('UsdPreviewSurface')
+surface.CreateInput('diffuseColor',Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(1,1,1))
+surface.CreateInput('roughness',Sdf.ValueTypeNames.Float).Set(1)
+surface.CreateInput('metallic',Sdf.ValueTypeNames.Float).Set(0)
+surface.CreateOutput('surface',Sdf.ValueTypeNames.Token)
+default.CreateSurfaceOutput().ConnectToSource(surface.ConnectableAPI(),'surface')
+triangle_count=0;max_error=0;default_bindings=0;opened_gates=0
 for i,(name,points,normals,uv,indices,material_index) in enumerate(parts):
     mesh=UsdGeom.Mesh.Define(stage,f'/Castle/Geometry/Part_{i}');mesh.GetPrim().SetDisplayName(name)
     converted=((points-origin)*scale).astype(np.float32)
     max_error=max(max_error,float(np.abs((converted/scale+origin)-points).max()))
+    if name == 'Plane.062':
+        # The export contains a CLOSED solid door, separate from its stone arch.
+        # Swing only the door inward 90 degrees around its left/front hinge.
+        hinge=converted.min(0).copy()
+        rotation=np.array([[0,0,-1],[0,1,0],[1,0,0]],dtype=np.float32)
+        converted=(converted-hinge)@rotation.T+hinge
+        normals=normals@rotation.T;opened_gates+=1
     mesh.CreatePointsAttr(Vt.Vec3fArray.FromNumpy(converted))
     mesh.CreateNormalsAttr(Vt.Vec3fArray.FromNumpy(normals.astype(np.float32)));mesh.SetNormalsInterpolation('vertex')
     mesh.CreateFaceVertexCountsAttr([3]*len(indices));mesh.CreateFaceVertexIndicesAttr(indices.ravel().tolist())
     mesh.CreateSubdivisionSchemeAttr('none');triangle_count+=len(indices)
     mesh.CreateExtentAttr(Vt.Vec3fArray.FromNumpy(np.array([converted.min(0),converted.max(0)])))
+    if material_index is None:
+        UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(default)
+        default_bindings+=1
     if material_index is not None:
         item=doc['materials'][material_index];mesh.CreateDoubleSidedAttr(item.get('doubleSided',False))
         UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(materials[material_index])
@@ -124,6 +144,7 @@ for i,(name,points,normals,uv,indices,material_index) in enumerate(parts):
                 coords[:,1]=1-coords[:,1]
                 UsdGeom.PrimvarsAPI(mesh).CreatePrimvar('st_'+role,Sdf.ValueTypeNames.TexCoord2fArray,'vertex').Set(Vt.Vec2fArray.FromNumpy(coords.astype(np.float32)))
 
+assert opened_gates == 1
 output=ROOT/'Resources/Castle.usdz'
 # USDZ uses stored entries aligned to 64-byte boundaries, with the USD first.
 def add(archive,name,payload):
@@ -143,14 +164,19 @@ with zipfile.ZipFile(output) as archive:
             f.seek(info.header_offset+26);a,b=struct.unpack('<HH',f.read(4));assert (info.header_offset+30+a+b)%64==0
 check=Usd.Stage.Open(str(output));assert check
 for prim in check.Traverse():
+    if prim.IsA(UsdGeom.Mesh):
+        material,_=UsdShade.MaterialBindingAPI(prim).ComputeBoundMaterial()
+        assert material and material.ComputeSurfaceSource()[0], str(prim.GetPath())
     for attribute in prim.GetAttributes():
         if attribute.GetTypeName()==Sdf.ValueTypeNames.Asset:assert attribute.Get().resolvedPath
 assert max_error<0.001
 report={'source_file':source.name,'source_sha256':hashlib.sha256(blob).hexdigest(),
+ 'explicit_default_material_bindings':default_bindings,'opened_gate_leaf':'Plane.062',
+ 'gate_edit':'90 degrees inward about local left/front hinge; stone arch preserved',
  'runtime_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'runtime_meshes':len(parts),
  'retained_triangles':triangle_count,'removed_triangles_from_retained_meshes':0,'maximum_round_trip_position_error':max_error,
  'uniform_scale':scale,'source_origin':origin.tolist(),'runtime_size':((hi-lo)*scale).tolist(),
  'excluded_detached_primitives':omitted,'texture_images':len(image_report),'images':image_report,
- 'note':'Direct latest GLB conversion; original topology, normals, slot UV transforms and material indices preserved.'}
+ 'note':'Direct latest GLB conversion; topology preserved. Closed gate leaf rotated inward; 94 unspecified materials use explicit neutral white rough surfaces. Round-trip error measured before the gate pose edit.'}
 (ROOT/'SourceAssets/castle-direct-import.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k not in ['images','excluded_detached_primitives']},indent=2));print('bytes',output.stat().st_size)

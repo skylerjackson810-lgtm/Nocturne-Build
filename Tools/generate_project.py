@@ -11,7 +11,7 @@ launch=assets/'LaunchBackground.colorset'; launch.mkdir(exist_ok=True)
 (launch/'Contents.json').write_text(json.dumps({'colors':[{'idiom':'universal','color':{'color-space':'srgb','components':{'alpha':'1.000','red':'0.025','green':'0.025','blue':'0.055'}}}],'info':{'author':'xcode','version':1}},indent=2))
 info={'CFBundleDevelopmentRegion':'en','CFBundleDisplayName':'Nocturne','CFBundleExecutable':'$(EXECUTABLE_NAME)',
 'CFBundleIdentifier':'$(PRODUCT_BUNDLE_IDENTIFIER)','CFBundleInfoDictionaryVersion':'6.0','CFBundleName':'$(PRODUCT_NAME)',
-'CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.5.0','CFBundleVersion':'6','LSRequiresIPhoneOS':True,
+'CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.5.1','CFBundleVersion':'7','LSRequiresIPhoneOS':True,
 'UILaunchScreen':{'UIColorName':'LaunchBackground'},'UIRequiresFullScreen':True,'UIStatusBarHidden':True,
 'UISupportedInterfaceOrientations':['UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],
 'UISupportedInterfaceOrientations~ipad':['UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],

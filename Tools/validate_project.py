@@ -79,6 +79,6 @@ for ref in scheme.findall('.//BuildableReference'):assert ref.attrib['BlueprintI
 info=plistlib.loads((root/'Info.plist').read_bytes())
 assert 'NSMicrophoneUsageDescription' in info and 'NSSpeechRecognitionUsageDescription' in info
 assert all('Landscape' in x for x in info['UISupportedInterfaceOrientations'])
-assert info['CFBundleShortVersionString']=='0.5.0' and info['CFBundleVersion']=='6'
+assert info['CFBundleShortVersionString']=='0.5.1' and info['CFBundleVersion']=='7'
 print(json.dumps({'swift_grammar_files':len(source_paths),'swift_syntax_errors':len(errors),'xcode_objects':len(objects),
 'file_references':'all resolved','plists_assets_audio_scheme':'valid','native_compilation':'not available','native_xctests':'not executed'},indent=2))

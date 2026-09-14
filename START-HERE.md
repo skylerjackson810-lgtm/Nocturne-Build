@@ -1,9 +1,9 @@
-# Install Nocturne 0.5 from Windows
+# Install Nocturne 0.5.1 from Windows
 
 This ZIP is the complete source project, including the earlier gameplay features.
 It is not an IPA.
 
-1. Extract `Nocturne-Moonlit-Valley-Complete.zip`.
+1. Extract `Nocturne-Castle-Access-Complete.zip`.
 2. Replace the matching folders/files at the top level of your `Nocturne-Build`
    repository. Preserve the folder structure; do not upload the ZIP itself or
    put everything inside an extra parent folder. Include the new Game Swift files,
@@ -15,16 +15,19 @@ It is not an IPA.
 4. Download `Nocturne-unsigned-IPA` from the successful run's Artifacts section.
    Extract the artifact and install the IPA with the same Sideloadly setup that
    worked previously.
-5. Verify the menu says **v0.5** and Settings → Build says **0.5.0 (6)**.
+5. Verify the menu says **v0.5.1** and Settings → Build says **0.5.1 (7)**.
 
 ## What to check
 
-- Select The Cinder Caldera and Ember Keep. You start on a safe forecourt facing
-  the arena; turn around to view your castle. Its structure should match the
-  supplied GLB/render, at a larger scale than the old miniature version.
-- Choose Moon Keep and repeat. It is the other starting team in the same map.
-- Inspect stonework, roofs, courtyard buildings and cliffs from outside. The
-  castle's interior is not yet navigable; coarse castle collision is retained.
+- Select The Cinder Caldera and Ember Keep. You should start INSIDE the castle
+  courtyard, looking toward the open arched gate. Walk straight through it onto
+  the flat grass approach and into the valley. Walk back into the courtyard.
+- Choose Moon Keep and repeat. Its entrance faces the opposite direction toward
+  the same valley. Walk around inside the courtyard to check wall collision.
+- Take lethal damage and confirm you respawn inside your selected courtyard.
+- Check the small rocks/windows that previously appeared magenta. Unassigned
+  source pieces now use a neutral material; existing stone/roof textures remain.
+- Upper terraces, stairs and building interiors are not supported walking routes.
 - Look for the dark sky, stars, moon, layered cliffs, winding lava and mist near
   the outer valley. Cross the lava on one of the three broad stone bridges.
 - Check the smaller book, distinct pages, glove fingers, cuffs and casting curl.
@@ -47,7 +50,7 @@ not be performed in this environment.
 
 For a device crash, note the build version, selected team, whether the legacy
 filter was on, and attach the newest Nocturne crash report if available.
-For visual issues, send a screenshot from the castle forecourt with the castle
+For visual issues, send a screenshot at the castle gate with the castle
 in view. Device rendering and performance still need verification.
 
 For speech issues, Settings → The sound of magic retains the full speech status,

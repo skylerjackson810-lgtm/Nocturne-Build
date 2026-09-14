@@ -3,23 +3,51 @@ import simd
 @testable import Nocturne
 
 final class TeamBasesTests: XCTestCase {
-    func testOppositeTeamSpawnsFaceTheArenaAndAvoidLavaAndCastles() {
+    func testBothTeamsStartInsideCourtyardAndCanWalkThroughGateToValley() {
+        let solids = TeamID.allCases.flatMap { TeamBases.collision($0) }
         for team in TeamID.allCases {
             let spawn = TeamBases.spawn(map: .volcano, team: team)
-            XCTAssertLessThan(abs(spawn.position.z), VolcanoLayout.boundary)
+            let gate = TeamBases.world([CastleLayout.gateX, CastleLayout.courtyardHeight, -11.5], team: team)
+            XCTAssertEqual(gate.x, 0, accuracy: 0.001)
+            XCTAssertEqual(gate.y, 0, accuracy: 0.001)
+            XCTAssertGreaterThan(abs(spawn.position.z), abs(gate.z), "Spawn must be inside the gate.")
+            XCTAssertEqual(spawn.position.y, 1.65, accuracy: 0.001)
             XCTAssertFalse(VolcanoLayout.isLava(spawn.position))
             let forward = ArenaMath.forward(yaw: spawn.yaw, pitch: 0)
-            XCTAssertGreaterThan(simd_dot(forward, -spawn.position), 0)
-            let solids = TeamID.allCases.map { TeamBases.blocker($0) }
-            XCTAssertNil(ArenaMath.segmentHit(from: spawn.position, to: spawn.position,
-                                             solid: TeamBases.blocker(team), radius: 0.38))
-            let moved = ArenaMath.move(from: spawn.position, delta: forward, solids: solids, boundary: VolcanoLayout.boundary)
-            XCTAssertLessThan(abs(moved.z), abs(spawn.position.z))
-            XCTAssertEqual(simd_distance(moved, spawn.position), 1, accuracy: 0.0001,
-                           "The larger arena must not clamp the spawn back to the old court boundary.")
+            XCTAssertGreaterThan(simd_dot(forward, gate - spawn.position), 0)
+            var p = spawn.position
+            // Traverse the entire gateway/grass approach using the runtime movement code.
+            for _ in 0..<440 {
+                let next = ArenaMath.move(from: p, delta: forward * 0.04, solids: solids,
+                                         boundary: VolcanoLayout.boundary,
+                                         depthBoundary: VolcanoLayout.depthBoundary)
+                XCTAssertEqual(simd_distance(next, p), 0.04, accuracy: 0.0001)
+                p = next
+            }
+            XCTAssertLessThan(abs(p.z), 35)
         }
-        XCTAssertEqual(TeamBases.spawn(map: .volcano, team: .ember).position.z,
-                       -TeamBases.spawn(map: .volcano, team: .moon).position.z)
+    }
+
+    func testRearCourtyardDoesNotUseOldArenaDepthClamp() {
+        for team in TeamID.allCases {
+            let p = TeamBases.world([5, CastleLayout.courtyardHeight + 1.65, 6], team: team)
+            XCTAssertGreaterThan(abs(p.z), VolcanoLayout.boundary)
+            let moved = ArenaMath.move(from: p, delta: [0.02, 0, 0], solids: [],
+                                       boundary: VolcanoLayout.boundary,
+                                       depthBoundary: VolcanoLayout.depthBoundary)
+            XCTAssertEqual(moved.z, p.z)
+            XCTAssertEqual(moved.x, p.x + 0.02, accuracy: 0.0001)
+        }
+    }
+
+    func testCastleWallBlocksMovementButGateDoesNot() {
+        for team in TeamID.allCases {
+            let wall = TeamBases.world([0, CastleLayout.courtyardHeight + 1.65, -9.4], team: team)
+            let moved = ArenaMath.move(from: wall, delta: [0, 0, -0.1 * team.side],
+                                       solids: TeamBases.collision(team), boundary: VolcanoLayout.boundary,
+                                       depthBoundary: VolcanoLayout.depthBoundary)
+            XCTAssertEqual(moved, wall)
+        }
     }
 
     func testOriginalCourtSpawnRemainsIndependentOfTeamSelection() {

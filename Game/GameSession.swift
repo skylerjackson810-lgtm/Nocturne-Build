@@ -401,7 +401,8 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         let planar = SIMD3<Float>(movement.x * cos(yaw) - movement.y * sin(yaw), 0,
                                   -movement.x * sin(yaw) - movement.y * cos(yaw))
         position = ArenaMath.move(from: position, delta: planar * (stats.moveSpeedMetersPerSecond / 60), solids: arena.solids,
-                                  boundary: activeMap == .volcano ? VolcanoLayout.boundary : 22.5)
+                                  boundary: activeMap == .volcano ? VolcanoLayout.boundary : 22.5,
+                                  depthBoundary: activeMap == .volcano ? VolcanoLayout.depthBoundary : nil)
         if activeMap == .volcano, VolcanoLayout.isLava(position) {
             health = max(0, health - 24.0 / 60)
             if tick % 30 == 0 { hitFlash = 0.6; play("hurt"); banner = "LAVA BURNS · Find a stone bridge"; bannerUntil = tick + 45 }

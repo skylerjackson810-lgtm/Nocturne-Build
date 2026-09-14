@@ -135,13 +135,17 @@ enum ArenaMath {
     }
 
     // Axis-separated horizontal capsule footprint against courtyard solids.
-    static func move(from p: SIMD3<Float>, delta: SIMD3<Float>, solids: [Solid], boundary: Float = 22.5) -> SIMD3<Float> {
+    static func move(from p: SIMD3<Float>, delta: SIMD3<Float>, solids: [Solid], boundary: Float = 22.5, depthBoundary: Float? = nil) -> SIMD3<Float> {
         var result = p
         for axis in [0, 2] {
             var candidate = result
             candidate[axis] += delta[axis]
-            candidate[axis] = min(boundary, max(-boundary, candidate[axis]))
+            let limit = axis == 2 ? (depthBoundary ?? boundary) : boundary
+            candidate[axis] = min(limit, max(-limit, candidate[axis]))
             let blocked = solids.contains { box in
+                // Cheap rejection keeps detailed castle collision out of distant movement checks.
+                if abs(candidate.x - box.center.x) >= box.half.x + 0.38 ||
+                   abs(candidate.z - box.center.z) >= box.half.z + 0.38 { return false }
                 let x = max(box.center.x - box.half.x, min(candidate.x, box.center.x + box.half.x))
                 let z = max(box.center.z - box.half.z, min(candidate.z, box.center.z + box.half.z))
                 return pow(candidate.x - x, 2) + pow(candidate.z - z, 2) < 0.38 * 0.38
