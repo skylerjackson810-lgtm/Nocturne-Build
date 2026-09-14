@@ -71,12 +71,17 @@ struct MainMenuView: View {
                                 ArcaneButton(title: "Settings", symbol: "slider.horizontal.3") { settings = true }
                             }
                         }
+                        if session.selectedMap == .volcano {
+                            Picker("Starting team", selection: $session.selectedTeam) {
+                                ForEach(TeamID.allCases, id: \.rawValue) { team in Text(team.title).tag(team) }
+                            }.pickerStyle(.segmented).accessibilityLabel("Choose starting castle team")
+                        }
                         Spacer(minLength: 0)
                         HStack(spacing: 7) {
                             Circle().fill(WizardTheme.violet).frame(width: 4, height: 4)
                             Text("SOLO PRACTICE").tracking(1.5)
                             Text("·").padding(.horizontal, 3)
-                            Text("v0.3 · Voicebound")
+                            Text("v0.4.1 · Textured keeps")
                         }.font(.system(size: 9)).foregroundStyle(WizardTheme.muted)
                     }.frame(width: min(geometry.size.width * 0.49, 470))
                     Spacer(minLength: 0)
@@ -192,12 +197,17 @@ struct SettingsView: View {
                         if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
                     }
                 }
+                Section("Volcano graphics") {
+                    Toggle("Retro fog and pixel effects", isOn: $session.retroEffectsEnabled)
+                    Text("Applies when entering the volcano. If it closes unexpectedly, turn this off and try again; castles, lava, and gameplay remain available.").font(.footnote)
+                    Text(session.graphicsStatus).font(.footnote).textSelection(.enabled)
+                }
                 Section("Controls") {
                     Text("Touch: left thumbstick to move, drag right to look; use page arrows or spell emblems to turn the book. Controller: sticks to move/look, LB/RB to turn pages, Menu to pause. Speaking any known spell selects and casts it when ready.")
                         .font(.footnote).foregroundStyle(.secondary)
                 }
                 Section("Build") {
-                    Text("Nocturne 0.3.0 (3) · Cinder Caldera update").font(.footnote)
+                    Text("Nocturne 0.4.1 (5) · Textured castle keeps").font(.footnote)
                     Text("Volcano: retro pixel/dither rendering, red distance fog, and lava hazards. Hollow Court: original test arena.").font(.footnote)
                 }
             }.scrollContentBackground(.hidden).background(WizardTheme.ink)

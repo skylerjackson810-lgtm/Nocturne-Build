@@ -10,6 +10,11 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     @Published var phase: Phase = .menu
     @Published var selectedClass: WizardClassID = .pyromancer
     @Published var selectedMap: MapID = .volcano
+    @Published var selectedTeam: TeamID = .ember
+    @Published var graphicsStatus = "Volcano uses the revised retro renderer."
+    @Published var retroEffectsEnabled = true {
+        didSet { UserDefaults.standard.set(retroEffectsEnabled, forKey: "retroEffectsEnabled") }
+    }
     @Published private(set) var selectedSpell: SpellID = .fireball
     @Published var speechDiagnostic = "No speech errors recorded in this session."
     @Published var musicEnabled = true { didSet { syncMenuMusic() } }
@@ -63,6 +68,8 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     private var menuMusic: AVAudioPlayer?
     private var applicationActive = true
     private var activeMap: MapID = .volcano
+    private var activeTeam: TeamID = .ember
+    private static let volcanoSessionKey = "unfinishedVolcanoSession"
 
     private struct Target {
         let entity: Entity
@@ -84,6 +91,13 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     }
 
     init() {
+        retroEffectsEnabled = (UserDefaults.standard.object(forKey: "retroEffectsEnabled") as? Bool) ?? true
+        if UserDefaults.standard.bool(forKey: Self.volcanoSessionKey) {
+            retroEffectsEnabled = false
+            UserDefaults.standard.set(false, forKey: "retroEffectsEnabled")
+            let stage = UserDefaults.standard.string(forKey: "lastVolcanoStage") ?? "unknown stage"
+            graphicsStatus = "The last volcano session ended unexpectedly at: \(stage). Retro effects are off for the next attempt."
+        }
         input.onPause = { [weak self] in self?.pause() }
         input.onPageTurn = { [weak self] direction in self?.cycleSpell(direction) }
         voice.onDiagnostic = { [weak self] message in self?.speechDiagnostic = message }
@@ -96,6 +110,8 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         guard phase == .menu, loadTask == nil else { return }
         phase = .loading; progress = 0; errorMessage = nil
         activeMap = selectedMap; menuMusic?.stop()
+        activeTeam = selectedTeam
+        UserDefaults.standard.set(activeMap == .volcano && retroEffectsEnabled, forKey: Self.volcanoSessionKey)
         let token = UUID(); loadToken = token
         loadTask = Task { @MainActor [weak self] in
             guard let self else { return }
@@ -106,17 +122,33 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
                 let report: (Double, String) async -> Void = { [weak self] amount, text in
                     if self?.loadToken == token {
                         self?.progress = amount; self?.loadingMessage = text
+                        if self?.activeMap == .volcano { UserDefaults.standard.set(text, forKey: "lastVolcanoStage") }
                     }
                     await Task.yield()
                 }
                 let builtArena: ArenaBuilder.Result
                 if self.activeMap == .volcano {
-                    builtArena = await VolcanoBuilder.build(view: view, progress: report)
+                    builtArena = try await VolcanoBuilder.build(view: view, progress: report)
                     guard !Task.isCancelled, self.loadToken == token else { return }
-                    let renderer = try RetroRenderer(map: .volcano)
-                    self.retroRenderer = renderer
-                    renderer.update(camera: builtArena.camera.transform.matrix)
-                    view.renderCallbacks.postProcess = { context in renderer.render(context) }
+                    if self.retroEffectsEnabled {
+                        let renderer = RetroRenderer(map: .volcano) { [weak self] message in
+                            Task { @MainActor in
+                                guard let self, self.loadToken == token, self.retroRenderer != nil else { return }
+                                self.graphicsStatus = message
+                                self.retroEffectsEnabled = false
+                                self.view?.renderCallbacks.postProcess = nil
+                                self.retroRenderer = nil
+                                UserDefaults.standard.set(message, forKey: "lastVolcanoStage")
+                                UserDefaults.standard.set(false, forKey: Self.volcanoSessionKey)
+                            }
+                        }
+                        self.retroRenderer = renderer
+                        renderer.update(camera: builtArena.camera.transform.matrix)
+                        // Pass a nonisolated method directly; never inherit MainActor
+                        // isolation in a closure executed by RealityKit's render thread.
+                        view.renderCallbacks.postProcess = renderer.render
+                        UserDefaults.standard.set("Preparing the first retro frame", forKey: "lastVolcanoStage")
+                    }
                 } else { builtArena = await ArenaBuilder.build(view: view, progress: report) }
                 guard !Task.isCancelled, self.loadToken == token else { return }
                 self.arena = builtArena
@@ -169,7 +201,13 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         } catch { audioStatus = "Menu audio: \(error.localizedDescription)" }
     }
 
-    func applicationBecameActive() { applicationActive = true; syncMenuMusic() }
+    func applicationBecameActive() {
+        applicationActive = true
+        if activeMap == .volcano, retroRenderer != nil {
+            UserDefaults.standard.set(true, forKey: Self.volcanoSessionKey)
+        }
+        syncMenuMusic()
+    }
 
     func selectSpell(_ spell: SpellID) {
         guard phase == .playing, tick >= busyUntil else { return }
@@ -239,7 +277,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
 
     private func resetRound() {
         tick = 0; epoch = UUID(); life = 1; readyAt = 0; busyUntil = 0
-        position = [0, 1.65, 12]; yaw = 0; pitch = 0; defeated = 0
+        applySpawn(); defeated = 0
         health = PrototypeContent.stats(selectedClass).maximumHealth
         pending.removeAll(); casts.removeAll(); input.reset()
         banner = activeMap == .volcano ? "Cross the bridges. Avoid the lava. Speak a spell." : "Speak a spell. Banish the sentinels."
@@ -275,6 +313,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     }
 
     func suspend() {
+        UserDefaults.standard.set(false, forKey: Self.volcanoSessionKey)
         applicationActive = false; menuMusic?.pause()
         if phase == .loading { leave() } else { pause() }
     }
@@ -287,10 +326,12 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     }
 
     func leave() {
+        UserDefaults.standard.set(false, forKey: Self.volcanoSessionKey)
         loadToken = UUID()
         loadTask?.cancel(); loadTask = nil
         engine?.stop(); engine = nil; voice.stop(); voiceActive = false
         link?.invalidate(); link = nil; frameDriver = nil
+        view?.renderCallbacks.postProcess = nil
         view?.scene.anchors.removeAll(); view = nil; arena = nil; rig = nil
         retroRenderer = nil
         projectiles.removeAll(); sparks.removeAll(); targets.removeAll()
@@ -482,11 +523,20 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
 
     private func respawn() {
         engine?.stop(); voiceActive = false; pending.removeAll(); casts.removeAll(); life += 1
-        position = [0, 1.65, 12]; health = PrototypeContent.stats(selectedClass).maximumHealth
+        applySpawn(); health = PrototypeContent.stats(selectedClass).maximumHealth
         readyAt = tick + 60; busyUntil = readyAt
         for i in projectiles.indices { projectiles[i].entity.isEnabled = false }
-        banner = "Your spirit returns · tap the microphone to listen"; bannerUntil = tick + 300
+        banner = activeMap == .volcano ? "Returned to \(activeTeam.title) · tap the microphone" : "Your spirit returns · tap the microphone to listen"
+        bannerUntil = tick + 300
         voiceStatus = "Microphone is asleep · tap to listen"; input.reset()
+    }
+
+    private func applySpawn() {
+        let spawn = TeamBases.spawn(map: activeMap, team: activeTeam)
+        position = spawn.position; yaw = spawn.yaw; pitch = 0; movement = .zero
+        arena?.camera.position = position
+        arena?.camera.orientation = simd_quatf(angle: yaw, axis: [0, 1, 0])
+        if let camera = arena?.camera { retroRenderer?.update(camera: camera.transform.matrix) }
     }
 
     private func play(_ key: String) {

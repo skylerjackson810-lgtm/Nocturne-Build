@@ -5,7 +5,7 @@ from pathlib import Path
 from tree_sitter import Language, Parser
 import tree_sitter_swift
 from openstep_parser import OpenStepDecoder
-import array, json, plistlib, sys, xml.etree.ElementTree as ET, wave
+import array, hashlib, json, plistlib, sys, xml.etree.ElementTree as ET, wave, zipfile
 root=Path(__file__).resolve().parents[1]
 parser=Parser(Language(tree_sitter_swift.language()))
 errors=[]
@@ -48,6 +48,20 @@ bundled_refs={objects[file_id]['fileRef'] for obj in objects.values()
               if obj['isa']=='PBXResourcesBuildPhase' for file_id in obj['files']}
 bundled_paths={root/objects[ref]['path'] for ref in bundled_refs}
 assert audio_paths <= bundled_paths, 'Sound files must be in Copy Bundle Resources'
+assert root/'Resources/Castle.usdz' in bundled_paths
+report=json.loads((root/'SourceAssets/castle-import.json').read_text())
+for key,path in [('source_sha256',root/'SourceAssets/Castle-original.usdz'),('runtime_sha256',root/'Resources/Castle.usdz')]:
+ assert hashlib.sha256(path.read_bytes()).hexdigest()==report[key]
+with zipfile.ZipFile(root/'Resources/Castle.usdz') as castle:
+ assert castle.testzip() is None
+ assert any(name.endswith('.usdc') for name in castle.namelist())
+ assert sum(name.endswith('.png') for name in castle.namelist())==30
+texture_manifest=json.loads((root/'SourceAssets/castle-textures.json').read_text())
+assert texture_manifest['source_sha256']==report['texture_source_sha256']
+for image in texture_manifest['images']:
+ path=root/'SourceAssets/CastleTextures'/image['file']
+ assert hashlib.sha256(path.read_bytes()).hexdigest()==image['sha256']
+ assert max(image['size'])<=512
 for p in audio_paths:
  with wave.open(str(p)) as sound:
   assert sound.getnframes()>0 and sound.getnchannels()==1 and sound.getsampwidth()==2
@@ -65,6 +79,6 @@ for ref in scheme.findall('.//BuildableReference'):assert ref.attrib['BlueprintI
 info=plistlib.loads((root/'Info.plist').read_bytes())
 assert 'NSMicrophoneUsageDescription' in info and 'NSSpeechRecognitionUsageDescription' in info
 assert all('Landscape' in x for x in info['UISupportedInterfaceOrientations'])
-assert info['CFBundleShortVersionString']=='0.3.0' and info['CFBundleVersion']=='3'
+assert info['CFBundleShortVersionString']=='0.4.1' and info['CFBundleVersion']=='5'
 print(json.dumps({'swift_grammar_files':len(source_paths),'swift_syntax_errors':len(errors),'xcode_objects':len(objects),
 'file_references':'all resolved','plists_assets_audio_scheme':'valid','native_compilation':'not available','native_xctests':'not executed'},indent=2))

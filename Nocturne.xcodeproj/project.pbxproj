@@ -39,6 +39,16 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "30CFAE765B066D9D93C5B460";
 		};
+		"220140B5CD063692DA9D606F" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "Game/CastleBases.swift";
+			"sourceTree" = "<group>";
+		};
+		"1F197DF0A5C774035733DEE1" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "220140B5CD063692DA9D606F";
+		};
 		"11FF850D6FC4393B65813EBE" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "sourcecode.swift";
@@ -209,6 +219,16 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "FAE7CEFAA4D0C0BE0A3148F6";
 		};
+		"A319B5AC53E160789C238DA6" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "file.usdz";
+			"path" = "Resources/Castle.usdz";
+			"sourceTree" = "<group>";
+		};
+		"FAC7005E1D9F0C66CFE49300" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "A319B5AC53E160789C238DA6";
+		};
 		"6C2910FC86F2686FAFCCB99D" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "audio.wav";
@@ -260,6 +280,7 @@
 			"children" = (
 				"4093D53339969CE0272E19A0",
 				"30CFAE765B066D9D93C5B460",
+				"220140B5CD063692DA9D606F",
 				"11FF850D6FC4393B65813EBE",
 				"3002C6ED1E10E9E72C1B4C41",
 				"B8C65A588354E2418D54BA55",
@@ -277,6 +298,7 @@
 				"FC05F3A435A8AC2F64590079",
 				"3641B69AE5D159AAA560ED77",
 				"FAE7CEFAA4D0C0BE0A3148F6",
+				"A319B5AC53E160789C238DA6",
 				"6C2910FC86F2686FAFCCB99D",
 				"05513E10154CF1C01659F7AD",
 				"FEA83F639114FACFDB106777",
@@ -306,11 +328,22 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "7F52515598FA8AAC9C5CAB7F";
 		};
+		"96C128A1C1D7AB4A8A92A56E" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "TeamBasesTests.swift";
+			"sourceTree" = "<group>";
+		};
+		"F63221C20D7F7E54680A4509" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "96C128A1C1D7AB4A8A92A56E";
+		};
 		"C4E2E7F217DE3642E7714F4E" = {
 			"isa" = "PBXGroup";
 			"children" = (
 				"1454E0ED50C8113AFAD476BD",
 				"7F52515598FA8AAC9C5CAB7F",
+				"96C128A1C1D7AB4A8A92A56E",
 			);
 			"path" = "Tests";
 			"sourceTree" = "<group>";
@@ -339,6 +372,7 @@
 			"files" = (
 				"6815C1AE53CEE330F4425715",
 				"6C9DA34112BA85282EE28F02",
+				"1F197DF0A5C774035733DEE1",
 				"248052A8CB708D3AD168B86D",
 				"3015C99DBA956DF0E238B73E",
 				"9CED0AAD83EE5BBE0909CE4D",
@@ -370,6 +404,7 @@
 			"buildActionMask" = "2147483647";
 			"files" = (
 				"E95C6C9CEC6736641EA343E1",
+				"FAC7005E1D9F0C66CFE49300",
 				"2A4A9FCA525F0FDD1E224F56",
 				"5111FD6245A3F5DB13B3F272",
 				"D533BA7791D2EF6F33779FAB",
@@ -383,6 +418,7 @@
 			"files" = (
 				"5251EBDA806F1E1966E5C95F",
 				"D888427DC8589F7AD68DD7C4",
+				"F63221C20D7F7E54680A4509",
 			);
 			"runOnlyForDeploymentPostprocessing" = "0";
 		};

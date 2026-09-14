@@ -3,11 +3,11 @@ from pathlib import Path
 import zipfile
 
 root = Path(__file__).resolve().parents[1]
-output = root.parent / 'Nocturne-Cinder-Caldera-Complete.zip'
+output = root.parent / 'Nocturne-Textured-Castles-Complete.zip'
 directories = ['App', 'Game', 'Gameplay', 'Platform', 'UI', 'Resources', 'Tests',
-               'Tools', 'Nocturne.xcodeproj', '.github', 'Preview']
+               'Tools', 'Nocturne.xcodeproj', '.github', 'Preview', 'SourceAssets']
 documents = ['Info.plist', 'README.md', 'START-HERE.md', 'VALIDATION.md', 'ARTWORK.md',
-             'GITHUB-FIX.md', 'LOWPOLY-AUDIO-UPDATE.md']
+             'GITHUB-FIX.md', 'LOWPOLY-AUDIO-UPDATE.md', 'CASTLE-UPDATE.md', 'TEXTURE-UPDATE.md']
 files = [root / name for name in documents]
 files += [p for name in directories for p in (root / name).rglob('*')
           if p.is_file() and '__pycache__' not in p.parts and p.name != '.DS_Store']
@@ -19,6 +19,7 @@ with zipfile.ZipFile(output) as archive:
     names = set(archive.namelist())
     for required in ['Game/RetroShaders.metal', 'Game/VolcanoBuilder.swift',
                      'Resources/menu.wav', 'Nocturne.xcodeproj/project.pbxproj',
-                     '.github/workflows/build.yml', 'App/NocturneApp.swift']:
+                     '.github/workflows/build.yml', 'App/NocturneApp.swift', 'Resources/Castle.usdz',
+                     'SourceAssets/Castle-original.usdz']:
         assert required in names, required
 print(f'{output}: {len(files)} files, {output.stat().st_size:,} bytes; integrity verified')

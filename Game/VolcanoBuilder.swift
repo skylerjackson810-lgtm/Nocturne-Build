@@ -68,7 +68,7 @@ enum RetroMaterials {
 
 @MainActor
 enum VolcanoBuilder {
-    static func build(view: ARView, progress: (Double, String) async -> Void) async -> ArenaBuilder.Result {
+    static func build(view: ARView, progress: (Double, String) async -> Void) async throws -> ArenaBuilder.Result {
         let root = AnchorEntity(world: SIMD3<Float>.zero)
         let camera = PerspectiveCamera(); camera.camera.fieldOfViewInDegrees = 78
         camera.position = [0, 1.65, 12]; root.addChild(camera); view.scene.addAnchor(root)
@@ -85,7 +85,7 @@ enum VolcanoBuilder {
             return model
         }
         await progress(0.16, "Carving the Cinder Caldera")
-        _ = stone([50, 0.7, 50], [0, -0.45, 0])
+        _ = stone([50, 0.7, 64], [0, -0.45, 0])
         for x in -5...5 { for z in -5...5 {
             _ = stone([3.92, 0.08, 3.92], [Float(x) * 4, -0.01, Float(z) * 4], tint: rock)
         } }
@@ -94,8 +94,12 @@ enum VolcanoBuilder {
             solids.append(Solid(center: [x, 1.4, 0], half: [0.5, 1.5, 24.5]))
         }
         for z: Float in [-24, 24] {
-            _ = stone([49, 3, 1], [0, 1.4, z])
-            solids.append(Solid(center: [0, 1.4, z], half: [24.5, 1.5, 0.5]))
+            // Leave a broad opening so the old perimeter does not cut through
+            // the imported castle. Its coarse blocker closes the central gap.
+            for x: Float in [-17, 17] {
+                _ = stone([14, 3, 1], [x, 1.4, z])
+                solids.append(Solid(center: [x, 1.4, z], half: [7, 1.5, 0.5]))
+            }
         }
         await progress(0.36, "Opening rivers of molten stone")
         for zone in VolcanoLayout.lava {
@@ -157,7 +161,7 @@ enum VolcanoBuilder {
         }
         await progress(0.73, "Binding the ashwardens")
         var targets: [Entity] = []
-        for (i, p) in [SIMD3<Float>(-17, 0, -8), [0, 0, -16], [17, 0, -8], [-17, 0, 6], [17, 0, 6]].enumerated() {
+        for (i, p) in [SIMD3<Float>(-17, 0, -8), [0, 0, -5], [17, 0, -8], [-17, 0, 6], [17, 0, 6]].enumerated() {
             let target = Entity(); target.position = p; target.name = "ashwarden-\(i)"; root.addChild(target)
             let body = ArenaBuilder.taper(radius: 0.63, height: 1.3, top: 0.55,
                 position: [0, 0.85, 0], color: basalt, in: target)
@@ -174,6 +178,8 @@ enum VolcanoBuilder {
             let x = sin(Float(i) * 2.4) * 19, z = cos(Float(i) * 1.7) * 21
             wisps.append(ArenaBuilder.orb(0.035, [x, 0.8 + Float(i % 7), z], .orange, in: root))
         }
+        await progress(0.80, "Opening the opposing castle keeps")
+        solids.append(contentsOf: try await CastleBases.install(in: root))
         return .init(root: root, camera: camera, solids: solids, targets: targets, wisps: wisps)
     }
 }
