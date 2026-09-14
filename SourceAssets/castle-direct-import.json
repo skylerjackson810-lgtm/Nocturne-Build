@@ -1,7 +1,10 @@
 {
   "source_file": "Castle+format+1(2).glb",
   "source_sha256": "68ed413a567f2448d16cc55ae144071ad8d1f121f6b02b830aeee9ca480194cf",
-  "runtime_sha256": "b2857bbc0aefb62527d2798c34980f32592ae90c692f03bdad10c2dfa430c973",
+  "explicit_default_material_bindings": 94,
+  "opened_gate_leaf": "Plane.062",
+  "gate_edit": "90 degrees inward about local left/front hinge; stone arch preserved",
+  "runtime_sha256": "758f6d1546beb746fe25e462760b6d24264c6a2e01a6423b3c3984263defd39d",
   "runtime_meshes": 308,
   "retained_triangles": 86730,
   "removed_triangles_from_retained_meshes": 0,
@@ -410,5 +413,5 @@
       ]
     }
   ],
-  "note": "Direct latest GLB conversion; original topology, normals, slot UV transforms and material indices preserved."
+  "note": "Direct latest GLB conversion; topology preserved. Closed gate leaf rotated inward; 94 unspecified materials use explicit neutral white rough surfaces. Round-trip error measured before the gate pose edit."
 }
