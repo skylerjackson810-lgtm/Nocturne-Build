@@ -1,65 +1,67 @@
-# Nocturne — The Hollow Court
+# Nocturne 0.3 — The Cinder Caldera
 
-A native iOS first-person wizard training prototype. Dark fantasy main menu, real scene-loading screen, and a procedural 3D courtyard under a moonlit, star-filled sky.
+A native iOS first-person wizard practice game. This complete source project includes the original Hollow Court, a new volcano arena, a four-spell grimoire, menu music, and revised microphone recovery.
 
-## Run on your iPhone
+Start with **START-HERE.md** for the Windows → GitHub Actions → Sideloadly installation steps. This ZIP is source, not an IPA. No remote repository changes or builds were submitted from this workspace.
 
-1. Open `Nocturne.xcodeproj` in **Xcode 16 or newer on a Mac**. No package manager or third-party dependency is needed.
-2. Select the **Nocturne** target → Signing & Capabilities → choose your development team. Change `com.example.NocturnePrototype` to your own unique bundle identifier if needed.
-3. Connect your iPhone running **iOS 18 or later**, select it as the run destination, and press Run. Enable Developer Mode/trust the computer if iOS requests it.
-4. Play in landscape. Choose an order and select **Enter the court**. Allow Microphone and Speech Recognition when prompted.
-5. Move with the left thumbstick; drag the right half of the display to look. Speak **“Fireball”**, then briefly pause. No touch or controller button fires a spell.
+## Playable features
 
-The project includes source, artwork and audio. It is **not an installable IPA or a TestFlight build**. This environment cannot sign, compile or run native iOS applications. Opening the ZIP on an iPhone alone will not install the game. Xcode/device build validation remains required.
+- **The Cinder Caldera:** red atmospheric distance/height fog, low-resolution pixel/dither/grain treatment, bright textured lava, basalt paths and safe bridges, jagged spires, ruined towers, a distant volcano, and ashwarden practice targets. Lava deals 24 damage per second; bridge crossings are safe.
+- **The Hollow Court:** the original moonlit test arena remains selectable in the main menu. Its layout is preserved and the new retro postprocess is limited to the volcano.
+- First-person open book and casting hand; four original spell emblems are drawn in code and reused in the HUD, grimoire, and preloaded page textures.
+- Page arrows, spell-emblem taps, and controller LB/RB select spells without firing. Speaking any known spell selects its page and casts it when ready.
+- 32-second original ambient menu music, a music toggle, cast/impact/damage sounds, and a sound-output diagnostic.
+- Touch joystick/look and physical controllers; class stats; pooled projectiles and impacts; five attacking targets; ten-target trial; respawn; pause/resume.
 
-## What is implemented
+| Spoken spell | Behavior | Damage | Base cooldown |
+| --- | --- | --- | --- |
+| Fireball | Straight orange orb | 50 | 2.0 seconds |
+| Ice Shards | Three fast cyan shards in a narrow spread | 24 per shard | 2.8 seconds |
+| Mud Blast | Large, slower arcing projectile | 75 | 3.2 seconds |
+| Shadow Bolt | Fast violet projectile | 35 | 1.6 seconds |
 
-- Dark, gold-accented SwiftUI main menu with moonlit gothic artwork, floating embers, functioning class selection, grimoire and settings.
-- Real loading progress through scene creation, rig creation and effect preparation.
-- First-person RealityKit world: stone court, arch, pillars, distant towers, full moon, stars and ambient violet wisps.
-- Camera-attached open 3D book with generated incantation textures; gloved right hand, charge effect and casting animation.
-- Touch movement/look and hardware `GCController` stick mapping. A custom SwiftUI touch joystick shares the same input router with physical controllers.
-- Apple's `SFSpeechRecognizer` and `AVAudioEngine`, with required on-device recognition, silence-based utterance finalization, replay suppression, task rotation and microphone controls.
-- Fireball cooldown and windup; pooled fireballs and impact bursts; swept projectile collisions; five sentinels that require two hits, fire dodgeable violet bolts and respawn.
-- Class-specific health, movement and cooldowns. All three classes practice Fireball in this prototype.
-- Ten-sentinel training goal, health, hit feedback, death/respawn, pause/resume, menu return, sensitivity, invert-Y, sound and reduced-motion settings.
-- Bundled generated sound effects, with no spoken incantations in the audio assets.
+All orders can use all four spells in practice. Class cooldown modifiers apply. Recovery is shared across spells, so switching pages does not bypass it. An utterance spoken during cooldown can select a page but is consumed, never queued for later firing.
 
-## Scope and current limitations
+## Audio changes
 
-This is a **solo training slice**. There is no connected GameKit multiplayer, ranked progression, save-game persistence, additional spells or Volcano/Ice/Swamp map implementation in this build. Those remain in the previously supplied architecture. The sentinels are local practice enemies, not networked players.
+The earlier error after a cast cannot be conclusively diagnosed without its exact current message and device logs. This revision addresses the following observed code weaknesses:
 
-The 3D assets are intentionally procedural prototype art. The menu backdrop is generated environmental artwork; it is not a screenshot of the native arena. `Preview/menu-preview.html` provides an interactive menu/loading design preview, not a second implementation of the gameplay. It can be opened in a desktop browser and does not use the microphone.
+- Cast noise by itself no longer finalizes an empty speech task: a partial transcript is required before silence-based finalization.
+- Completed recognition requests are retired without cancellation; a brief scheduled gap separates successive requests.
+- Empty/no-speech tasks and transient failures reconnect automatically. Persistent errors stop after a bounded retry budget, while permission revocation stops immediately.
+- Capture-engine stoppage has bounded recovery; microphone-input changes rebuild capture; output-only notifications and retired-session callbacks are ignored.
+- The shared game audio session stays active when speech stops. Microphone meter, full status, raw diagnostic domain/code, and Test sound are available in Settings.
 
-The prototype runs simulation and presentation on the main actor at fixed 60 Hz steps, with a bounded catch-up window and pooled effects. It prioritizes a complete small training loop; dedicated simulation execution, world mesh batching, adaptive quality and measured minimum-device thermal budgets remain production work. Long suspension pauses gameplay rather than catching up hidden combat.
+Only final recognized phrases can cast. Old sessions/utterances, stale audio, partial results, and page-button events cannot fire. English (US) on-device recognition remains required. No cloud transcription or audio upload was added. A short phrase, a brief silence, and waiting for cooldown give the most reliable input. Headphones are useful when testing speaker feedback. After death, re-arm the microphone explicitly.
 
-On-device Speech support depends on the device, locale and available speech resources. The prototype uses `en-US` and refuses cloud fallback. You can explore the court if recognition is unavailable; casting remains unavailable. On a real device, test short, clearly spoken incantations and a brief pause. Speaker audio/noise can cause recognition mistakes; headphones help. The two-and-a-half-second final-audio freshness limit is a prototype latency policy, not proof of speaker identity.
+## Build and validation
 
-Recognition deliberately has a short gap while finalizing each utterance. If audio routing changes or an interruption occurs, tap the microphone to reconnect. When the player dies, recognition stops and must be explicitly rearmed so an old utterance cannot fire after respawn.
+The included project targets iOS 18+, uses Xcode 16.4 in the existing macOS GitHub build workflow, and has no third-party runtime dependencies. The Metal shader is in Compile Sources and menu.wav is in Copy Bundle Resources. Use the included project rather than regenerating paths manually.
 
-## Validation
+`Tools/generate_project.py` deterministically recreates the project and original synthesized audio. `Tools/validate_project.py` checks Swift grammar, project references, resources, music boundaries, and version metadata. `Tools/package_project.py` creates the complete source ZIP.
 
-`Tests/` contains XCTest cases for voice-only gating, duplicate/stale utterances, cooldown handling, projectile sweeps and movement collision. Run with **Product → Test** using a supported iOS simulator/device. These tests were authored but could not be executed in this environment.
+The normal GitHub build produces an unsigned IPA. The separately selectable **Run iOS regression tests** workflow runs XCTest on an installed iOS 18 simulator. Neither workflow was run from this workspace. Native Swift/Metal compilation, XCTest execution, actual iPhone rendering, microphone behavior, and performance remain unverified for this revision.
 
-Local checks cover Swift grammar parsing, plist/asset validity, Xcode source/resource references and archive integrity. An HTML visual preview was rendered separately to inspect the menu/loading design. It does not validate SwiftUI layout or RealityKit performance.
+## Project layout
 
-For the final release gate, build with Xcode on the deployment SDK, run a real iPhone voice test, test Bluetooth/controller hot-plug and microphone route changes, and profile a sustained training session. This source has not been certified production-ready or App Store-ready.
+- `App/`: application lifecycle.
+- `Game/`: gameplay session, spell definitions, map builders, rig and emblem rendering, retro Metal postprocessing.
+- `Gameplay/`: domain models and voice-gated casting.
+- `Platform/`: Speech/audio lifecycle and touch/controller routing.
+- `UI/`: menu, map selector, loading, HUD, grimoire, settings, pause.
+- `Resources/`: original menu artwork, synthesized sound effects and menu music.
+- `Tests/`: casting, geometry, route/retry policy, and lava/bridge XCTest coverage.
+- `Tools/`: project/audio generation, structural validation, source packaging.
+- `Preview/`: historical v0.1 browser menu references, not screenshots of v0.3 or native gameplay.
 
-## Project organization
+## Scope
 
-| Folder | Contents |
-|---|---|
-| `Nocturne/App` | SwiftUI application lifecycle |
-| `Nocturne/Game` | Training loop, collision math, scene and rig construction |
-| `Nocturne/Gameplay` | Adapted voice-gated SpellEngine and core models from the blueprint |
-| `Nocturne/Platform` | Apple Speech/audio lifecycle and controller/touch input |
-| `Nocturne/UI` | Menu, loading screen, grimoire, settings, HUD and pause screen |
-| `Nocturne/Resources` | Bundled artwork, audio and launch color |
-| `Tests` | Native XCTest regression cases |
-| `Preview` | Browser-based menu/loading visual reference |
+This is still a solo practice prototype, not a finished PvP game. GameKit multiplayer, progression, Ice/Swamp maps, enemy navigation, and status effects are not implemented. The reference images guided the retro art direction; no game assets or UI images were copied from them. The existing illustrated menu backdrop is retained and tinted for the volcano selection.
 
-## Framework references
+A full-frame Metal pass samples a coarser logical grid to achieve the pixelated look; it is not an internally low-resolution 3D renderer. Shader/draw-call cost and device thermals need profiling. Fog reconstructs positions from the actual projection/depth buffer and varies with distance, height, and location; it is not a flat translucent overlay. Rendering uses original procedural geometry/textures and is not guaranteed to exactly match the supplied reference screenshots before device tuning.
 
-- [Apple: non-AR ARView initialization](https://developer.apple.com/documentation/realitykit/arview/init(frame:cameramode:automaticallyconfiguresession:))
-- [Apple: recognizing speech in live audio](https://developer.apple.com/documentation/speech/recognizing-speech-in-live-audio)
-- [Apple: on-device recognition requirement](https://developer.apple.com/documentation/speech/sfspeechrecognitionrequest/requiresondevicerecognition)
+## Apple references
+
+- [RealityKit postprocess context](https://developer.apple.com/documentation/realitykit/arview/postprocesscontext)
+- [Postprocess output texture formats](https://developer.apple.com/documentation/realitykit/checking-the-pixel-format-of-a-postprocess-effect-s-output-texture)
+- [Live audio speech recognition](https://developer.apple.com/documentation/speech/recognizing-speech-in-live-audio)

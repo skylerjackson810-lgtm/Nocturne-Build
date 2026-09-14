@@ -32,7 +32,7 @@ struct GameHUD: View {
                         }
                         Spacer()
                         VStack(spacing: 5) {
-                            Text("THE HOLLOW COURT").font(WizardTheme.serif(12)).tracking(2)
+                            Text(session.selectedMap.title.uppercased()).font(WizardTheme.serif(12)).tracking(2)
                             Text("SENTINELS BANISHED  \(session.defeated) / 10").font(.system(size: 8)).tracking(1.4).foregroundStyle(WizardTheme.muted)
                         }
                         Spacer()
@@ -51,7 +51,22 @@ struct GameHUD: View {
                         MovementStick(input: session.input)
                         Spacer()
                         VStack(spacing: 7) {
-                            Text(session.cooldown > 0 ? "GATHERING EMBERS" : "SPEAK  ‘FIREBALL’")
+                            HStack(spacing: 4) {
+                                Button { session.cycleSpell(-1) } label: {
+                                    Image(systemName: "chevron.left").frame(width: 36, height: 44)
+                                }.accessibilityLabel("Previous spell page")
+                                ForEach(SpellID.allCases, id: \.rawValue) { spell in
+                                    Button { session.selectSpell(spell) } label: {
+                                        SpellEmblem(spell: spell).frame(width: 34, height: 34).padding(5)
+                                            .background(session.selectedSpell == spell ? WizardTheme.gold.opacity(0.15) : .clear)
+                                            .opacity(session.selectedSpell == spell ? 1 : 0.55)
+                                    }.accessibilityLabel("Select \(spell.title); speaking casts")
+                                }
+                                Button { session.cycleSpell(1) } label: {
+                                    Image(systemName: "chevron.right").frame(width: 36, height: 44)
+                                }.accessibilityLabel("Next spell page")
+                            }.buttonStyle(.plain).background(WizardTheme.ink.opacity(0.7))
+                            Text(session.cooldown > 0 ? "MAGIC RECOVERING" : "SPEAK  ‘\(session.selectedSpell.title.uppercased())’")
                                 .font(.system(size: 10, weight: .medium)).tracking(2).foregroundStyle(WizardTheme.parchment)
                             GeometryReader { bar in
                                 ZStack(alignment: .leading) {

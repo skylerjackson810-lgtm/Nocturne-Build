@@ -16,7 +16,7 @@ struct RootView: View {
                 if session.phase == .paused { PauseView(session: session) }
             }
         }
-        .alert("The court is unavailable", isPresented: Binding(get: { session.errorMessage != nil },
+        .alert("The realm is unavailable", isPresented: Binding(get: { session.errorMessage != nil },
             set: { if !$0 { session.errorMessage = nil } })) {
             Button("Return", role: .cancel) { session.errorMessage = nil }
         } message: { Text(session.errorMessage ?? "") }
@@ -40,6 +40,10 @@ struct MainMenuView: View {
             let compact = geometry.size.height < 450
             ZStack {
                 MoonlitBackdrop()
+                if session.selectedMap == .volcano {
+                    LinearGradient(colors: [.black.opacity(0.2), .red.opacity(0.35), .black.opacity(0.65)],
+                                   startPoint: .topTrailing, endPoint: .bottomLeading).ignoresSafeArea()
+                }
                 EmberField(animate: !reduceMotion && !session.reducedMotion)
                 HStack(alignment: .top, spacing: 28) {
                     VStack(alignment: .leading, spacing: compact ? 13 : 23) {
@@ -53,7 +57,7 @@ struct MainMenuView: View {
                                 .foregroundStyle(WizardTheme.parchment).minimumScaleFactor(0.6).lineLimit(1)
                             HStack(spacing: 11) {
                                 Rectangle().fill(WizardTheme.gold).frame(width: 25, height: 1)
-                                Text("THE HOLLOW COURT").font(.system(size: 10)).tracking(3).foregroundStyle(WizardTheme.gold)
+                                Text(session.selectedMap.title.uppercased()).font(.system(size: 10)).tracking(2).foregroundStyle(WizardTheme.gold)
                             }
                             if !compact {
                                 Text("The night listens.\nGive it something to fear.")
@@ -61,7 +65,7 @@ struct MainMenuView: View {
                             }
                         }
                         VStack(spacing: 7) {
-                            ArcaneButton(title: "Enter the court", subtitle: "Moonlit training grounds", primary: true) { session.enterCourt() }
+                            ArcaneButton(title: "Enter the realm", subtitle: session.selectedMap.title, primary: true) { session.enterCourt() }
                             HStack(spacing: 7) {
                                 ArcaneButton(title: "Grimoire", symbol: "book.closed") { grimoire = true }
                                 ArcaneButton(title: "Settings", symbol: "slider.horizontal.3") { settings = true }
@@ -72,7 +76,7 @@ struct MainMenuView: View {
                             Circle().fill(WizardTheme.violet).frame(width: 4, height: 4)
                             Text("SOLO PRACTICE").tracking(1.5)
                             Text("·").padding(.horizontal, 3)
-                            Text("Your voice is your weapon.")
+                            Text("v0.3 · Voicebound")
                         }.font(.system(size: 9)).foregroundStyle(WizardTheme.muted)
                     }.frame(width: min(geometry.size.width * 0.49, 470))
                     Spacer(minLength: 0)
@@ -98,8 +102,23 @@ struct MainMenuView: View {
                         }
                         Spacer(minLength: 0)
                         VStack(alignment: .trailing, spacing: 5) {
-                            Text("THE HOLLOW COURT").font(WizardTheme.serif(15)).foregroundStyle(WizardTheme.parchment)
-                            Text("MIDNIGHT  /  WAXING MAGIC").font(.system(size: 8)).tracking(1.8).foregroundStyle(WizardTheme.muted)
+                            Text("SELECT MAP").font(.system(size: 9)).tracking(2).foregroundStyle(WizardTheme.muted)
+                            Menu {
+                                ForEach(MapID.playable, id: \.rawValue) { map in
+                                    Button { session.selectedMap = map } label: {
+                                        Label(map.title, systemImage: session.selectedMap == map ? "checkmark" : map.symbol)
+                                    }
+                                }
+                            } label: {
+                                HStack {
+                                    Image(systemName: session.selectedMap.symbol)
+                                    Text(session.selectedMap.title).font(WizardTheme.serif(13))
+                                    Image(systemName: "chevron.up.chevron.down").font(.system(size: 9))
+                                }.foregroundStyle(WizardTheme.parchment).padding(12)
+                                    .frame(minHeight: 44).background(WizardTheme.ink.opacity(0.85))
+                                    .overlay(Rectangle().stroke(WizardTheme.gold.opacity(0.55), lineWidth: 1))
+                            }.accessibilityLabel("Select map")
+                            Text(session.selectedMap.subtitle).font(.system(size: 7)).tracking(0.5).foregroundStyle(WizardTheme.muted)
                         }
                     }.frame(width: min(220, geometry.size.width * 0.29))
                 }.padding(.horizontal, compact ? 28 : 48).padding(.vertical, compact ? 23 : 42)
@@ -122,8 +141,8 @@ struct LoadingView: View {
                 VStack(spacing: 15) {
                     Spacer()
                     ArcaneSigil(size: geometry.size.height < 450 ? 65 : 110)
-                    Text("THE HOLLOW COURT").font(WizardTheme.serif(26)).tracking(5).foregroundStyle(WizardTheme.parchment)
-                    Text("BENEATH THE MOON, YOUR TRIAL AWAITS").font(.system(size: 9)).tracking(2).foregroundStyle(WizardTheme.muted)
+                    Text(session.selectedMap.title.uppercased()).font(WizardTheme.serif(26)).tracking(4).foregroundStyle(WizardTheme.parchment)
+                    Text(session.selectedMap.subtitle).font(.system(size: 9)).tracking(2).foregroundStyle(WizardTheme.muted)
                     Spacer()
                     VStack(spacing: 10) {
                         HStack {
@@ -137,7 +156,7 @@ struct LoadingView: View {
                                 Rectangle().fill(WizardTheme.gold).frame(width: bar.size.width * session.progress)
                             }
                         }.frame(height: 2)
-                        Text("Speak ‘Fireball’ clearly, then leave a brief silence. Your hands will follow.")
+                        Text("Speak Fireball, Ice Shards, Mud Blast, or Shadow Bolt. Your book will follow.")
                             .font(.system(size: 10)).foregroundStyle(WizardTheme.muted).padding(.top, 3)
                     }.frame(maxWidth: 480)
                 }.padding(.horizontal, 32).padding(.vertical, 30)
@@ -159,21 +178,27 @@ struct SettingsView: View {
                     Toggle("Reduce motion and floating embers", isOn: $session.reducedMotion)
                 }
                 Section("The sound of magic") {
+                    Toggle("Menu music", isOn: $session.musicEnabled)
                     Toggle("Spell sound effects", isOn: $session.soundEnabled)
                     Button("Test sound") { session.testSound() }
                     Text(session.audioStatus).font(.footnote).foregroundStyle(.secondary)
-                    Text("This prototype has cast, impact, and damage sounds, but no background music yet. Test sound plays even when spell effects are switched off.")
+                    Text("Original ambient music plays in the menu. Test sound plays even when spell effects are switched off.")
                         .font(.footnote).foregroundStyle(.secondary)
                     Text(session.voiceStatus).font(.footnote).foregroundStyle(.secondary)
-                    Text("Casting uses English on-device speech recognition. A short pause after ‘Fireball’ completes the incantation. No button casts a spell.")
+                    Text("Last speech diagnostic: \(session.speechDiagnostic)").font(.caption).textSelection(.enabled)
+                    Text("Casting uses English on-device speech recognition. Say a spell name, then pause briefly. Page buttons only select; they never cast.")
                         .font(.footnote).foregroundStyle(.secondary)
                     Button("Open microphone permissions") {
                         if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
                     }
                 }
                 Section("Controls") {
-                    Text("Touch: left thumbstick to move, drag the right half to look. Controllers: left stick to move, right stick to look, Menu to pause.")
+                    Text("Touch: left thumbstick to move, drag right to look; use page arrows or spell emblems to turn the book. Controller: sticks to move/look, LB/RB to turn pages, Menu to pause. Speaking any known spell selects and casts it when ready.")
                         .font(.footnote).foregroundStyle(.secondary)
+                }
+                Section("Build") {
+                    Text("Nocturne 0.3.0 (3) · Cinder Caldera update").font(.footnote)
+                    Text("Volcano: retro pixel/dither rendering, red distance fog, and lava hazards. Hollow Court: original test arena.").font(.footnote)
                 }
             }.scrollContentBackground(.hidden).background(WizardTheme.ink)
                 .navigationTitle("Ritual settings").navigationBarTitleDisplayMode(.inline)
@@ -184,18 +209,27 @@ struct SettingsView: View {
 
 struct GrimoireView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var selected: SpellID = .fireball
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 22) {
-                    Image(systemName: "flame").font(.system(size: 42, weight: .ultraLight)).foregroundStyle(.orange)
-                    Text("IGNIS").font(WizardTheme.serif(35)).tracking(6)
-                    Text("SPEAK  ‘FIREBALL’").font(.system(size: 12)).tracking(3).foregroundStyle(WizardTheme.gold)
-                    Text("Draw an ember from the silence. Shape it in your palm.\nLet your voice give it flight.")
+                    HStack(spacing: 15) {
+                        ForEach(SpellID.allCases, id: \.rawValue) { spell in
+                            Button { selected = spell } label: {
+                                SpellEmblem(spell: spell).frame(width: 48, height: 48)
+                                    .opacity(selected == spell ? 1 : 0.45)
+                            }.buttonStyle(.plain)
+                        }
+                    }
+                    SpellEmblem(spell: selected).frame(width: 88, height: 88)
+                    Text(PrototypeContent.definition(selected).presentation.bookPage.uppercased()).font(WizardTheme.serif(35)).tracking(6)
+                    Text("SPEAK  ‘\(selected.title.uppercased())’").font(.system(size: 12)).tracking(3).foregroundStyle(Color(selected.color))
+                    Text(selected.description)
                         .font(WizardTheme.serif(17)).multilineTextAlignment(.center).lineSpacing(6)
                     Divider().overlay(WizardTheme.gold.opacity(0.25))
-                    Text("50 DAMAGE     ·     2 SECOND BASE COOLDOWN").font(.system(size: 10)).tracking(1)
-                    Text("Banish ten sentinels to master the trial. Each takes two hits and returns after six seconds. Sidestep their violet bolts. All three orders practice Fireball in this first trial; their health, movement and cooldown stats differ.")
+                    Text(String(format: "%.1f SECOND BASE COOLDOWN", Double(PrototypeContent.definition(selected).baseCooldownTicks) / 60)).font(.system(size: 10)).tracking(1)
+                    Text("All four spells are available to every order in practice. Speak a spell to change pages and cast it. A shared recovery prevents rapid page-switching from bypassing cooldowns. Banish ten sentinels; use the stone bridges to cross the volcano's lava.")
                         .font(.system(size: 14)).foregroundStyle(WizardTheme.muted).multilineTextAlignment(.center)
                 }.foregroundStyle(WizardTheme.parchment).padding(32).frame(maxWidth: 620)
             }.frame(maxWidth: .infinity).background(WizardTheme.ink)

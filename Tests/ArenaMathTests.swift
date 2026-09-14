@@ -62,4 +62,20 @@ final class ArenaMathTests: XCTestCase {
         XCTAssertFalse(SpeechRoutePolicy.needsRestart(activeSession: nil,
             observerSession: oldSession, previousInput: "old", currentInput: "new"))
     }
+
+    func testEmptyRecognitionRestartsButPersistentErrorsAreBounded() {
+        XCTAssertEqual(SpeechRetryPolicy.delay(domain: "kAFAssistantErrorDomain", code: 1110,
+                                               consecutiveFailures: 10), 0.4)
+        XCTAssertNotNil(SpeechRetryPolicy.delay(domain: "NocturneSpeech", code: 1, consecutiveFailures: 0))
+        XCTAssertNil(SpeechRetryPolicy.delay(domain: "NocturneSpeech", code: 1, consecutiveFailures: 3))
+    }
+
+    func testVolcanoBridgesAndSpawnAreSafeButChannelsBurn() {
+        XCTAssertFalse(VolcanoLayout.isLava([0, 1.65, 12]))
+        for x: Float in [-8, 8] {
+            XCTAssertTrue(VolcanoLayout.isLava([x, 1.65, 4]))
+            for z in VolcanoLayout.bridges { XCTAssertFalse(VolcanoLayout.isLava([x, 1.65, z])) }
+        }
+        XCTAssertEqual(MapID.playable, [.volcano, .hollowCourt])
+    }
 }

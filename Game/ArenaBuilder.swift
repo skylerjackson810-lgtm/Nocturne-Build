@@ -72,6 +72,13 @@ enum ArenaBuilder {
         var descriptor = MeshDescriptor(name: key)
         descriptor.positions = MeshBuffers.Positions(data.positions.map { $0 * scale })
         descriptor.normals = MeshBuffers.Normals(data.normals.map { simd_normalize($0 / scale) })
+        descriptor.textureCoordinates = MeshBuffers.TextureCoordinates(data.positions.indices.map { i in
+            let p = data.positions[i], normal = data.normals[i]
+            let n = SIMD3<Float>(abs(normal.x), abs(normal.y), abs(normal.z))
+            if n.y >= n.x && n.y >= n.z { return SIMD2<Float>(p.x, p.z) * 0.5 + SIMD2(repeating: 0.5) }
+            if n.x >= n.z { return SIMD2<Float>(p.z, p.y) * 0.5 + SIMD2(repeating: 0.5) }
+            return SIMD2<Float>(p.x, p.y) * 0.5 + SIMD2(repeating: 0.5)
+        })
         descriptor.primitives = .triangles(data.indices)
         // Geometry is deterministic and tested. A visible box remains if GPU mesh creation fails.
         let resource = (try? MeshResource.generate(from: [descriptor])) ?? .generateBox(size: scale * 2)

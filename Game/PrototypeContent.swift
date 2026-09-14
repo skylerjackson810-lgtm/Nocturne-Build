@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import UIKit
 
 enum PrototypeContent {
     static let fireball = SpellDefinition(
@@ -10,6 +11,32 @@ enum PrototypeContent {
         presentation: SpellPresentation(bookPage: "ignis", highlightedTextKey: "FIREBALL",
             chargeEffect: "ember", releaseAnimation: "cast", projectileEffect: "fireball"))
 
+    static let iceShards = SpellDefinition(
+        id: .iceShards, incantationsByLocale: ["en-US": ["ice shards", "ice shard"]],
+        baseCooldownTicks: 168, windupTicks: 12,
+        projectile: .init(speedMetersPerSecond: 32, radiusMeters: 0.12, lifetimeTicks: 100,
+                          gravityMetersPerSecondSquared: 0, damage: 24, impactStatus: nil),
+        presentation: .init(bookPage: "glacies", highlightedTextKey: "ICE SHARDS",
+                            chargeEffect: "frost", releaseAnimation: "cast", projectileEffect: "ice"))
+    static let mudBlast = SpellDefinition(
+        id: .mudBlast, incantationsByLocale: ["en-US": ["mud blast", "mudblast"]],
+        baseCooldownTicks: 192, windupTicks: 22,
+        projectile: .init(speedMetersPerSecond: 17, radiusMeters: 0.36, lifetimeTicks: 170,
+                          gravityMetersPerSecondSquared: 2, damage: 75, impactStatus: nil),
+        presentation: .init(bookPage: "terra", highlightedTextKey: "MUD BLAST",
+                            chargeEffect: "mud", releaseAnimation: "cast", projectileEffect: "mud"))
+    static let voidBolt = SpellDefinition(
+        id: .voidBolt, incantationsByLocale: ["en-US": ["shadow bolt", "shadowbolt"]],
+        baseCooldownTicks: 96, windupTicks: 9,
+        projectile: .init(speedMetersPerSecond: 38, radiusMeters: 0.16, lifetimeTicks: 90,
+                          gravityMetersPerSecondSquared: 0, damage: 35, impactStatus: nil),
+        presentation: .init(bookPage: "umbra", highlightedTextKey: "SHADOW BOLT",
+                            chargeEffect: "void", releaseAnimation: "cast", projectileEffect: "void"))
+
+    static let spellbook: [SpellDefinition] = [fireball, iceShards, mudBlast, voidBolt]
+    static let spells = Dictionary(uniqueKeysWithValues: spellbook.map { ($0.id, $0) })
+    static func definition(_ id: SpellID) -> SpellDefinition { spells[id] ?? fireball }
+
     static func stats(_ wizard: WizardClassID) -> WizardStats {
         switch wizard {
         case .pyromancer: return .init(maximumHealth: 100, moveSpeedMetersPerSecond: 5.5, cooldownMultiplier: 0.9)
@@ -17,6 +44,34 @@ enum PrototypeContent {
         case .necromancer: return .init(maximumHealth: 90, moveSpeedMetersPerSecond: 5.8, cooldownMultiplier: 0.95)
         }
     }
+}
+
+extension SpellID: CaseIterable {
+    static var allCases: [SpellID] { [.fireball, .iceShards, .mudBlast, .voidBolt] }
+    var title: String { PrototypeContent.definition(self).presentation.highlightedTextKey.capitalized }
+    var color: UIColor {
+        switch self {
+        case .fireball: return UIColor(red: 1, green: 0.39, blue: 0.08, alpha: 1)
+        case .iceShards: return UIColor(red: 0.36, green: 0.85, blue: 1, alpha: 1)
+        case .mudBlast: return UIColor(red: 0.56, green: 0.65, blue: 0.20, alpha: 1)
+        case .voidBolt: return UIColor(red: 0.71, green: 0.37, blue: 1, alpha: 1)
+        }
+    }
+    var description: String {
+        switch self {
+        case .fireball: return "A burning orb. 50 damage."
+        case .iceShards: return "Three piercing shards. 24 damage each."
+        case .mudBlast: return "A heavy arcing blast. 75 damage."
+        case .voidBolt: return "A swift shadow bolt. 35 damage."
+        }
+    }
+}
+
+extension MapID {
+    static var playable: [MapID] { [.volcano, .hollowCourt] }
+    var title: String { self == .volcano ? "The Cinder Caldera" : "The Hollow Court" }
+    var subtitle: String { self == .volcano ? "VOLCANO · RED FOG · LAVA" : "ORIGINAL TEST ARENA · MOONLIT" }
+    var symbol: String { self == .volcano ? "mountain.2.fill" : "moon.stars.fill" }
 }
 
 extension WizardClassID: CaseIterable {

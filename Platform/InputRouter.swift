@@ -8,9 +8,12 @@ final class InputRouter: ObservableObject {
     var touchMovement = SIMD2<Float>.zero
     private var touchLook = SIMD2<Float>.zero
     var onPause: (() -> Void)?
+    var onPageTurn: ((Int) -> Void)?
     private var controller: GCController?
     private var observers: [NSObjectProtocol] = []
     private var previousMenu = false
+    private var previousLeft = false
+    private var previousRight = false
 
     init() {
         for name in [Notification.Name.GCControllerDidConnect, .GCControllerDidDisconnect] {
@@ -41,12 +44,19 @@ final class InputRouter: ObservableObject {
             let pressed = pad.buttonMenu.isPressed
             if pressed && !previousMenu { onPause?() }
             previousMenu = pressed
+            let left = pad.leftShoulder.isPressed, right = pad.rightShoulder.isPressed
+            if left && !previousLeft { onPageTurn?(-1) }
+            if right && !previousRight { onPageTurn?(1) }
+            previousLeft = left; previousRight = right
         }
         if invertedY { look.y *= -1 }
         return (movement, look)
     }
 
-    func reset() { touchMovement = .zero; touchLook = .zero; previousMenu = false }
+    func reset() {
+        touchMovement = .zero; touchLook = .zero; previousMenu = false
+        previousLeft = false; previousRight = false
+    }
 
     private func deadZone(_ v: SIMD2<Float>) -> SIMD2<Float> {
         let length = sqrt(v.x * v.x + v.y * v.y)

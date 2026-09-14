@@ -5,9 +5,9 @@ typealias Tick = UInt64
 typealias PlayerID = UInt16       // Host-assigned slot; never trusted from a client payload.
 typealias EntityID = UInt32
 
-enum SpellID: UInt16, Codable, Sendable { case fireball = 1, iceShards, mudBlast }
+enum SpellID: UInt16, Codable, Sendable { case fireball = 1, iceShards, mudBlast, voidBolt }
 enum WizardClassID: UInt8, Codable, Sendable { case pyromancer = 1, cryomancer, necromancer }
-enum MapID: UInt8, Codable, Sendable { case volcano = 1, ice, swamp }
+enum MapID: UInt8, Codable, Sendable { case volcano = 1, ice, swamp, hollowCourt }
 
 struct Vector3: Codable, Sendable, Equatable {
     var x: Float

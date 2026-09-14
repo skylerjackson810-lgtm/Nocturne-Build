@@ -10,8 +10,10 @@ struct NocturneApp: App {
             RootView(session: session)
                 .preferredColorScheme(.dark)
                 .statusBarHidden()
+                .onAppear { session.applicationBecameActive() }
                 .onChange(of: scenePhase) { _, phase in
                     if phase == .background { session.suspend() }
+                    else if phase == .active { session.applicationBecameActive() }
                     else if phase == .inactive && !session.requestingVoice { session.pause() }
                 }
         }

@@ -19,8 +19,10 @@ final class SpellEngineTests: XCTestCase {
     private final class Context: LocalCastContextProviding {
         let epoch = UUID()
         var ready = true
+        var selected: SpellID = .fireball
+        func selectSpellFromVoice(_ spell: SpellID) -> Bool { selected = spell; return true }
         func currentCastContext() -> CastContext? {
-            CastContext(matchEpoch: epoch, lifeID: 1, clientTick: 20, selectedSpell: .fireball,
+            CastContext(matchEpoch: epoch, lifeID: 1, clientTick: 20, selectedSpell: selected,
                         aim: Aim(yaw: 0, pitch: 0), canAttemptCast: ready)
         }
     }
@@ -85,5 +87,54 @@ final class SpellEngineTests: XCTestCase {
     private func settle() async {
         // Yield to the AsyncStream consumer without wall-clock sleeps.
         for _ in 0..<8 { await Task.yield() }
+    }
+
+    func testEveryNamedSpellSelectsAndCastsAcrossRepeatedUtterances() async throws {
+        let voice = Voice(), context = Context(), sink = Sink(), rig = Rig()
+        let engine = SpellEngine(voice: voice, context: context, submitter: sink, rig: rig,
+            spells: PrototypeContent.spells, onVoiceFailure: { _ in XCTFail("Unexpected voice failure") })
+        try engine.start(locale: "en-US")
+        defer { engine.stop() }
+        for (index, spell) in PrototypeContent.spellbook.enumerated() {
+            voice.sendFinal(UInt64(index + 1), text: spell.id.title)
+            await settle()
+            XCTAssertEqual(context.selected, spell.id)
+            let cast = try XCTUnwrap(sink.intents.last)
+            XCTAssertEqual(cast.spell, spell.id)
+            engine.resolve(.accepted(.init(castID: cast.id, matchEpoch: context.epoch, lifeID: 1,
+                acceptedAtTick: 20, releaseAtTick: 30, cooldownEndsAtTick: 120)))
+        }
+        XCTAssertEqual(sink.intents.count, 4)
+        XCTAssertEqual(rig.charges, 4)
+    }
+
+    func testVoiceCanTurnPageDuringCooldownWithoutQueuingADeferredShot() async throws {
+        let voice = Voice(), context = Context(), sink = Sink(), rig = Rig()
+        let engine = SpellEngine(voice: voice, context: context, submitter: sink, rig: rig,
+            spells: PrototypeContent.spells, onVoiceFailure: { _ in })
+        try engine.start(locale: "en-US"); defer { engine.stop() }
+        context.ready = false
+        voice.sendFinal(1, text: "Ice Shards"); await settle()
+        XCTAssertEqual(context.selected, .iceShards)
+        XCTAssertTrue(sink.intents.isEmpty)
+        context.ready = true
+        voice.sendFinal(1, text: "Ice Shards"); await settle()
+        XCTAssertTrue(sink.intents.isEmpty)
+        voice.sendFinal(2, text: "Ice Shards"); await settle()
+        XCTAssertEqual(sink.intents.count, 1)
+    }
+
+    func testTouchSelectionCannotFireAndRestartRejectsPriorSession() async throws {
+        let voice = Voice(), context = Context(), sink = Sink(), rig = Rig()
+        let engine = SpellEngine(voice: voice, context: context, submitter: sink, rig: rig,
+            spells: PrototypeContent.spells, onVoiceFailure: { _ in })
+        try engine.start(locale: "en-US"); let old = try XCTUnwrap(voice.token)
+        context.selected = .mudBlast; await settle()
+        XCTAssertTrue(sink.intents.isEmpty)
+        try engine.start(locale: "en-US"); defer { engine.stop() }
+        voice.sendFinal(1, text: "Mud Blast", session: old); await settle()
+        XCTAssertTrue(sink.intents.isEmpty)
+        voice.sendFinal(1, text: "Mud Blast"); await settle()
+        XCTAssertEqual(sink.intents.count, 1)
     }
 }

@@ -17,6 +17,11 @@ protocol VoiceRecognizing: AnyObject {
 @MainActor
 protocol LocalCastContextProviding: AnyObject {
     func currentCastContext() -> CastContext?
+    func selectSpellFromVoice(_ spell: SpellID) -> Bool
+}
+
+extension LocalCastContextProviding {
+    func selectSpellFromVoice(_ spell: SpellID) -> Bool { currentCastContext()?.selectedSpell == spell }
 }
 
 @MainActor
@@ -164,6 +169,7 @@ final class SpellEngine {
             guard capturedAt.isFinite, capturedAt <= now, now - capturedAt <= 2.5,
                   pending == nil, text.utf8.count <= 256,
                   let spellID = aliases[normalize(text)],
+                  context.selectSpellFromVoice(spellID),
                   let state = context.currentCastContext(), state.canAttemptCast,
                   state.selectedSpell == spellID, state.aim.isFinite,
                   let definition = spells[spellID] else { return }

@@ -59,6 +59,26 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "3002C6ED1E10E9E72C1B4C41";
 		};
+		"B8C65A588354E2418D54BA55" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "Game/RetroRenderer.swift";
+			"sourceTree" = "<group>";
+		};
+		"9CED0AAD83EE5BBE0909CE4D" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "B8C65A588354E2418D54BA55";
+		};
+		"D31C8E2B95C2C4BB634B4368" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.metal";
+			"path" = "Game/RetroShaders.metal";
+			"sourceTree" = "<group>";
+		};
+		"A6331F659FBBEE3B74B06521" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "D31C8E2B95C2C4BB634B4368";
+		};
 		"06F62B3E770837F734B30CFD" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "sourcecode.swift";
@@ -68,6 +88,26 @@
 		"65BE16521C9AF4C85D88C05A" = {
 			"isa" = "PBXBuildFile";
 			"fileRef" = "06F62B3E770837F734B30CFD";
+		};
+		"29BD86D1ECDA49166A8B93AF" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "Game/SpellArtwork.swift";
+			"sourceTree" = "<group>";
+		};
+		"A3C8327538F41FCFAEDB50AB" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "29BD86D1ECDA49166A8B93AF";
+		};
+		"D038A7EF4D5FEBE2B8028179" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "Game/VolcanoBuilder.swift";
+			"sourceTree" = "<group>";
+		};
+		"EAED612ED41336AB75FEAD72" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "D038A7EF4D5FEBE2B8028179";
 		};
 		"A47FE79F279C7CEFA1C11B4F" = {
 			"isa" = "PBXFileReference";
@@ -199,6 +239,16 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "FEA83F639114FACFDB106777";
 		};
+		"C7DDA086960DBA16457E6008" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "audio.wav";
+			"path" = "Resources/menu.wav";
+			"sourceTree" = "<group>";
+		};
+		"0393F5374AFE646D2F547C2F" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "C7DDA086960DBA16457E6008";
+		};
 		"0DD8B30AF202F01B34F37069" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "text.plist.xml";
@@ -212,7 +262,11 @@
 				"30CFAE765B066D9D93C5B460",
 				"11FF850D6FC4393B65813EBE",
 				"3002C6ED1E10E9E72C1B4C41",
+				"B8C65A588354E2418D54BA55",
+				"D31C8E2B95C2C4BB634B4368",
 				"06F62B3E770837F734B30CFD",
+				"29BD86D1ECDA49166A8B93AF",
+				"D038A7EF4D5FEBE2B8028179",
 				"A47FE79F279C7CEFA1C11B4F",
 				"F1537E1FCBBB127C93664F91",
 				"4FCF3F0296E162CA312065C3",
@@ -226,6 +280,7 @@
 				"6C2910FC86F2686FAFCCB99D",
 				"05513E10154CF1C01659F7AD",
 				"FEA83F639114FACFDB106777",
+				"C7DDA086960DBA16457E6008",
 				"0DD8B30AF202F01B34F37069",
 			);
 			"name" = "Nocturne";
@@ -286,7 +341,11 @@
 				"6C9DA34112BA85282EE28F02",
 				"248052A8CB708D3AD168B86D",
 				"3015C99DBA956DF0E238B73E",
+				"9CED0AAD83EE5BBE0909CE4D",
+				"A6331F659FBBEE3B74B06521",
 				"65BE16521C9AF4C85D88C05A",
+				"A3C8327538F41FCFAEDB50AB",
+				"EAED612ED41336AB75FEAD72",
 				"3DB756713FD040A55A50D08E",
 				"9B5A0D9B2E9BA0EFFB652384",
 				"7F8DD29E735C2EE5C520AE0B",
@@ -314,6 +373,7 @@
 				"2A4A9FCA525F0FDD1E224F56",
 				"5111FD6245A3F5DB13B3F272",
 				"D533BA7791D2EF6F33779FAB",
+				"0393F5374AFE646D2F547C2F",
 			);
 			"runOnlyForDeploymentPostprocessing" = "0";
 		};

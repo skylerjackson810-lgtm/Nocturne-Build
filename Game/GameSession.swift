@@ -9,6 +9,10 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     enum Phase { case menu, loading, playing, paused }
     @Published var phase: Phase = .menu
     @Published var selectedClass: WizardClassID = .pyromancer
+    @Published var selectedMap: MapID = .volcano
+    @Published private(set) var selectedSpell: SpellID = .fireball
+    @Published var speechDiagnostic = "No speech errors recorded in this session."
+    @Published var musicEnabled = true { didSet { syncMenuMusic() } }
     @Published var progress = 0.0
     @Published var loadingMessage = "Opening the grimoire"
     @Published var voiceStatus = "Microphone is asleep"
@@ -33,6 +37,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     private var engine: SpellEngine?
     private var arena: ArenaBuilder.Result?
     private var rig: RigFactory.Result?
+    private var retroRenderer: RetroRenderer?
     private var link: CADisplayLink?
     private var frameDriver: FrameDriver?
     private var lastFrame: TimeInterval = 0
@@ -55,6 +60,9 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     private var loadTask: Task<Void, Never>?
     private var loadToken = UUID()
     private var sound: [String: AVAudioPlayer] = [:]
+    private var menuMusic: AVAudioPlayer?
+    private var applicationActive = true
+    private var activeMap: MapID = .volcano
 
     private struct Target {
         let entity: Entity
@@ -68,6 +76,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         var velocity = SIMD3<Float>.zero
         var expires: Tick = 0
         var hostile = false
+        var spell: SpellID = .fireball
     }
     private struct Spark {
         let entity: Entity
@@ -76,6 +85,8 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
 
     init() {
         input.onPause = { [weak self] in self?.pause() }
+        input.onPageTurn = { [weak self] direction in self?.cycleSpell(direction) }
+        voice.onDiagnostic = { [weak self] message in self?.speechDiagnostic = message }
         voice.onStatus = { [weak self] text, level in
             self?.voiceStatus = text; self?.microphoneLevel = level
         }
@@ -84,6 +95,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     func enterCourt() {
         guard phase == .menu, loadTask == nil else { return }
         phase = .loading; progress = 0; errorMessage = nil
+        activeMap = selectedMap; menuMusic?.stop()
         let token = UUID(); loadToken = token
         loadTask = Task { @MainActor [weak self] in
             guard let self else { return }
@@ -91,12 +103,21 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
             do {
                 let view = ARView(frame: .zero, cameraMode: .nonAR, automaticallyConfigureSession: false)
                 self.view = view
-                let builtArena = await ArenaBuilder.build(view: view) { [weak self] amount, text in
+                let report: (Double, String) async -> Void = { [weak self] amount, text in
                     if self?.loadToken == token {
                         self?.progress = amount; self?.loadingMessage = text
                     }
                     await Task.yield()
                 }
+                let builtArena: ArenaBuilder.Result
+                if self.activeMap == .volcano {
+                    builtArena = await VolcanoBuilder.build(view: view, progress: report)
+                    guard !Task.isCancelled, self.loadToken == token else { return }
+                    let renderer = try RetroRenderer(map: .volcano)
+                    self.retroRenderer = renderer
+                    renderer.update(camera: builtArena.camera.transform.matrix)
+                    view.renderCallbacks.postProcess = { context in renderer.render(context) }
+                } else { builtArena = await ArenaBuilder.build(view: view, progress: report) }
                 guard !Task.isCancelled, self.loadToken == token else { return }
                 self.arena = builtArena
                 let arena = builtArena
@@ -104,10 +125,11 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
                 self.rig = try RigFactory.make(camera: arena.camera)
                 self.rig?.book.onTranscript = { [weak self] text in self?.transcript = text }
                 guard let rig = self.rig else { return }
-                rig.controller.select(PrototypeContent.fireball)
+                rig.controller.select(PrototypeContent.definition(self.selectedSpell))
                 self.engine = SpellEngine(voice: self.voice, context: self, submitter: self,
-                    rig: rig.controller, spells: [.fireball: PrototypeContent.fireball]) { [weak self] message in
+                    rig: rig.controller, spells: PrototypeContent.spells) { [weak self] message in
                         self?.voiceStatus = message; self?.voiceActive = false
+                        self?.speechDiagnostic = message
                     }
                 self.prewarmEffects(root: arena.root)
                 self.activatePlayback()
@@ -122,10 +144,48 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
                 self.startFrames()
                 await self.enableVoice()
             } catch {
+                guard self.loadToken == token, !Task.isCancelled else { return }
                 self.errorMessage = "The court could not open: \(error.localizedDescription)"
                 self.leave()
             }
         }
+    }
+
+    func syncMenuMusic() {
+        guard phase == .menu, musicEnabled, applicationActive else { menuMusic?.pause(); return }
+        do {
+            try GameAudioSession.activate(recording: false)
+            if menuMusic == nil {
+                guard let url = Bundle.main.url(forResource: "menu", withExtension: "wav") else {
+                    audioStatus = "Menu music is missing from this build."; return
+                }
+                let player = try AVAudioPlayer(contentsOf: url)
+                player.numberOfLoops = -1; player.volume = 0.28; player.prepareToPlay()
+                menuMusic = player
+            }
+            if menuMusic?.isPlaying == false, menuMusic?.play() == false {
+                audioStatus = "Menu music could not start. Try Test sound in Settings."
+            }
+        } catch { audioStatus = "Menu audio: \(error.localizedDescription)" }
+    }
+
+    func applicationBecameActive() { applicationActive = true; syncMenuMusic() }
+
+    func selectSpell(_ spell: SpellID) {
+        guard phase == .playing, tick >= busyUntil else { return }
+        selectedSpell = spell; rig?.controller.select(PrototypeContent.definition(spell))
+    }
+
+    func cycleSpell(_ direction: Int) {
+        let all = SpellID.allCases
+        guard let index = all.firstIndex(of: selectedSpell) else { return }
+        selectSpell(all[(index + direction + all.count) % all.count])
+    }
+
+    func selectSpellFromVoice(_ spell: SpellID) -> Bool {
+        guard phase == .playing, health > 0, tick >= busyUntil else { return false }
+        selectSpell(spell)
+        return selectedSpell == spell
     }
 
     private func prewarmEffects(root: Entity) {
@@ -182,7 +242,8 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         position = [0, 1.65, 12]; yaw = 0; pitch = 0; defeated = 0
         health = PrototypeContent.stats(selectedClass).maximumHealth
         pending.removeAll(); casts.removeAll(); input.reset()
-        banner = "Speak FIREBALL. Banish the sentinels."; bannerUntil = 300
+        banner = activeMap == .volcano ? "Cross the bridges. Avoid the lava. Speak a spell." : "Speak a spell. Banish the sentinels."
+        bannerUntil = 300
     }
 
     func enableVoice() async {
@@ -214,6 +275,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     }
 
     func suspend() {
+        applicationActive = false; menuMusic?.pause()
         if phase == .loading { leave() } else { pause() }
     }
 
@@ -230,16 +292,18 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         engine?.stop(); engine = nil; voice.stop(); voiceActive = false
         link?.invalidate(); link = nil; frameDriver = nil
         view?.scene.anchors.removeAll(); view = nil; arena = nil; rig = nil
+        retroRenderer = nil
         projectiles.removeAll(); sparks.removeAll(); targets.removeAll()
         pending.removeAll(); casts.removeAll(); input.reset()
         for player in sound.values { player.stop() }
         sound.removeAll(); GameAudioSession.deactivate()
         phase = .menu
+        syncMenuMusic()
     }
 
     func currentCastContext() -> CastContext? {
         guard phase == .playing else { return nil }
-        return CastContext(matchEpoch: epoch, lifeID: life, clientTick: tick, selectedSpell: .fireball,
+        return CastContext(matchEpoch: epoch, lifeID: life, clientTick: tick, selectedSpell: selectedSpell,
             aim: Aim(yaw: yaw, pitch: pitch),
             canAttemptCast: health > 0 && tick >= readyAt && tick >= busyUntil)
     }
@@ -274,14 +338,16 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         let bob: Float = reducedMotion ? 0 : sin(Float(tick) * 0.13) * min(1, simd_length(movement)) * 0.018
         arena.camera.position = position + [0, bob, 0]
         arena.camera.orientation = simd_quatf(angle: yaw, axis: [0, 1, 0]) * simd_quatf(angle: pitch, axis: [1, 0, 0])
+        retroRenderer?.update(camera: arena.camera.transform.matrix)
         rig?.controller.update(authorityTick: tick)
         rig?.hand.update(delta: Float(dt), motion: !reducedMotion)
+        rig?.book.update(delta: Float(dt), motion: !reducedMotion)
         engine?.update()
         for (i, wisp) in arena.wisps.enumerated() where !reducedMotion {
             wisp.position.y += sin(Float(tick) * 0.012 + Float(i)) * Float(dt) * 0.13
         }
         if tick % 6 == 0 {
-            let duration = Float(PrototypeContent.fireball.baseCooldownTicks) * PrototypeContent.stats(selectedClass).cooldownMultiplier
+            let duration = Float(PrototypeContent.definition(selectedSpell).baseCooldownTicks) * PrototypeContent.stats(selectedClass).cooldownMultiplier
             cooldown = tick >= readyAt ? 0 : min(1, Float(readyAt - tick) / duration)
         }
         if hitFlash > 0 { hitFlash = max(0, hitFlash - Float(dt) * 2.5) }
@@ -294,24 +360,38 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         let planar = SIMD3<Float>(movement.x * cos(yaw) - movement.y * sin(yaw), 0,
                                   -movement.x * sin(yaw) - movement.y * cos(yaw))
         position = ArenaMath.move(from: position, delta: planar * (stats.moveSpeedMetersPerSecond / 60), solids: arena.solids)
+        if activeMap == .volcano, VolcanoLayout.isLava(position) {
+            health = max(0, health - 24.0 / 60)
+            if tick % 30 == 0 { hitFlash = 0.6; play("hurt"); banner = "LAVA BURNS · Find a stone bridge"; bannerUntil = tick + 45 }
+        }
         let intents = pending; pending.removeAll(keepingCapacity: true)
         for intent in intents {
             guard intent.matchEpoch == epoch, intent.lifeID == life else { continue }
-            if intent.spell != .fireball || !intent.aim.isFinite || tick < readyAt || tick < busyUntil || health <= 0 {
+            guard let spell = PrototypeContent.spells[intent.spell] else {
+                engine?.resolve(.rejected(id: intent.id, epoch: epoch, lifeID: life, reason: .invalidSpell)); continue
+            }
+            if !intent.aim.isFinite || tick < readyAt || tick < busyUntil || health <= 0 {
                 engine?.resolve(.rejected(id: intent.id, epoch: epoch, lifeID: life, reason: .cooldown)); continue
             }
-            readyAt = tick + Tick(ceil(Float(PrototypeContent.fireball.baseCooldownTicks) * stats.cooldownMultiplier))
-            busyUntil = tick + PrototypeContent.fireball.windupTicks
+            readyAt = tick + Tick(ceil(Float(spell.baseCooldownTicks) * stats.cooldownMultiplier))
+            busyUntil = tick + spell.windupTicks
             casts.append((intent, busyUntil))
             engine?.resolve(.accepted(CastAccepted(castID: intent.id, matchEpoch: epoch, lifeID: life,
                 acceptedAtTick: tick, releaseAtTick: busyUntil, cooldownEndsAtTick: readyAt)))
         }
         for cast in casts where cast.release <= tick {
+            let spell = PrototypeContent.definition(cast.intent.spell)
             let direction = ArenaMath.forward(yaw: cast.intent.aim.yaw, pitch: cast.intent.aim.pitch)
             let muzzle = position + direction * 0.55 + [0.14 * cos(yaw), -0.10, -0.14 * sin(yaw)]
             if arena.solids.contains(where: { ArenaMath.segmentHit(from: position, to: muzzle, solid: $0, radius: 0.2) != nil }) {
                 impact(at: position + direction * 0.3, hostile: false)
-            } else { spawn(at: muzzle, velocity: direction * 24, hostile: false) }
+            } else {
+                let spread: [Float] = spell.id == .iceShards ? [-0.065, 0, 0.065] : [0]
+                for offset in spread {
+                    let aim = ArenaMath.forward(yaw: cast.intent.aim.yaw + offset, pitch: cast.intent.aim.pitch)
+                    spawn(at: muzzle, velocity: aim * spell.projectile.speedMetersPerSecond, hostile: false, spell: spell.id)
+                }
+            }
             play("cast"); UIImpactFeedbackGenerator(style: .light).impactOccurred()
         }
         casts.removeAll { $0.release <= tick }
@@ -335,18 +415,28 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         if tick > bannerUntil && !banner.isEmpty { banner = "" }
     }
 
-    private func spawn(at position: SIMD3<Float>, velocity: SIMD3<Float>, hostile: Bool) {
+    private func spawn(at position: SIMD3<Float>, velocity: SIMD3<Float>, hostile: Bool, spell: SpellID = .fireball) {
         guard let i = projectiles.firstIndex(where: { !$0.entity.isEnabled }) else { return }
         projectiles[i].entity.position = position; projectiles[i].entity.isEnabled = true
         if let model = projectiles[i].entity as? ModelEntity {
-            model.model?.materials = [UnlitMaterial(color: hostile ? UIColor(red: 0.65, green: 0.35, blue: 1, alpha: 1) : .orange)]
+            model.model?.materials = [UnlitMaterial(color: hostile ? .purple : spell.color)]
         }
-        projectiles[i].velocity = velocity; projectiles[i].hostile = hostile; projectiles[i].expires = tick + 220
+        let definition = PrototypeContent.definition(spell).projectile
+        let radius: Float = hostile ? 0.19 : definition.radiusMeters
+        projectiles[i].entity.scale = SIMD3(repeating: radius / 0.19)
+        if !hostile && spell == .iceShards { projectiles[i].entity.scale.z *= 2.3 }
+        projectiles[i].entity.orientation = simd_quatf(from: SIMD3<Float>(0, 0, 1), to: simd_normalize(velocity))
+        projectiles[i].spell = spell
+        projectiles[i].velocity = velocity; projectiles[i].hostile = hostile
+        projectiles[i].expires = tick + (hostile ? 220 : definition.lifetimeTicks)
     }
 
     private func updateProjectiles() {
         guard let arena else { return }
         for i in projectiles.indices where projectiles[i].entity.isEnabled {
+            let spell = PrototypeContent.definition(projectiles[i].spell).projectile
+            let radius: Float = projectiles[i].hostile ? 0.19 : spell.radiusMeters
+            if !projectiles[i].hostile { projectiles[i].velocity.y -= spell.gravityMetersPerSecondSquared / 60 }
             let a = projectiles[i].entity.position, b = a + projectiles[i].velocity / 60
             if tick >= projectiles[i].expires || b.y < 0 || abs(b.x) > 25 || abs(b.z) > 25 {
                 projectiles[i].entity.isEnabled = false; continue
@@ -354,7 +444,7 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
             var firstHit: Float = 2
             var targetIndex: Int?
             for solid in arena.solids {
-                if let t = ArenaMath.segmentHit(from: a, to: b, solid: solid, radius: 0.19) { firstHit = min(firstHit, t) }
+                if let t = ArenaMath.segmentHit(from: a, to: b, solid: solid, radius: radius) { firstHit = min(firstHit, t) }
             }
             if projectiles[i].hostile {
                 if let t = ArenaMath.segmentSphere(from: a, to: b, center: position - [0, 0.4, 0], radius: 0.65), t < firstHit {
@@ -362,32 +452,32 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
                 }
             } else {
                 for j in targets.indices where targets[j].health > 0 {
-                    if let t = ArenaMath.segmentSphere(from: a, to: b, center: targets[j].position + [0, 1.15, 0], radius: 0.85), t < firstHit {
+                    if let t = ArenaMath.segmentSphere(from: a, to: b, center: targets[j].position + [0, 1.15, 0], radius: 0.65 + radius), t < firstHit {
                         firstHit = t; targetIndex = j
                     }
                 }
             }
             if firstHit <= 1 {
                 let hit = a + (b - a) * firstHit
-                impact(at: hit, hostile: projectiles[i].hostile)
+                impact(at: hit, hostile: projectiles[i].hostile, spell: projectiles[i].spell)
                 projectiles[i].entity.isEnabled = false
                 if let j = targetIndex {
-                    targets[j].health -= 50; play("impact")
+                    targets[j].health -= spell.damage; play("impact")
                     if targets[j].health <= 0 {
                         targets[j].entity.isEnabled = false; targets[j].respawn = tick + 360; defeated += 1
                         if defeated == 10 { banner = "TRIAL MASTERED · The court knows your name."; bannerUntil = tick + 300 }
-                    } else { banner = "Sentinel struck · 50 damage"; bannerUntil = tick + 50 }
+                    } else { banner = "Sentinel struck · \(Int(spell.damage)) damage"; bannerUntil = tick + 50 }
                 }
             } else { projectiles[i].entity.position = b }
         }
         if health <= 0 { respawn() }
     }
 
-    private func impact(at p: SIMD3<Float>, hostile: Bool) {
+    private func impact(at p: SIMD3<Float>, hostile: Bool, spell: SpellID = .fireball) {
         guard let i = sparks.firstIndex(where: { !$0.entity.isEnabled }) else { return }
         sparks[i].entity.position = p; sparks[i].entity.scale = SIMD3(repeating: 0.35)
         sparks[i].entity.isEnabled = true; sparks[i].expires = tick + 14
-        if let model = sparks[i].entity as? ModelEntity { model.model?.materials = [UnlitMaterial(color: hostile ? .purple : .orange)] }
+        if let model = sparks[i].entity as? ModelEntity { model.model?.materials = [UnlitMaterial(color: hostile ? .purple : spell.color)] }
     }
 
     private func respawn() {

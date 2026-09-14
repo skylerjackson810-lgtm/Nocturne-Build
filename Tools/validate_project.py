@@ -43,7 +43,7 @@ for path in root.rglob('Contents.json'):
  data=json.loads(path.read_text())
  for image in data.get('images',[]):
   if 'filename' in image:assert (path.parent/image['filename']).is_file()
-audio_paths={root/'Resources'/f'{name}.wav' for name in ['cast','impact','hurt']}
+audio_paths={root/'Resources'/f'{name}.wav' for name in ['cast','impact','hurt','menu']}
 bundled_refs={objects[file_id]['fileRef'] for obj in objects.values()
               if obj['isa']=='PBXResourcesBuildPhase' for file_id in obj['files']}
 bundled_paths={root/objects[ref]['path'] for ref in bundled_refs}
@@ -54,10 +54,17 @@ for p in audio_paths:
   samples=array.array('h',sound.readframes(sound.getnframes()))
   if sys.byteorder != 'little':samples.byteswap()
   assert max(abs(sample) for sample in samples)>1000, f'Inaudible sound asset: {p}'
+  if p.stem=='menu':
+   assert sound.getnframes()/sound.getframerate()==32
+   assert abs(samples[0])<100 and abs(samples[-1])<100, 'Music loop must not click at its boundary'
+source_refs={objects[file_id]['fileRef'] for obj in objects.values()
+             if obj['isa']=='PBXSourcesBuildPhase' for file_id in obj['files']}
+assert any(objects[ref].get('path')=='Game/RetroShaders.metal' for ref in source_refs), 'Metal shader must compile into default.metallib'
 scheme=ET.parse(root/'Nocturne.xcodeproj/xcshareddata/xcschemes/Nocturne.xcscheme')
 for ref in scheme.findall('.//BuildableReference'):assert ref.attrib['BlueprintIdentifier'] in objects
 info=plistlib.loads((root/'Info.plist').read_bytes())
 assert 'NSMicrophoneUsageDescription' in info and 'NSSpeechRecognitionUsageDescription' in info
 assert all('Landscape' in x for x in info['UISupportedInterfaceOrientations'])
+assert info['CFBundleShortVersionString']=='0.3.0' and info['CFBundleVersion']=='3'
 print(json.dumps({'swift_grammar_files':len(source_paths),'swift_syntax_errors':len(errors),'xcode_objects':len(objects),
 'file_references':'all resolved','plists_assets_audio_scheme':'valid','native_compilation':'not available','native_xctests':'not executed'},indent=2))

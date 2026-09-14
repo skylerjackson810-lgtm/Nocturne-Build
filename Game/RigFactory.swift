@@ -5,27 +5,52 @@ import simd
 @MainActor
 final class BookDriver: BookVisualDriving {
     let page: ModelEntity
-    private let idleMaterial: UnlitMaterial
-    private let activeMaterial: UnlitMaterial
+    private let leftPage: ModelEntity
+    private var materials: [String: UnlitMaterial] = [:]
+    private var selectedPage = ""
+    private var flipTime: Float = 0
+    private var pendingMaterial: UnlitMaterial?
     var onTranscript: ((String) -> Void)?
 
-    init(page: ModelEntity) throws {
-        self.page = page
-        idleMaterial = try Self.pageMaterial(active: false)
-        activeMaterial = try Self.pageMaterial(active: true)
-        page.model?.materials = [activeMaterial]
+    init(page: ModelEntity, leftPage: ModelEntity) throws {
+        self.page = page; self.leftPage = leftPage
+        for spell in PrototypeContent.spellbook {
+            materials[spell.presentation.bookPage] = try Self.pageMaterial(spell: spell)
+        }
+        show(page: "ignis", highlight: "FIREBALL")
+        flipTime = 0
+        if let initial = materials["ignis"] {
+            page.model?.materials = [initial]; leftPage.model?.materials = [initial]
+        }
     }
 
-    func show(page: String, highlight: String) { self.page.model?.materials = [activeMaterial] }
+    func show(page: String, highlight: String) {
+        guard page != selectedPage, let material = materials[page] else { return }
+        selectedPage = page; pendingMaterial = material; flipTime = 0.3
+    }
+    func update(delta: Float, motion: Bool) {
+        guard flipTime > 0 else { return }
+        flipTime = max(0, flipTime - delta)
+        let progress = 1 - flipTime / 0.3
+        if progress >= 0.5, let material = pendingMaterial {
+            page.model?.materials = [material]; leftPage.model?.materials = [material]
+            pendingMaterial = nil
+        }
+        let angle = motion ? sin(progress * .pi) * 1.3 : 0
+        page.orientation = simd_quatf(angle: angle, axis: [0, 0, 1])
+        page.position = [0.124 * cos(angle), 0.043 + 0.124 * sin(angle), 0]
+    }
     func showTranscript(_ text: String) { onTranscript?(text) }
 
-    private static func pageMaterial(active: Bool) throws -> UnlitMaterial {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 640))
+    private static func pageMaterial(spell: SpellDefinition) throws -> UnlitMaterial {
+        let format = UIGraphicsImageRendererFormat(); format.scale = 1
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 256, height: 320), format: format)
         let image = renderer.image { context in
+            context.cgContext.scaleBy(x: 0.5, y: 0.5)
             UIColor(red: 0.74, green: 0.67, blue: 0.50, alpha: 1).setFill()
             context.fill(CGRect(x: 0, y: 0, width: 512, height: 640))
             let ink = UIColor(red: 0.20, green: 0.13, blue: 0.16, alpha: 1)
-            let gold = UIColor(red: 0.58, green: 0.28, blue: 0.12, alpha: 1)
+            let gold = spell.id.color
             func text(_ value: String, _ y: CGFloat, _ size: CGFloat, _ color: UIColor) {
                 let paragraph = NSMutableParagraphStyle(); paragraph.alignment = .center
                 (value as NSString).draw(in: CGRect(x: 28, y: y, width: 456, height: size * 2),
@@ -34,17 +59,12 @@ final class BookDriver: BookVisualDriving {
             }
             ink.setStroke(); context.cgContext.setLineWidth(2)
             context.cgContext.stroke(CGRect(x: 22, y: 22, width: 468, height: 596))
-            text("THE FIRST INCANTATION", 52, 20, ink)
-            text("IGNIS", 95, 52, ink)
-            let circle = CGRect(x: 147, y: 196, width: 218, height: 218)
-            gold.setStroke(); context.cgContext.setLineWidth(4); context.cgContext.strokeEllipse(in: circle)
-            context.cgContext.move(to: CGPoint(x: 256, y: 210))
-            context.cgContext.addLine(to: CGPoint(x: 174, y: 367))
-            context.cgContext.addLine(to: CGPoint(x: 338, y: 367))
-            context.cgContext.closePath(); context.cgContext.strokePath()
+            text("INCANTATION  \(spell.id.rawValue)  /  IV", 52, 20, ink)
+            text(spell.presentation.bookPage.uppercased(), 95, 52, ink)
+            SpellArtwork.icon(spell.id).draw(in: CGRect(x: 142, y: 192, width: 228, height: 228))
             text("SPEAK", 442, 19, ink)
-            text("FIREBALL", 478, 42, active ? gold : ink)
-            text("Let the silence become flame.", 560, 19, ink)
+            text(spell.presentation.highlightedTextKey, 478, 38, gold)
+            text(spell.id.description, 560, 17, ink)
         }
         guard let cg = image.cgImage else { throw CocoaError(.fileReadCorruptFile) }
         let texture = try TextureResource.generate(from: cg, options: .init(semantic: .color))
@@ -74,6 +94,10 @@ final class HandDriver: HandVisualDriving {
     }
     func beginCharge(effect: String, attachedTo socket: Entity) {
         active = true; phase = 0; releasing = 0
+        let spell = PrototypeContent.spellbook.first { $0.presentation.chargeEffect == effect }?.id ?? .fireball
+        for child in charge.children {
+            (child as? ModelEntity)?.model?.materials = [UnlitMaterial(color: spell.color)]
+        }
         charge.removeFromParent(); socket.addChild(charge); charge.isEnabled = true
     }
     func release(animation: String) { active = false; charge.isEnabled = false; releasing = 0.24 }
@@ -118,8 +142,8 @@ enum RigFactory {
         let page = ModelEntity(mesh: .generatePlane(width: 0.23, depth: 0.29), materials: [])
         page.position = [0.124, 0.043, 0]
         bookRoot.addChild(page)
-        let book = try BookDriver(page: page)
         let leftPage = page.clone(recursive: false); leftPage.position.x = -0.124; bookRoot.addChild(leftPage)
+        let book = try BookDriver(page: page, leftPage: leftPage)
         // Dark glove beneath the book, robe sleeve and articulated right-hand silhouette.
         let glove = UIColor(red: 0.21, green: 0.15, blue: 0.24, alpha: 1)
         let sleeve = UIColor(red: 0.055, green: 0.035, blue: 0.11, alpha: 1)

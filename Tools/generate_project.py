@@ -11,7 +11,7 @@ launch=assets/'LaunchBackground.colorset'; launch.mkdir(exist_ok=True)
 (launch/'Contents.json').write_text(json.dumps({'colors':[{'idiom':'universal','color':{'color-space':'srgb','components':{'alpha':'1.000','red':'0.025','green':'0.025','blue':'0.055'}}}],'info':{'author':'xcode','version':1}},indent=2))
 info={'CFBundleDevelopmentRegion':'en','CFBundleDisplayName':'Nocturne','CFBundleExecutable':'$(EXECUTABLE_NAME)',
 'CFBundleIdentifier':'$(PRODUCT_BUNDLE_IDENTIFIER)','CFBundleInfoDictionaryVersion':'6.0','CFBundleName':'$(PRODUCT_NAME)',
-'CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.1.0','CFBundleVersion':'1','LSRequiresIPhoneOS':True,
+'CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.3.0','CFBundleVersion':'3','LSRequiresIPhoneOS':True,
 'UILaunchScreen':{'UIColorName':'LaunchBackground'},'UIRequiresFullScreen':True,'UIStatusBarHidden':True,
 'UISupportedInterfaceOrientations':['UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],
 'UISupportedInterfaceOrientations~ipad':['UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],
@@ -31,6 +31,24 @@ for key,duration in [('cast',0.4),('impact',0.2),('hurt',0.18)]:
   samples.append(struct.pack('<h',int(max(-1,min(1,value))*16000)))
  with wave.open(str(app/'Resources'/f'{key}.wav'),'wb') as w:
   w.setnchannels(1);w.setsampwidth(2);w.setframerate(sample_rate);w.writeframes(b''.join(samples))
+# Original 32-second minor-key ambient loop: drones, soft chord pads, and bells.
+# No external recordings, speech, or licensed music. Deterministic and click-free.
+rate=22050; duration=32; notes=[74,77,81,76,72,69,65,69,74,77,79,72,69,65,64,69]
+chords=[(50,53,57),(46,50,53),(48,52,55),(45,49,52)]
+music=bytearray()
+def hz(midi): return 440*2**((midi-69)/12)
+for n in range(rate*duration):
+ t=n/rate; bar=int(t/8); local=t%8
+ pad=sum(math.sin(2*math.pi*hz(note)*t)+0.22*math.sin(2*math.pi*hz(note)*2.003*t)
+         for note in chords[bar])*0.055*math.sin(math.pi*local/8)**0.7
+ event=int(t/2); age=t%2; bell_freq=hz(notes[event])
+ bell=(math.sin(2*math.pi*bell_freq*age)+0.25*math.sin(2*math.pi*bell_freq*2.76*age))*math.exp(-age*2.8)*min(1,age/0.012)*0.2
+ drone=(math.sin(2*math.pi*73.416*t)+0.45*math.sin(2*math.pi*110*t))*0.07
+ fade=min(1,t/0.12,(duration-t)/0.12)
+ value=(pad+bell+drone)*fade
+ music.extend(struct.pack('<h',int(max(-1,min(1,value))*28000)))
+with wave.open(str(app/'Resources/menu.wav'),'wb') as w:
+ w.setnchannels(1);w.setsampwidth(2);w.setframerate(rate);w.writeframes(music)
 def ident(value): return hashlib.sha256(value.encode()).hexdigest()[:24].upper()
 objects={}
 def add(keyname,isa,**fields):
@@ -40,11 +58,11 @@ app_product=add('app-product','PBXFileReference',explicitFileType='wrapper.appli
 test_product=add('test-product','PBXFileReference',explicitFileType='wrapper.cfbundle',includeInIndex='0',path='NocturneTests.xctest',sourceTree='BUILT_PRODUCTS_DIR')
 source_refs=[];source_build=[]
 source_directories = ['App', 'Game', 'Gameplay', 'Platform', 'UI']
-for p in sorted(file for directory in source_directories for file in (app/directory).rglob('*.swift')):
- rel=str(p.relative_to(app)); ref=add('source-ref-'+rel,'PBXFileReference',lastKnownFileType='sourcecode.swift',path=rel,sourceTree='<group>')
+for p in sorted(file for directory in source_directories for file in (app/directory).rglob('*') if file.suffix in ['.swift','.metal']):
+ rel=str(p.relative_to(app)); ref=add('source-ref-'+rel,'PBXFileReference',lastKnownFileType='sourcecode.metal' if p.suffix=='.metal' else 'sourcecode.swift',path=rel,sourceTree='<group>')
  source_refs.append(ref);source_build.append(add('source-build-'+rel,'PBXBuildFile',fileRef=ref))
 resource_refs=[]; resource_build=[]
-for rel,kind in [('Resources/Assets.xcassets','folder.assetcatalog')]+[(f'Resources/{n}.wav','audio.wav') for n in ['cast','impact','hurt']]:
+for rel,kind in [('Resources/Assets.xcassets','folder.assetcatalog')]+[(f'Resources/{n}.wav','audio.wav') for n in ['cast','impact','hurt','menu']]:
  ref=add('resource-ref-'+rel,'PBXFileReference',lastKnownFileType=kind,path=rel,sourceTree='<group>')
  resource_refs.append(ref);resource_build.append(add('resource-build-'+rel,'PBXBuildFile',fileRef=ref))
 plist_ref=add('info-plist','PBXFileReference',lastKnownFileType='text.plist.xml',path='Info.plist',sourceTree='<group>')
@@ -99,4 +117,4 @@ scheme=f'''<?xml version="1.0" encoding="UTF-8"?>
 <AnalyzeAction buildConfiguration="Debug"/><ArchiveAction buildConfiguration="Release" revealArchiveInOrganizer="YES"/>
 </Scheme>'''
 (root/'Nocturne.xcodeproj/xcshareddata/xcschemes/Nocturne.xcscheme').write_text(scheme)
-print(f'Generated Xcode project: {len(source_refs)} Swift application files, {len(test_refs)} tests, {len(resource_refs)} bundled resources.')
+print(f'Generated Xcode project: {len(source_refs)} application source files (Swift + Metal), {len(test_refs)} test files, {len(resource_refs)} bundled resources.')

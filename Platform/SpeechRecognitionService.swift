@@ -9,6 +9,15 @@ enum SpeechRoutePolicy {
     }
 }
 
+enum SpeechRetryPolicy {
+    static func delay(domain: String, code: Int, consecutiveFailures: Int) -> Double? {
+        // Apple's on-device recognizer reports an empty/no-speech task as 1110.
+        if domain == "kAFAssistantErrorDomain" && code == 1110 { return 0.4 }
+        guard consecutiveFailures < 3 else { return nil }
+        return 0.35 * Double(consecutiveFailures + 1)
+    }
+}
+
 // The game owns playback; stopping speech must never deactivate spell sounds.
 @MainActor
 enum GameAudioSession {
@@ -79,6 +88,7 @@ final class SpeechRecognitionService: VoiceRecognizing {
     }
 
     var onStatus: ((String, Float) -> Void)?
+    var onDiagnostic: ((String) -> Void)?
     private var audioEngine = AVAudioEngine()
     private let bridge = SpeechAudioBridge()
     private var recognizer: SFSpeechRecognizer?
@@ -97,6 +107,11 @@ final class SpeechRecognitionService: VoiceRecognizing {
     private var locale = "en-US"
     private var phrases: [String] = []
     private var inputSignature = ""
+    private var restartTask: Task<Void, Never>?
+    private var consecutiveFailures = 0
+    private var firstTranscriptAt: TimeInterval = 0
+    private var transcriptAudioAt: TimeInterval = 0
+    private var captureRestarts = 0
 
     static var permissionHelp: String {
         if AVAudioApplication.shared.recordPermission != .granted {
@@ -120,6 +135,8 @@ final class SpeechRecognitionService: VoiceRecognizing {
         var started = false
         defer { if !started { stop() } }
         self.session = session; self.locale = locale; self.phrases = phrases; utterance = 0
+        consecutiveFailures = 0
+        captureRestarts = 0
         let (recognizer, _) = try OnDeviceSpeechRequest.make(locale: locale, phrases: phrases)
         self.recognizer = recognizer
         try GameAudioSession.activate(recording: true)
@@ -184,6 +201,7 @@ final class SpeechRecognitionService: VoiceRecognizing {
     }
 
     private func restartCapture() {
+        restartTask?.cancel(); restartTask = nil
         taskToken = UUID()
         bridge.replace(nil)
         recognitionTask?.cancel(); recognitionTask = nil
@@ -207,6 +225,7 @@ final class SpeechRecognitionService: VoiceRecognizing {
         guard session != nil, let recognizer else { return }
         taskToken = UUID(); let token = taskToken
         finalizing = false; endTimestamp = 0
+        firstTranscriptAt = 0; transcriptAudioAt = 0
         taskStarted = ProcessInfo.processInfo.systemUptime
         let request = SFSpeechAudioBufferRecognitionRequest()
         request.requiresOnDeviceRecognition = true
@@ -220,39 +239,77 @@ final class SpeechRecognitionService: VoiceRecognizing {
             let text = result?.bestTranscription.formattedString
             let isFinal = result?.isFinal ?? false
             let message = error?.localizedDescription
-            Task { @MainActor in self?.recognition(token: token, text: text, isFinal: isFinal, error: message) }
+            let code = (error as NSError?)?.code ?? 0
+            let domain = (error as NSError?)?.domain ?? ""
+            Task { @MainActor in
+                self?.recognition(token: token, text: text, isFinal: isFinal,
+                                  error: message, domain: domain, code: code)
+            }
         }
-        onStatus?("Listening · say Fireball", 0)
+        onStatus?("Listening · speak a spell", 0)
     }
 
-    private func recognition(token: UUID, text: String?, isFinal: Bool, error: String?) {
+    private func recognition(token: UUID, text: String?, isFinal: Bool, error: String?, domain: String, code: Int) {
         guard token == taskToken, let session else { return }
         if isFinal {
             let audio = bridge.sample()
             // Quiet but recognized speech is valid; an amplitude threshold is not authorization.
             let capturedAt = endTimestamp > 0 ? endTimestamp : (audio.last > 0 ? audio.last : audio.buffer)
             if let text, !text.isEmpty, capturedAt > 0 {
+                consecutiveFailures = 0
+                captureRestarts = 0
                 utterance += 1
                 emit(.final(session: session, utterance: utterance, text: text, capturedAt: capturedAt))
             }
-            rotate()
+            rotate(delay: 0.18, cancelCurrent: false)
         } else if let error {
-            fail("Speech interrupted: \(error). Tap the microphone to retry.")
-        } else if let text {
+            recover(message: error, domain: domain, code: code)
+        } else if let text, !text.isEmpty {
+            if firstTranscriptAt == 0 { firstTranscriptAt = ProcessInfo.processInfo.systemUptime }
+            transcriptAudioAt = bridge.sample().buffer
             emit(.partial(session: session, text: String(text.prefix(128))))
         }
     }
 
+    private func recover(message: String, domain: String, code: Int) {
+        let details = "\(domain) (\(code)): \(message)"
+        onDiagnostic?(details)
+        guard SFSpeechRecognizer.authorizationStatus() == .authorized,
+              AVAudioApplication.shared.recordPermission == .granted else {
+            fail(Self.permissionHelp); return
+        }
+        guard let delay = SpeechRetryPolicy.delay(domain: domain, code: code,
+                                                   consecutiveFailures: consecutiveFailures) else {
+            fail("Speech could not reconnect. Tap the microphone to retry. \(details)")
+            return
+        }
+        if !(domain == "kAFAssistantErrorDomain" && code == 1110) { consecutiveFailures += 1 }
+        rotate(delay: delay)
+        onStatus?("Reconnecting speech…", 0)
+    }
+
     private func inspectAudio() {
-        guard session != nil else { return }
+        guard session != nil, restartTask == nil else { return }
+        if !audioEngine.isRunning {
+            guard captureRestarts < 3 else {
+                fail("Microphone capture stopped repeatedly. Tap to retry and check the selected audio input.")
+                return
+            }
+            captureRestarts += 1
+            onDiagnostic?("Capture engine stopped; rebuilding input (attempt \(captureRestarts)).")
+            restartCapture()
+            return
+        }
         let now = ProcessInfo.processInfo.systemUptime
         let audio = bridge.sample()
-        onStatus?(finalizing ? "Reading incantation…" : "Listening · say Fireball", min(1, sqrt(audio.level) * 3))
+        onStatus?(finalizing ? "Reading incantation…" : "Listening · speak a spell", min(1, sqrt(audio.level) * 3))
         if finalizing {
-            if now - endTimestamp > 4 { fail("Recognition timed out. Tap the microphone to retry.") }
-        } else if audio.first > 0 && ((now - audio.last > 0.42 && audio.last - audio.first > 0.08) || now - audio.first > 3) {
+            if now - endTimestamp > 4 { recover(message: "Final result timed out", domain: "NocturneSpeech", code: 1) }
+        } else if firstTranscriptAt > 0 &&
+                    ((now - max(audio.last, transcriptAudioAt) > 0.5) || now - firstTranscriptAt > 3) {
+            // A cast sound alone must not close an empty recognition request.
             finalizing = true
-            endTimestamp = audio.last
+            endTimestamp = max(audio.last, transcriptAudioAt)
             bridge.replace(nil) // No appends after endAudio.
             request?.endAudio()
         } else if now - taskStarted > 40 {
@@ -260,13 +317,23 @@ final class SpeechRecognitionService: VoiceRecognizing {
         }
     }
 
-    private func rotate() {
-        guard session != nil else { return }
+    private func rotate(delay: Double = 0.18, cancelCurrent: Bool = true) {
+        guard let expected = session else { return }
+        restartTask?.cancel()
         taskToken = UUID()
         bridge.replace(nil)
-        recognitionTask?.cancel(); recognitionTask = nil
+        request?.endAudio()
+        // Don't cancel a task that already delivered its final result.
+        if cancelCurrent && recognitionTask?.state != .completed { recognitionTask?.cancel() }
+        recognitionTask = nil
         request = nil
-        beginUtterance()
+        restartTask = Task { @MainActor [weak self] in
+            do { try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000)) }
+            catch { return }
+            guard let self, self.session == expected, !Task.isCancelled else { return }
+            self.restartTask = nil
+            self.beginUtterance()
+        }
     }
 
     private func emit(_ event: VoiceEvent) {
@@ -285,6 +352,7 @@ final class SpeechRecognitionService: VoiceRecognizing {
 
     func stop() {
         session = nil; taskToken = UUID()
+        restartTask?.cancel(); restartTask = nil
         timer?.invalidate(); timer = nil
         for observer in observers { NotificationCenter.default.removeObserver(observer) }
         observers.removeAll()
