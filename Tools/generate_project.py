@@ -11,7 +11,7 @@ launch=assets/'LaunchBackground.colorset'; launch.mkdir(exist_ok=True)
 (launch/'Contents.json').write_text(json.dumps({'colors':[{'idiom':'universal','color':{'color-space':'srgb','components':{'alpha':'1.000','red':'0.025','green':'0.025','blue':'0.055'}}}],'info':{'author':'xcode','version':1}},indent=2))
 info={'CFBundleDevelopmentRegion':'en','CFBundleDisplayName':'Nocturne','CFBundleExecutable':'$(EXECUTABLE_NAME)',
 'CFBundleIdentifier':'$(PRODUCT_BUNDLE_IDENTIFIER)','CFBundleInfoDictionaryVersion':'6.0','CFBundleName':'$(PRODUCT_NAME)',
-'CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.4.1','CFBundleVersion':'5','LSRequiresIPhoneOS':True,
+'CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.5.0','CFBundleVersion':'6','LSRequiresIPhoneOS':True,
 'UILaunchScreen':{'UIColorName':'LaunchBackground'},'UIRequiresFullScreen':True,'UIStatusBarHidden':True,
 'UISupportedInterfaceOrientations':['UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],
 'UISupportedInterfaceOrientations~ipad':['UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],
@@ -62,7 +62,7 @@ for p in sorted(file for directory in source_directories for file in (app/direct
  rel=str(p.relative_to(app)); ref=add('source-ref-'+rel,'PBXFileReference',lastKnownFileType='sourcecode.metal' if p.suffix=='.metal' else 'sourcecode.swift',path=rel,sourceTree='<group>')
  source_refs.append(ref);source_build.append(add('source-build-'+rel,'PBXBuildFile',fileRef=ref))
 resource_refs=[]; resource_build=[]
-for rel,kind in [('Resources/Assets.xcassets','folder.assetcatalog'),('Resources/Castle.usdz','file.usdz')]+[(f'Resources/{n}.wav','audio.wav') for n in ['cast','impact','hurt','menu']]:
+for rel,kind in [('Resources/Assets.xcassets','folder.assetcatalog'),('Resources/Castle.usdz','file.usdz'),('Resources/TerrainRock.jpg','image.jpeg')]+[(f'Resources/{n}.wav','audio.wav') for n in ['cast','impact','hurt','menu']]:
  ref=add('resource-ref-'+rel,'PBXFileReference',lastKnownFileType=kind,path=rel,sourceTree='<group>')
  resource_refs.append(ref);resource_build.append(add('resource-build-'+rel,'PBXBuildFile',fileRef=ref))
 plist_ref=add('info-plist','PBXFileReference',lastKnownFileType='text.plist.xml',path='Info.plist',sourceTree='<group>')

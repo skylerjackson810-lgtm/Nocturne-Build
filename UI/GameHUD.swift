@@ -50,7 +50,7 @@ struct GameHUD: View {
                     HStack(alignment: .bottom) {
                         MovementStick(input: session.input)
                         Spacer()
-                        VStack(spacing: 7) {
+                        VStack(spacing: 3) {
                             HStack(spacing: 4) {
                                 Button { session.cycleSpell(-1) } label: {
                                     Image(systemName: "chevron.left").frame(width: 36, height: 44)
@@ -65,36 +65,27 @@ struct GameHUD: View {
                                 Button { session.cycleSpell(1) } label: {
                                     Image(systemName: "chevron.right").frame(width: 36, height: 44)
                                 }.accessibilityLabel("Next spell page")
-                            }.buttonStyle(.plain).background(WizardTheme.ink.opacity(0.7))
-                            Text(session.cooldown > 0 ? "MAGIC RECOVERING" : "SPEAK  ‘\(session.selectedSpell.title.uppercased())’")
-                                .font(.system(size: 10, weight: .medium)).tracking(2).foregroundStyle(WizardTheme.parchment)
-                            GeometryReader { bar in
-                                ZStack(alignment: .leading) {
-                                    Rectangle().fill(WizardTheme.gold.opacity(0.16))
-                                    Rectangle().fill(WizardTheme.gold).frame(width: bar.size.width * CGFloat(1 - session.cooldown))
+                            }.buttonStyle(.plain).background(RoundedRectangle(cornerRadius: 14).fill(WizardTheme.ink.opacity(0.36)))
+                            HStack(spacing: 10) {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(session.cooldown > 0 ? "RECOVERING" : "SAY \(session.selectedSpell.title.uppercased())")
+                                        .font(.system(size: 9, weight: .medium)).tracking(1)
+                                    GeometryReader { bar in
+                                        ZStack(alignment: .leading) {
+                                            Capsule().fill(WizardTheme.gold.opacity(0.16))
+                                            Capsule().fill(WizardTheme.gold).frame(width: bar.size.width * CGFloat(1 - session.cooldown))
+                                        }
+                                    }.frame(width: 145, height: 2)
                                 }
-                            }.frame(width: 130, height: 2)
-                            if !session.transcript.isEmpty {
-                                Text(session.transcript).font(WizardTheme.serif(11)).lineLimit(1).foregroundStyle(WizardTheme.muted)
-                            }
-                            Button { session.toggleVoice() } label: {
-                                HStack(spacing: 8) {
+                                Button { session.toggleVoice() } label: {
                                     Image(systemName: session.voiceActive ? "mic.fill" : "mic.slash")
-                                        .foregroundStyle(session.voiceActive ? WizardTheme.violet : WizardTheme.muted)
-                                    Text(session.voiceStatus).lineLimit(2).multilineTextAlignment(.leading)
-                                }.font(.system(size: 10)).padding(.horizontal, 13).frame(minHeight: 44)
-                                    .background(WizardTheme.ink.opacity(0.70))
-                            }.buttonStyle(.plain).frame(maxWidth: 310).disabled(session.requestingVoice)
-                                .accessibilityLabel(session.voiceActive ? "Turn microphone off" : "Enable microphone")
-                            HStack(spacing: 3) {
-                                ForEach(0..<12) { index in
-                                    Capsule().fill(session.voiceActive && session.microphoneLevel > Float(index) / 12
-                                        ? WizardTheme.violet : WizardTheme.muted.opacity(0.2))
-                                        .frame(width: 5, height: 4 + CGFloat(index % 3) * 2)
-                                }
-                            }.accessibilityLabel("Microphone input level")
-                                .accessibilityValue("\(Int(session.microphoneLevel * 100)) percent")
-                                .allowsHitTesting(false)
+                                        .foregroundStyle(session.voiceActive ? WizardTheme.gold : WizardTheme.muted)
+                                        .frame(width: 44, height: 44)
+                                        .background(Circle().fill(WizardTheme.ink.opacity(0.38)))
+                                }.buttonStyle(.plain).disabled(session.requestingVoice)
+                                    .accessibilityLabel(session.voiceActive ? "Turn microphone off" : "Enable microphone")
+                                    .accessibilityValue(session.voiceStatus)
+                            }
                         }.frame(maxWidth: 320)
                         Spacer()
                         VStack(spacing: 6) {

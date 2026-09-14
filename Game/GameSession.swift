@@ -11,9 +11,9 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     @Published var selectedClass: WizardClassID = .pyromancer
     @Published var selectedMap: MapID = .volcano
     @Published var selectedTeam: TeamID = .ember
-    @Published var graphicsStatus = "Volcano uses the revised retro renderer."
-    @Published var retroEffectsEnabled = true {
-        didSet { UserDefaults.standard.set(retroEffectsEnabled, forKey: "retroEffectsEnabled") }
+    @Published var graphicsStatus = "Detailed moonlit rendering. Legacy pixel effects are optional."
+    @Published var retroEffectsEnabled = false {
+        didSet { UserDefaults.standard.set(retroEffectsEnabled, forKey: "detailedBuildRetroEffects") }
     }
     @Published private(set) var selectedSpell: SpellID = .fireball
     @Published var speechDiagnostic = "No speech errors recorded in this session."
@@ -91,10 +91,10 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
     }
 
     init() {
-        retroEffectsEnabled = (UserDefaults.standard.object(forKey: "retroEffectsEnabled") as? Bool) ?? true
+        retroEffectsEnabled = (UserDefaults.standard.object(forKey: "detailedBuildRetroEffects") as? Bool) ?? false
         if UserDefaults.standard.bool(forKey: Self.volcanoSessionKey) {
             retroEffectsEnabled = false
-            UserDefaults.standard.set(false, forKey: "retroEffectsEnabled")
+            UserDefaults.standard.set(false, forKey: "detailedBuildRetroEffects")
             let stage = UserDefaults.standard.string(forKey: "lastVolcanoStage") ?? "unknown stage"
             graphicsStatus = "The last volcano session ended unexpectedly at: \(stage). Retro effects are off for the next attempt."
         }
@@ -400,7 +400,8 @@ final class GameSession: ObservableObject, LocalCastContextProviding, CastIntent
         let stats = PrototypeContent.stats(selectedClass)
         let planar = SIMD3<Float>(movement.x * cos(yaw) - movement.y * sin(yaw), 0,
                                   -movement.x * sin(yaw) - movement.y * cos(yaw))
-        position = ArenaMath.move(from: position, delta: planar * (stats.moveSpeedMetersPerSecond / 60), solids: arena.solids)
+        position = ArenaMath.move(from: position, delta: planar * (stats.moveSpeedMetersPerSecond / 60), solids: arena.solids,
+                                  boundary: activeMap == .volcano ? VolcanoLayout.boundary : 22.5)
         if activeMap == .volcano, VolcanoLayout.isLava(position) {
             health = max(0, health - 24.0 / 60)
             if tick % 30 == 0 { hitFlash = 0.6; play("hurt"); banner = "LAVA BURNS · Find a stone bridge"; bannerUntil = tick + 45 }

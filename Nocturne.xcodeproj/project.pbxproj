@@ -99,6 +99,16 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "06F62B3E770837F734B30CFD";
 		};
+		"A23F21B6F2FE4E587673A0B4" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "Game/SceneDetail.swift";
+			"sourceTree" = "<group>";
+		};
+		"BD1C227E7241695D9DB2CE09" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "A23F21B6F2FE4E587673A0B4";
+		};
 		"29BD86D1ECDA49166A8B93AF" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "sourcecode.swift";
@@ -109,6 +119,16 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "29BD86D1ECDA49166A8B93AF";
 		};
+		"31869D083BF77D71088924C9" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "Game/ValleyAtmosphere.swift";
+			"sourceTree" = "<group>";
+		};
+		"73B352C1943C2AB000486C86" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "31869D083BF77D71088924C9";
+		};
 		"D038A7EF4D5FEBE2B8028179" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "sourcecode.swift";
@@ -118,6 +138,16 @@
 		"EAED612ED41336AB75FEAD72" = {
 			"isa" = "PBXBuildFile";
 			"fileRef" = "D038A7EF4D5FEBE2B8028179";
+		};
+		"77FE57310FEAD8CD69679827" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "Game/WizardHand.swift";
+			"sourceTree" = "<group>";
+		};
+		"7DDD164E07F52B217002F284" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "77FE57310FEAD8CD69679827";
 		};
 		"A47FE79F279C7CEFA1C11B4F" = {
 			"isa" = "PBXFileReference";
@@ -229,6 +259,16 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "A319B5AC53E160789C238DA6";
 		};
+		"9B0ED2CBDBE706F6BFC8D7CA" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "image.jpeg";
+			"path" = "Resources/TerrainRock.jpg";
+			"sourceTree" = "<group>";
+		};
+		"C8B348DAA6392EC01303504F" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "9B0ED2CBDBE706F6BFC8D7CA";
+		};
 		"6C2910FC86F2686FAFCCB99D" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "audio.wav";
@@ -286,8 +326,11 @@
 				"B8C65A588354E2418D54BA55",
 				"D31C8E2B95C2C4BB634B4368",
 				"06F62B3E770837F734B30CFD",
+				"A23F21B6F2FE4E587673A0B4",
 				"29BD86D1ECDA49166A8B93AF",
+				"31869D083BF77D71088924C9",
 				"D038A7EF4D5FEBE2B8028179",
+				"77FE57310FEAD8CD69679827",
 				"A47FE79F279C7CEFA1C11B4F",
 				"F1537E1FCBBB127C93664F91",
 				"4FCF3F0296E162CA312065C3",
@@ -299,6 +342,7 @@
 				"3641B69AE5D159AAA560ED77",
 				"FAE7CEFAA4D0C0BE0A3148F6",
 				"A319B5AC53E160789C238DA6",
+				"9B0ED2CBDBE706F6BFC8D7CA",
 				"6C2910FC86F2686FAFCCB99D",
 				"05513E10154CF1C01659F7AD",
 				"FEA83F639114FACFDB106777",
@@ -378,8 +422,11 @@
 				"9CED0AAD83EE5BBE0909CE4D",
 				"A6331F659FBBEE3B74B06521",
 				"65BE16521C9AF4C85D88C05A",
+				"BD1C227E7241695D9DB2CE09",
 				"A3C8327538F41FCFAEDB50AB",
+				"73B352C1943C2AB000486C86",
 				"EAED612ED41336AB75FEAD72",
+				"7DDD164E07F52B217002F284",
 				"3DB756713FD040A55A50D08E",
 				"9B5A0D9B2E9BA0EFFB652384",
 				"7F8DD29E735C2EE5C520AE0B",
@@ -405,6 +452,7 @@
 			"files" = (
 				"E95C6C9CEC6736641EA343E1",
 				"FAC7005E1D9F0C66CFE49300",
+				"C8B348DAA6392EC01303504F",
 				"2A4A9FCA525F0FDD1E224F56",
 				"5111FD6245A3F5DB13B3F272",
 				"D533BA7791D2EF6F33779FAB",

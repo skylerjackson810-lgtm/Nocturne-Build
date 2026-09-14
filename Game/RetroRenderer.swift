@@ -21,7 +21,7 @@ final class RetroRenderer: @unchecked Sendable {
 
     init(map: MapID, onFailure: @escaping @Sendable (String) -> Void) {
         self.onFailure = onFailure
-        fog = map == .volcano ? [0.24, 0.009, 0.003, 0.047] : [0.013, 0.025, 0.065, 0.025]
+        fog = map == .volcano ? [0.025, 0.018, 0.035, 0.010] : [0.013, 0.025, 0.065, 0.025]
     }
 
     func update(camera: simd_float4x4) {

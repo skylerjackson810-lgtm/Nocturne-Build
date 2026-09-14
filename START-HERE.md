@@ -1,92 +1,55 @@
-# Install Nocturne 0.4.1 from Windows
+# Install Nocturne 0.5 from Windows
 
-**This is the complete project, including original files and the new features. It is not an IPA.**
+This ZIP is the complete source project, including the earlier gameplay features.
+It is not an IPA.
 
-The castles now include the textures recovered from your GLB. The 308 MB original
-GLB is not included in this source ZIP or the app; keep your original separately.
-The optimized textures, material manifest, and rebuild tool are included.
+1. Extract `Nocturne-Moonlit-Valley-Complete.zip`.
+2. Replace the matching folders/files at the top level of your `Nocturne-Build`
+   repository. Preserve the folder structure; do not upload the ZIP itself or
+   put everything inside an extra parent folder. Include the new Game Swift files,
+   `Resources/Castle.usdz`, `Resources/TerrainRock.jpg`, `Nocturne.xcodeproj`,
+   `Info.plist` and the updated `.github/workflows` files. Keep a backup of your
+   working commit and merge any separate edits of your own.
+3. Commit, then open Actions → Build unsigned iOS IPA for that new commit. The
+   workflow runs on pushes to main and can also be started manually.
+4. Download `Nocturne-unsigned-IPA` from the successful run's Artifacts section.
+   Extract the artifact and install the IPA with the same Sideloadly setup that
+   worked previously.
+5. Verify the menu says **v0.5** and Settings → Build says **0.5.0 (6)**.
 
-1. Extract `Nocturne-Textured-Castles-Complete.zip` on Windows.
-2. In your existing `Nocturne-Build` repository, open **Code → Add file → Upload files**.
-   Upload the extracted contents at the repository's top level, replacing matching
-   paths. Preserve the folders. Do not upload the ZIP itself or add another parent
-   folder around the contents. Include `Nocturne.xcodeproj`, `Game`, `Resources`,
-   and `Info.plist` as well as the other source folders: this update has new files.
-   Keep a copy/commit of your working version; merge any edits you made separately.
-3. Commit the upload. The existing **Build unsigned iOS IPA** workflow starts on
-   a push to main. You can also run it manually from Actions.
-4. Open the successful run for that new commit, download **Nocturne-unsigned-IPA**,
-   extract it, and install the new IPA with Sideloadly using the same signing setup
-   as your working installation.
-5. Confirm the main menu says **v0.4.1** and Settings → Build says **0.4.1 (5)**.
-   If not, you installed an old artifact or did not replace the project files.
+## What to check
 
-The included build workflow additionally checks that menu.wav, Castle.usdz, and default.metallib
-are inside the built app. No new Apple credentials or package dependencies are needed
-to build the unsigned IPA. No remote files or Actions runs were changed here.
+- Select The Cinder Caldera and Ember Keep. You start on a safe forecourt facing
+  the arena; turn around to view your castle. Its structure should match the
+  supplied GLB/render, at a larger scale than the old miniature version.
+- Choose Moon Keep and repeat. It is the other starting team in the same map.
+- Inspect stonework, roofs, courtyard buildings and cliffs from outside. The
+  castle's interior is not yet navigable; coarse castle collision is retained.
+- Look for the dark sky, stars, moon, layered cliffs, winding lava and mist near
+  the outer valley. Cross the lava on one of the three broad stone bridges.
+- Check the smaller book, distinct pages, glove fingers, cuffs and casting curl.
+  Flip pages with arrows/emblems or controller LB/RB; speak to cast.
+- Speak Fireball, Ice Shards, Mud Blast and Shadow Bolt with a pause and cooldown
+  between casts. Check menu music and spell sounds. Death still disarms speech;
+  re-arm the microphone after respawning.
+- Revisit the original Hollow Court to confirm it still opens.
 
-## What to try first
+**Leave Settings → Volcano graphics → Legacy pixel filter OFF initially.** It
+starts off in this release even if the older version's filter was enabled. The
+main visual update works without it. Enabling it applies coarse processing on
+the next entry and can obscure material detail.
 
-1. Listen for the new menu music. Settings has a Menu music toggle and Test sound.
-2. Use **SELECT MAP** to choose **The Cinder Caldera** or **The Hollow Court**.
-   The first is the new red-fog volcano; the second preserves the original test map.
-3. Choose **Ember Keep** or **Moon Keep** in the main menu, then enter the volcano.
-   You should start outside your castle facing the arena. Turn around to inspect
-   its stone walls, wooden parts, and roof textures. Return to the menu and
-   try the other keep; the start location should switch to the opposite end.
-   Losing all health should return you to the selected keep's forecourt.
-   Cross lava using the three stone bridges.
-   Walking directly into lava damages you; the spawn and central path are safe.
-4. Say **Fireball**, pause briefly, and wait for the cooldown. Repeat five times.
-5. Say **Ice Shards**, **Mud Blast**, then **Shadow Bolt**, waiting for recovery
-   each time. The book should change pages automatically; each spell has distinct
-   color, speed, damage, and projectile behavior.
-6. Tap the page arrows or spell emblems, or press controller LB/RB. The book should
-   turn pages without firing. Say the selected spell to cast; saying a different
-   known spell also selects and casts it when ready.
-7. Toggle the mic off/on, pause/resume, and try a headset connection change.
-   Game sounds should not disappear just because speech stops. Death intentionally
-   disarms speech; tap the mic after respawning.
+## If something fails
 
-## If the microphone still stops
+For build errors, share the first actual Swift/Metal error from Build unsigned
+iPhone application, not only the final exit-code line. Native compilation could
+not be performed in this environment.
 
-The exact post-cast error from your newest installation has not yet been captured.
-This revision adds recovery and better diagnostics but still requires a real-phone
-test. Open **Pause → Settings → The sound of magic** and send:
+For a device crash, note the build version, selected team, whether the legacy
+filter was on, and attach the newest Nocturne crash report if available.
+For visual issues, send a screenshot from the castle forecourt with the castle
+in view. Device rendering and performance still need verification.
 
-- The full speech status and **Last speech diagnostic** text (including error code).
-- Whether the mic level bars move when you speak.
-- Whether the problem happens on the first cast or after several casts.
-- Your iPhone model/iOS version and whether headphones are connected.
-- Confirmation that Settings shows **0.4.1 (5)**.
-
-Try it in the original Hollow Court as well. That distinguishes a speech problem
-from anything specific to the new map. On-device English (US) recognition remains
-required; the app does not silently switch to cloud speech.
-
-## If the volcano still closes the app
-
-Reopen the app and check **Settings → Volcano graphics**. An unexpected exit while
-retro effects were active automatically turns them off. You can also switch
-**Retro fog and pixel effects** off manually before entering again. The castle
-models, lava, and arena remain; custom fog/pixel processing is skipped.
-
-Send the graphics status text, iPhone model, iOS version, and whether the original
-Hollow Court opens. If available, attach the newest Nocturne crash report from
-iPhone Settings → Privacy & Security → Analytics & Improvements → Analytics Data.
-The report is needed to identify the actual failure if it persists. See
-CASTLE-UPDATE.md for what this revision addresses.
-
-## Verification status
-
-Source grammar, project references, music resources, and archive integrity were
-checked here. Native Xcode/Metal compilation, XCTest, real iPhone audio, and the
-rendered art style have not been verified in this Linux workspace. Build the new
-IPA and use the device checklist above. The optional **Run iOS regression tests**
-workflow can run the included XCTest suite on GitHub's macOS runner.
-
-The map is original procedural retro-style art inspired by your screenshots,
-not a copy of their assets or a promise of an exact visual match before device
-tuning. README.md and VALIDATION.md describe the implementation and limits.
-The older GITHUB-FIX.md and LOWPOLY-AUDIO-UPDATE.md describe historical releases;
-use this guide for the current complete project.
+For speech issues, Settings → The sound of magic retains the full speech status,
+diagnostic code, Test sound and permission link. The compact gameplay HUD uses a
+microphone icon; it does not remove the underlying diagnostics.

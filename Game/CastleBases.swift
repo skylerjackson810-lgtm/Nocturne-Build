@@ -18,11 +18,11 @@ enum TeamBases {
     static func spawn(map: MapID, team: TeamID) -> PlayerSpawn {
         guard map == .volcano else { return .init(position: [0, 1.65, 12], yaw: 0) }
         // Safe forecourts just outside the castle footprint, facing the arena.
-        return .init(position: [0, 1.65, team.side * 13.4], yaw: team == .ember ? 0 : .pi)
+        return .init(position: [0, 1.65, team.side * 34.5], yaw: team == .ember ? 0 : .pi)
     }
-    static func castlePosition(_ team: TeamID) -> SIMD3<Float> { [0, 0, team.side * 22] }
+    static func castlePosition(_ team: TeamID) -> SIMD3<Float> { [0, 0, team.side * 58] }
     static func blocker(_ team: TeamID) -> Solid {
-        Solid(center: [0, 5.3, team.side * 22], half: [9.05, 5.3, 6.9])
+        Solid(center: [0, 14.2, team.side * 58], half: [26.1, 14.2, 19.4])
     }
 }
 
@@ -53,13 +53,15 @@ enum CastleBases {
             keep.addChild(asset.clone(recursive: true)); root.addChild(keep)
             solids.append(TeamBases.blocker(team))
             let color: UIColor = team == .ember ? .orange : .cyan
-            let plaza = ArenaBuilder.box([8, 0.1, 4], [0, -0.04, team.side * 13.4],
-                                        UIColor(white: 0.22, alpha: 1), in: root)
+            let plaza = SceneDetail.rounded([9, 0.1, 6], at: [0, -0.04, team.side * 35],
+                                            material: SceneDetail.stone(), parent: root, radius: 0.04)
             plaza.name = "\(team.title) spawn forecourt"
-            for x: Float in [-3.2, 3.2] {
-                _ = ArenaBuilder.box([0.15, 3.3, 0.15], [x, 1.65, team.side * 14.4], .darkGray, in: root)
-                _ = ArenaBuilder.box([0.85, 1.2, 0.05], [x, 2.4, team.side * 14.4], color, in: root, glowing: true)
+            for x: Float in [-4, 4] {
+                _ = ArenaBuilder.box([0.12, 3.3, 0.12], [x, 1.65, team.side * 37], .darkGray, in: root)
+                _ = ArenaBuilder.box([0.65, 1.1, 0.035], [x, 2.4, team.side * 37], color, in: root)
             }
+            let light = PointLight(); light.light.color = color; light.light.intensity = 1200
+            light.light.attenuationRadius = 32; light.position = [0, 7, team.side * 38]; root.addChild(light)
         }
         return solids
     }

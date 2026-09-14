@@ -81,7 +81,7 @@ struct MainMenuView: View {
                             Circle().fill(WizardTheme.violet).frame(width: 4, height: 4)
                             Text("SOLO PRACTICE").tracking(1.5)
                             Text("·").padding(.horizontal, 3)
-                            Text("v0.4.1 · Textured keeps")
+                            Text("v0.5 · Moonlit valley")
                         }.font(.system(size: 9)).foregroundStyle(WizardTheme.muted)
                     }.frame(width: min(geometry.size.width * 0.49, 470))
                     Spacer(minLength: 0)
@@ -198,8 +198,8 @@ struct SettingsView: View {
                     }
                 }
                 Section("Volcano graphics") {
-                    Toggle("Retro fog and pixel effects", isOn: $session.retroEffectsEnabled)
-                    Text("Applies when entering the volcano. If it closes unexpectedly, turn this off and try again; castles, lava, and gameplay remain available.").font(.footnote)
+                    Toggle("Legacy pixel filter", isOn: $session.retroEffectsEnabled)
+                    Text("Off by default to preserve castle detail. Applies next time you enter the volcano. Moonlight, stars and localized mist work without it.").font(.footnote)
                     Text(session.graphicsStatus).font(.footnote).textSelection(.enabled)
                 }
                 Section("Controls") {
@@ -207,8 +207,8 @@ struct SettingsView: View {
                         .font(.footnote).foregroundStyle(.secondary)
                 }
                 Section("Build") {
-                    Text("Nocturne 0.4.1 (5) · Textured castle keeps").font(.footnote)
-                    Text("Volcano: retro pixel/dither rendering, red distance fog, and lava hazards. Hollow Court: original test arena.").font(.footnote)
+                    Text("Nocturne 0.5.0 (6) · Detailed valley and grimoire").font(.footnote)
+                    Text("Volcano: full-detail castles, moonlight, volcanic terrain and lava hazards. Hollow Court: original test arena.").font(.footnote)
                 }
             }.scrollContentBackground(.hidden).background(WizardTheme.ink)
                 .navigationTitle("Ritual settings").navigationBarTitleDisplayMode(.inline)

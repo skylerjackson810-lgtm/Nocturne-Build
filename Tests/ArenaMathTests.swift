@@ -72,7 +72,7 @@ final class ArenaMathTests: XCTestCase {
 
     func testVolcanoBridgesAndSpawnAreSafeButChannelsBurn() {
         XCTAssertFalse(VolcanoLayout.isLava([0, 1.65, 12]))
-        for x: Float in [-8, 8] {
+        for x: Float in [-15, 15] {
             XCTAssertTrue(VolcanoLayout.isLava([x, 1.65, 4]))
             for z in VolcanoLayout.bridges { XCTAssertFalse(VolcanoLayout.isLava([x, 1.65, z])) }
         }
