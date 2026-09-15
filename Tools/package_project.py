@@ -3,7 +3,7 @@ from pathlib import Path
 import zipfile
 
 root = Path(__file__).resolve().parents[1]
-output = root.parent / 'Nocturne-Castle-Access-Complete.zip'
+output = root.parent / 'Nocturne-Castle-Restored-Complete.zip'
 staging = output.with_suffix('.zip.partial')
 directories = ['App', 'Game', 'Gameplay', 'Platform', 'UI', 'Resources', 'Tests',
                'Tools', 'Nocturne.xcodeproj', '.github', 'Preview', 'SourceAssets']

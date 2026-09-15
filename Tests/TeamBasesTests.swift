@@ -50,6 +50,35 @@ final class TeamBasesTests: XCTestCase {
         }
     }
 
+    func testGroundFloorBuildingsAllowEntryAndExitForBothTeams() {
+        let angle = Float.pi * 25 / 180
+        func west(_ v: Float) -> SIMD3<Float> {
+            [-7.2 * cos(angle) + v * sin(angle), 6.37,
+             7.2 * sin(angle) + v * cos(angle)]
+        }
+        let routes: [(SIMD3<Float>, SIMD3<Float>)] = [
+            ([6, 6.37, 2.3], [12, 6.37, 2.3]),
+            ([2.5, 6.37, 8], [2.5, 6.37, 12]),
+            (west(0.4), west(4.4))
+        ]
+        for team in TeamID.allCases {
+            let solids = TeamBases.collision(team)
+            for (a, b) in routes {
+                let start = TeamBases.world(a, team: team), end = TeamBases.world(b, team: team)
+                var p = start
+                for destination in [end, start] {
+                    let delta = (destination - p) / 200
+                    for _ in 0..<200 {
+                        p = ArenaMath.move(from: p, delta: delta, solids: solids,
+                                           boundary: VolcanoLayout.boundary,
+                                           depthBoundary: VolcanoLayout.depthBoundary)
+                    }
+                    XCTAssertEqual(simd_distance(p, destination), 0, accuracy: 0.005)
+                }
+            }
+        }
+    }
+
     func testOriginalCourtSpawnRemainsIndependentOfTeamSelection() {
         let expected = PlayerSpawn(position: [0, 1.65, 12], yaw: 0)
         XCTAssertEqual(TeamBases.spawn(map: .hollowCourt, team: .ember), expected)

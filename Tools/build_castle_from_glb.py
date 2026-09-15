@@ -1,12 +1,13 @@
-"""Direct, non-decimating glTF -> USDZ conversion for the supplied castle.
-Requires numpy, Pillow, usd-core. Usage: python Tools/build_castle_from_glb.py FILE.glb
-Preserves every triangle of the castle assembly; excludes detached export debris.
+"""Repair and convert the supplied castle GLB to the runtime USDZ.
+Requires numpy, Pillow, usd-core, trimesh, networkx. Usage: python Tools/build_castle_from_glb.py FILE.glb
+Preserves the exterior assembly, with explicit door/interior cuts and surface repairs.
 """
 from pathlib import Path
 import hashlib, io, json, struct, sys, tempfile, zipfile
 import numpy as np
 from PIL import Image
 from pxr import Usd, UsdGeom, UsdShade, Sdf, Gf, Vt
+from castle_repairs import replacement, cut_portals, fix_winding, projected_uv, tile_size, interior_parts
 
 ROOT = Path(__file__).resolve().parents[1]
 source = Path(sys.argv[1]); blob = source.read_bytes()
@@ -59,7 +60,7 @@ for index,item in enumerate(doc['images']):
     view=doc['bufferViews'][item['bufferView']];offset=binary_start+view.get('byteOffset',0)
     image=Image.open(io.BytesIO(blob[offset:offset+view['byteLength']])).convert('RGB')
     original_size=image.size;image.thumbnail((1024,1024),Image.Resampling.LANCZOS)
-    encoded=io.BytesIO();image.save(encoded,format='JPEG',quality=95,subsampling=0)
+    encoded=io.BytesIO();image.save(encoded,format='JPEG',quality=92 if index%3==1 else 88,subsampling=0)
     name=f'textures/castle_{index:02d}.jpg';image_payloads[name]=encoded.getvalue()
     image_report.append({'name':item.get('name'),'path':name,'source_size':original_size,'runtime_size':image.size})
 
@@ -101,48 +102,60 @@ for index,item in enumerate(doc['materials']):
             shader.GetInput('roughness').ConnectToSource(tex.ConnectableAPI(),'g');shader.GetInput('metallic').ConnectToSource(tex.ConnectableAPI(),'b')
     materials[index]=mat
 
-# glTF permits a primitive without a material. Bind a concrete neutral surface
-# instead of relying on RealityKit's unsupported/unbound-material fallback.
-default=UsdShade.Material.Define(stage, '/Castle/Materials/Unassigned')
-surface=UsdShade.Shader.Define(stage, '/Castle/Materials/Unassigned/Surface')
-surface.CreateIdAttr('UsdPreviewSurface')
-surface.CreateInput('diffuseColor',Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(1,1,1))
-surface.CreateInput('roughness',Sdf.ValueTypeNames.Float).Set(1)
-surface.CreateInput('metallic',Sdf.ValueTypeNames.Float).Set(0)
-surface.CreateOutput('surface',Sdf.ValueTypeNames.Token)
-default.CreateSurfaceOutput().ConnectToSource(surface.ConnectableAPI(),'surface')
-triangle_count=0;max_error=0;default_bindings=0;opened_gates=0
-for i,(name,points,normals,uv,indices,material_index) in enumerate(parts):
+triangle_count=0;max_error=0;opened_gates=0
+repair_report=[];winding_repairs=0;projected_faces=0;portal_edits=[]
+source_count=len(parts);source_triangles=sum(len(part[4]) for part in parts)
+# Interior meshes are authored in the normalized asset frame.
+extra=interior_parts()
+parts += [(name,points/scale+origin,normals,uv,indices,mi) for name,points,normals,uv,indices,mi in extra]
+for i,(name,points,normals,uv,indices,original_material) in enumerate(parts):
     mesh=UsdGeom.Mesh.Define(stage,f'/Castle/Geometry/Part_{i}');mesh.GetPrim().SetDisplayName(name)
     converted=((points-origin)*scale).astype(np.float32)
     max_error=max(max_error,float(np.abs((converted/scale+origin)-points).max()))
     if name == 'Plane.062':
-        # The export contains a CLOSED solid door, separate from its stone arch.
-        # Swing only the door inward 90 degrees around its left/front hinge.
         hinge=converted.min(0).copy()
         rotation=np.array([[0,0,-1],[0,1,0],[1,0,0]],dtype=np.float32)
         converted=(converted-hinge)@rotation.T+hinge
         normals=normals@rotation.T;opened_gates+=1
-    mesh.CreatePointsAttr(Vt.Vec3fArray.FromNumpy(converted))
+    mi=replacement(name,original_material);item=doc['materials'][mi]
+    force_projection=(mi != original_material or uv is None or mi in [0,1,55,57,58,59,60,67])
+    # Only the original shells are cut. New interior liners have explicit gaps.
+    if i<source_count:
+        converted,normals,uv,indices,edits=cut_portals(converted,normals,uv,indices)
+        portal_edits.extend([dict(part=name,**edit) for edit in edits])
+    if not len(converted):
+        stage.RemovePrim(mesh.GetPath())
+        continue
+    if uv is None:uv=np.zeros((len(converted),2))
+    converted,normals,oriented,flips=fix_winding(converted,normals,indices)
+    uv=uv[oriented].reshape(-1,2);indices=np.arange(len(converted)).reshape(-1,3)
+    winding_repairs+=flips
+    t=uv.reshape(-1,3,2);a=t[:,1]-t[:,0];b=t[:,2]-t[:,0]
+    bad=np.abs(a[:,0]*b[:,1]-a[:,1]*b[:,0])<1e-8
+    if force_projection:bad[:]=True
+    projected=projected_uv(converted,indices,tile_size(mi))
+    projected_faces+=int(bad.sum())
+    if force_projection or bad.any() or flips:
+        repair_report.append({'part':name,'source_material':original_material,'runtime_material':mi,
+                              'projected_faces':int(bad.sum()),'winding_fixes':flips})
+    # Open shells and inward-facing export surfaces must also render from within.
+    mesh.CreateDoubleSidedAttr(True)
+    mesh.CreatePointsAttr(Vt.Vec3fArray.FromNumpy(converted.astype(np.float32)))
+    normals/=np.maximum(np.linalg.norm(normals,axis=1,keepdims=True),1e-9)
     mesh.CreateNormalsAttr(Vt.Vec3fArray.FromNumpy(normals.astype(np.float32)));mesh.SetNormalsInterpolation('vertex')
     mesh.CreateFaceVertexCountsAttr([3]*len(indices));mesh.CreateFaceVertexIndicesAttr(indices.ravel().tolist())
     mesh.CreateSubdivisionSchemeAttr('none');triangle_count+=len(indices)
-    mesh.CreateExtentAttr(Vt.Vec3fArray.FromNumpy(np.array([converted.min(0),converted.max(0)])))
-    if material_index is None:
-        UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(default)
-        default_bindings+=1
-    if material_index is not None:
-        item=doc['materials'][material_index];mesh.CreateDoubleSidedAttr(item.get('doubleSided',False))
-        UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(materials[material_index])
-        if uv is not None:
-            pbr=item.get('pbrMetallicRoughness',{})
-            for role,info in [('albedo',pbr.get('baseColorTexture')),('normal',item.get('normalTexture')),('orm',pbr.get('metallicRoughnessTexture'))]:
-                if not info or info.get('texCoord',0)==-1:continue
-                transform=info.get('extensions',{}).get('KHR_texture_transform',{});assert transform.get('rotation',0)==0
-                assert transform.get('texCoord',0)==0
-                coords=uv*np.array(transform.get('scale',[1,1]))+np.array(transform.get('offset',[0,0]))
-                coords[:,1]=1-coords[:,1]
-                UsdGeom.PrimvarsAPI(mesh).CreatePrimvar('st_'+role,Sdf.ValueTypeNames.TexCoord2fArray,'vertex').Set(Vt.Vec2fArray.FromNumpy(coords.astype(np.float32)))
+    mesh.CreateExtentAttr(Vt.Vec3fArray.FromNumpy(np.array([converted.min(0),converted.max(0)],dtype=np.float32)))
+    UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(materials[mi])
+    pbr=item.get('pbrMetallicRoughness',{})
+    for role,info in [('albedo',pbr.get('baseColorTexture')),('normal',item.get('normalTexture')),('orm',pbr.get('metallicRoughnessTexture'))]:
+        if not info:continue
+        assert info.get('texCoord',0)==0, (name,mi,role)
+        transform=info.get('extensions',{}).get('KHR_texture_transform',{});assert transform.get('rotation',0)==0
+        coords=uv*np.array(transform.get('scale',[1,1]))+np.array(transform.get('offset',[0,0]))
+        coords[:,1]=1-coords[:,1]
+        coords[np.repeat(bad,3)]=projected[np.repeat(bad,3)]
+        UsdGeom.PrimvarsAPI(mesh).CreatePrimvar('st_'+role,Sdf.ValueTypeNames.TexCoord2fArray,'vertex').Set(Vt.Vec2fArray.FromNumpy(coords.astype(np.float32)))
 
 assert opened_gates == 1
 output=ROOT/'Resources/Castle.usdz'
@@ -171,12 +184,13 @@ for prim in check.Traverse():
         if attribute.GetTypeName()==Sdf.ValueTypeNames.Asset:assert attribute.Get().resolvedPath
 assert max_error<0.001
 report={'source_file':source.name,'source_sha256':hashlib.sha256(blob).hexdigest(),
- 'explicit_default_material_bindings':default_bindings,'opened_gate_leaf':'Plane.062',
- 'gate_edit':'90 degrees inward about local left/front hinge; stone arch preserved',
- 'runtime_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'runtime_meshes':len(parts),
- 'retained_triangles':triangle_count,'removed_triangles_from_retained_meshes':0,'maximum_round_trip_position_error':max_error,
+ 'runtime_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'runtime_meshes':sum(prim.IsA(UsdGeom.Mesh) for prim in check.Traverse()),
+ 'source_assembly_meshes':source_count,'source_assembly_triangles':source_triangles,
+ 'runtime_triangles':triangle_count,'maximum_round_trip_position_error':max_error,
  'uniform_scale':scale,'source_origin':origin.tolist(),'runtime_size':((hi-lo)*scale).tolist(),
  'excluded_detached_primitives':omitted,'texture_images':len(image_report),'images':image_report,
- 'note':'Direct latest GLB conversion; topology preserved. Closed gate leaf rotated inward; 94 unspecified materials use explicit neutral white rough surfaces. Round-trip error measured before the gate pose edit.'}
+ 'explicit_default_material_bindings':0,'winding_repairs':winding_repairs,'projected_faces':projected_faces,
+ 'opened_gate_leaf':'Plane.062','portal_edits':portal_edits,'surface_repairs':repair_report,
+ 'interior_meshes':len(extra),'note':'Source architecture preserved with deliberate ground-floor portals, liners, floors and benches. Inward faces corrected; invalid UVs regenerated; missing materials mapped to existing texture sets. All meshes double-sided.'}
 (ROOT/'SourceAssets/castle-direct-import.json').write_text(json.dumps(report,indent=2)+'\n')
-print(json.dumps({k:v for k,v in report.items() if k not in ['images','excluded_detached_primitives']},indent=2));print('bytes',output.stat().st_size)
+print(json.dumps({k:v for k,v in report.items() if k not in ['images','excluded_detached_primitives','surface_repairs','portal_edits']},indent=2));print('bytes',output.stat().st_size)

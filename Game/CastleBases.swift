@@ -50,10 +50,23 @@ enum CastleBases {
         }
         // Load once asynchronously; both keeps share mesh/material resources.
         for try await entity in Entity.loadAsync(contentsOf: url).values {
+            prepareSurfaces(entity)
             prototype = entity
             return entity
         }
         throw CocoaError(.fileReadCorruptFile)
+    }
+
+    private static func prepareSurfaces(_ entity: Entity) {
+        if var model = entity.components[ModelComponent.self] {
+            model.materials = model.materials.map { original in
+                guard var material = original as? PhysicallyBasedMaterial else { return original }
+                material.faceCulling = .none
+                return material
+            }
+            entity.components.set(model)
+        }
+        for child in entity.children { prepareSurfaces(child) }
     }
 
     static func install(in root: Entity) async throws -> [Solid] {

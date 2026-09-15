@@ -1,58 +1,34 @@
-# Install Nocturne 0.5.1 from Windows
+# Install Nocturne 0.6 from Windows
 
-This ZIP is the complete source project, including the earlier gameplay features.
-It is not an IPA.
+This ZIP contains the complete source project and updated castle asset.
 
-1. Extract `Nocturne-Castle-Access-Complete.zip`.
-2. Replace the matching folders/files at the top level of your `Nocturne-Build`
-   repository. Preserve the folder structure; do not upload the ZIP itself or
-   put everything inside an extra parent folder. Include the new Game Swift files,
-   `Resources/Castle.usdz`, `Resources/TerrainRock.jpg`, `Nocturne.xcodeproj`,
-   `Info.plist` and the updated `.github/workflows` files. Keep a backup of your
-   working commit and merge any separate edits of your own.
-3. Commit, then open Actions → Build unsigned iOS IPA for that new commit. The
-   workflow runs on pushes to main and can also be started manually.
-4. Download `Nocturne-unsigned-IPA` from the successful run's Artifacts section.
-   Extract the artifact and install the IPA with the same Sideloadly setup that
-   worked previously.
-5. Verify the menu says **v0.5.1** and Settings → Build says **0.5.1 (7)**.
+1. Extract `Nocturne-Castle-Restored-Complete.zip`.
+2. Replace the matching files/folders at the root of your `Nocturne-Build`
+   repository. Keep the folder structure and include `Resources/Castle.usdz`,
+   `Game/CastleBases.swift`, `Game/CastleLayout.swift`, the Xcode project,
+   `Info.plist`, updated tests and workflow files. Do not upload the ZIP itself
+   or add another parent folder. Merge any separate changes of your own.
+3. Commit and run **Actions → Build unsigned iOS IPA** for that commit.
+4. Download **Nocturne-unsigned-IPA** from the successful run's Artifacts.
+   Extract it and install the IPA using your working Sideloadly setup.
+5. Confirm the menu says **v0.6** and Settings → Build says **0.6.0 (8)**.
 
-## What to check
+## Check on your iPhone
 
-- Select The Cinder Caldera and Ember Keep. You should start INSIDE the castle
-  courtyard, looking toward the open arched gate. Walk straight through it onto
-  the flat grass approach and into the valley. Walk back into the courtyard.
-- Choose Moon Keep and repeat. Its entrance faces the opposite direction toward
-  the same valley. Walk around inside the courtyard to check wall collision.
-- Take lethal damage and confirm you respawn inside your selected courtyard.
-- Check the small rocks/windows that previously appeared magenta. Unassigned
-  source pieces now use a neutral material; existing stone/roof textures remain.
-- Upper terraces, stairs and building interiors are not supported walking routes.
-- Look for the dark sky, stars, moon, layered cliffs, winding lava and mist near
-  the outer valley. Cross the lava on one of the three broad stone bridges.
-- Check the smaller book, distinct pages, glove fingers, cuffs and casting curl.
-  Flip pages with arrows/emblems or controller LB/RB; speak to cast.
-- Speak Fireball, Ice Shards, Mud Blast and Shadow Bolt with a pause and cooldown
-  between casts. Check menu music and spell sounds. Death still disarms speech;
-  re-arm the microphone after respawning.
-- Revisit the original Hollow Court to confirm it still opens.
+- Enter the volcano with Ember Keep, then repeat with Moon Keep. Spawns stay
+  inside the courtyard and both main gates still face the valley.
+- Walk outside and inspect the rocks/walls that previously disappeared.
+- Inspect the tree's surrounding stones, grass, stepping stones, upper tower
+  trim and main entrance: former white fallback pieces should now be textured.
+- Enter the east workshop, west study and north timber hall. Walk back out of
+  each one. Their ground floors are playable; tower/upper floors are not.
+- Check that the main gate remains passable and death returns you to your
+  selected castle's courtyard.
+- Check voice casting, sound, book controls and the original Hollow Court.
 
-**Leave Settings → Volcano graphics → Legacy pixel filter OFF initially.** It
-starts off in this release even if the older version's filter was enabled. The
-main visual update works without it. Enabling it applies coarse processing on
-the next entry and can obscure material detail.
+Leave **Legacy pixel filter OFF** while inspecting materials.
 
-## If something fails
-
-For build errors, share the first actual Swift/Metal error from Build unsigned
-iPhone application, not only the final exit-code line. Native compilation could
-not be performed in this environment.
-
-For a device crash, note the build version, selected team, whether the legacy
-filter was on, and attach the newest Nocturne crash report if available.
-For visual issues, send a screenshot at the castle gate with the castle
-in view. Device rendering and performance still need verification.
-
-For speech issues, Settings → The sound of magic retains the full speech status,
-diagnostic code, Test sound and permission link. The compact gameplay HUD uses a
-microphone icon; it does not remove the underlying diagnostics.
+If GitHub fails, send the first Swift/Metal error from the build log. If a surface
+still looks wrong on the phone, send its screenshot and confirm build **0.6.0 (8)**.
+The asset was reviewed in an offline renderer; native RealityKit appearance and
+performance still need real-device verification.

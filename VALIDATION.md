@@ -1,54 +1,55 @@
-# Validation — Nocturne 0.5.1 (7)
+# Validation — Nocturne 0.6.0 (8)
 
-Completed locally:
+## Asset and surface checks completed
 
-- Located the actual entrance at asset-local X=-2.55, Z≈-11.5. Confirmed the
-  separate `Plane.062` mesh closed the gate while `Plane.063` supplied its stone
-  arch. Rotated the leaf inward 90 degrees without removing its triangles.
-- All 308 shipped meshes now have a bound material and connected surface shader.
-  This includes 94 primitives whose source GLB specified no material. Those use
-  explicit neutral white rough surfaces. No claim is made that missing texture
-  artwork was recovered for those primitives.
-- All 219 texture asset references resolve. Each bound UV reader resolves to a
-  mesh primvar with the correct vertex count. Thirty JPEG maps remain at up to
-  1024 pixels. Original GLB texture assignments remain unchanged.
-- 86,730 triangles retained. Source normalization round-trip error remains below
-  0.000001 before the documented door-pose edit. Original source checksum and the
-  updated runtime checksum are recorded in `SourceAssets/castle-direct-import.json`.
-- Castle courtyard height 4.72m is translated to world ground Y=0; the island
-  foundation is buried below the valley. The castle architecture is not flattened.
-  A flat grass approach spans the actual gate and the existing valley road.
-- Navigation is baked from the final USDZ, rather than hand-written collision
-  guesses. 20cm raster cells sample the body slab 0.35–1.45m above courtyard
-  ground, allowing low stepping stones beneath the player's body. Matching runs
-  merge into 1,178 boxes per castle, with conservative obstacle heights.
-- Both mirrored spawn-to-valley routes pass offline geometric clearance checks
-  with a 0.38m player radius. The narrowest measured center-to-obstacle clearance
-  is 0.45m. Each team also passes a 440-step, 4cm movement replay through the gate.
-- Initial spawn and death/respawn both call the existing central `applySpawn()`.
-  The selected team's courtyard position is now used by that function.
-- Volcano X bounds stay ±52m; Z bounds extend to ±80m so rear courtyards are not
-  clamped to the previous arena extent. Original court bounds remain unchanged.
-- Swift grammar: 25 files, zero syntax errors. Xcode project: 93 objects, all file
-  references and scheme links resolve. Generated castle collision is included
-  in Compile Sources. Existing asset/audio/permission checks pass.
-- Version 0.5.1 (7); `git diff --check` passes. Packaging verifies required files
-  and ZIP CRC before atomically creating the final source archive.
+- Latest supplied GLB checksum retained in `castle-direct-import.json`. Its
+  source assembly contains 308 primitives and 86,730 triangles.
+- Runtime asset: 336 meshes, 86,681 triangles, 21,094,843 bytes. Geometry count
+  changes are due to deliberate doorway/interior cuts and 34 added interior
+  pieces, including floors, liners, ceilings, workbenches and stone thresholds.
+- Corrected 17,732 face windings. Open shells are also authored double-sided,
+  with a RealityKit PBR face-culling override at load time.
+- Regenerated mapping on 49,970 faces, covering missing/collapsed UVs and
+  consistent world-scale stone masonry. Existing source images are reused.
+- All 336 meshes have a material and surface shader. No white fallback material
+  remains. Intentionally solid-colour bars, flags, dark window recesses and
+  window panes remain distinct from textured surfaces.
+- All 219 image references resolve. UV readers resolve to matching mesh data;
+  points, normals and UV values are finite. Nondegenerate textured triangles
+  have noncollapsed UV area.
+- Thirty embedded JPEGs remain at up to 1024px; moderate JPEG compression keeps
+  the runtime USDZ below 25MB. The package uses 64-byte-aligned stored entries.
+- Source and runtime checksums are recorded; navigation's runtime checksum
+  matches the shipped asset.
 
-Native regression tests supplied, not executed here:
+## Navigation checks completed
 
-- Both teams spawn behind their own gate and traverse the complete approach.
-- Castle wall collision remains active while the gateway is passable.
-- Movement behind the old depth boundary no longer clamps toward the arena.
-- Original court spawn remains independent of selected team.
-- Existing spell, speech recovery, audio policy and collision tests are retained.
+- Both original courtyard spawns, mirrored gate orientations and level approach
+  positions are retained. Spawn/respawn still share `applySpawn()`.
+- 1,163 merged collision boxes per castle are regenerated from the final model.
+- Both gate-to-valley movement replays pass at player radius 0.38m. The narrowest
+  gate-route centre clearance is 0.45m.
+- Flood-fill from the courtyard spawn reaches the east workshop, west study
+  and north timber hall using a padded 0.40m footprint.
+- Six team/room entry-and-exit replays pass, including axis-separated movement
+  through the angled study doorway. Native regression tests cover these routes.
+- Upper floors and tower rooms are not supported; this remains planar movement.
+  Collision heights remain conservative for projectile collision.
 
-Limitations:
+## Source and visual checks completed
 
-This environment has no Xcode/Apple SDKs, so Swift type checking, linking, native
-XCTest and RealityKit rendering were not run. The updated IPA still needs a
-GitHub build and iPhone verification, particularly material appearance and frame
-rate with the new collision data. Navigation is for level ground/courtyards;
-upper terraces, stairs and building interiors are not supported walking routes.
-Collision heights are conservative rather than exact per-triangle projectile
-surfaces. No multiplayer or vertical locomotion is introduced by this revision.
+- Swift grammar: 25 files; zero syntax errors. Project: 93 objects with resolved
+  references and shared scheme. Asset, audio, permissions and version checks pass.
+- Reviewed offline renders of outer rock terraces, the castle exterior, courtyard,
+  workshop entrance and study interior. Found and corrected oversized masonry
+  mapping and bare threshold patches during review.
+- These are separate offline material/geometry reviews, not iPhone gameplay
+  captures. The optional renderer is included in `Tools/preview_castle.py`.
+- `git diff --check` passes. Packaging verifies ZIP integrity and required files.
+
+## Not executed here
+
+Xcode Swift type checking, Metal compilation, linking, native XCTest, signing,
+iPhone RealityKit rendering, memory/frame-rate profiling and microphone testing.
+There is no Xcode/Apple SDK in this environment. Build the IPA on GitHub and
+verify build 0.6.0 (8) on the phone. No multiplayer is introduced in this release.

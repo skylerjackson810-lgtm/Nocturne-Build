@@ -52,9 +52,10 @@ assert root/'Resources/Castle.usdz' in bundled_paths
 assert root/'Resources/TerrainRock.jpg' in bundled_paths
 report=json.loads((root/'SourceAssets/castle-direct-import.json').read_text())
 assert hashlib.sha256((root/'Resources/Castle.usdz').read_bytes()).hexdigest()==report['runtime_sha256']
-assert report['removed_triangles_from_retained_meshes']==0
+assert report['explicit_default_material_bindings']==0
 assert report['maximum_round_trip_position_error']<0.001
-assert report['runtime_meshes']==308 and report['retained_triangles']==86730
+assert report['source_assembly_meshes']==308 and report['source_assembly_triangles']==86730
+assert report['interior_meshes']==34 and report['runtime_triangles']<100000
 assert report['runtime_size'][0]==52
 with zipfile.ZipFile(root/'Resources/Castle.usdz') as castle:
  assert castle.testzip() is None
@@ -79,6 +80,6 @@ for ref in scheme.findall('.//BuildableReference'):assert ref.attrib['BlueprintI
 info=plistlib.loads((root/'Info.plist').read_bytes())
 assert 'NSMicrophoneUsageDescription' in info and 'NSSpeechRecognitionUsageDescription' in info
 assert all('Landscape' in x for x in info['UISupportedInterfaceOrientations'])
-assert info['CFBundleShortVersionString']=='0.5.1' and info['CFBundleVersion']=='7'
+assert info['CFBundleShortVersionString']=='0.6.0' and info['CFBundleVersion']=='8'
 print(json.dumps({'swift_grammar_files':len(source_paths),'swift_syntax_errors':len(errors),'xcode_objects':len(objects),
 'file_references':'all resolved','plists_assets_audio_scheme':'valid','native_compilation':'not available','native_xctests':'not executed'},indent=2))
