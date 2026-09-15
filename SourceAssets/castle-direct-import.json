@@ -1,13 +1,11 @@
 {
   "source_file": "Castle+format+1(2).glb",
   "source_sha256": "68ed413a567f2448d16cc55ae144071ad8d1f121f6b02b830aeee9ca480194cf",
-  "explicit_default_material_bindings": 94,
-  "opened_gate_leaf": "Plane.062",
-  "gate_edit": "90 degrees inward about local left/front hinge; stone arch preserved",
-  "runtime_sha256": "758f6d1546beb746fe25e462760b6d24264c6a2e01a6423b3c3984263defd39d",
-  "runtime_meshes": 308,
-  "retained_triangles": 86730,
-  "removed_triangles_from_retained_meshes": 0,
+  "runtime_sha256": "23d4f1f781b56dfd70606896ef9982e1c462bca1e127d40c3b421abda61afc47",
+  "runtime_meshes": 336,
+  "source_assembly_meshes": 308,
+  "source_assembly_triangles": 86730,
+  "runtime_triangles": 86681,
   "maximum_round_trip_position_error": 9.62003696258762e-07,
   "uniform_scale": 0.991266535273347,
   "source_origin": [
@@ -413,5 +411,2180 @@
       ]
     }
   ],
-  "note": "Direct latest GLB conversion; topology preserved. Closed gate leaf rotated inward; 94 unspecified materials use explicit neutral white rough surfaces. Round-trip error measured before the gate pose edit."
+  "explicit_default_material_bindings": 0,
+  "winding_repairs": 17732,
+  "projected_faces": 49970,
+  "opened_gate_leaf": "Plane.062",
+  "portal_edits": [
+    {
+      "part": "Circle.004",
+      "room": "North timber hall interior",
+      "intersected_source_triangles": 5
+    },
+    {
+      "part": "Cube.059",
+      "room": "North timber hall interior",
+      "intersected_source_triangles": 5
+    },
+    {
+      "part": "Cube.116",
+      "room": "North timber hall",
+      "intersected_source_triangles": 266
+    },
+    {
+      "part": "Cube.116",
+      "room": "North timber hall interior",
+      "intersected_source_triangles": 1659
+    },
+    {
+      "part": "Plane.012",
+      "room": "East workshop",
+      "intersected_source_triangles": 176
+    },
+    {
+      "part": "Plane.012",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 219
+    },
+    {
+      "part": "Plane.012",
+      "room": "East workshop",
+      "intersected_source_triangles": 197
+    },
+    {
+      "part": "Plane.030",
+      "room": "East workshop",
+      "intersected_source_triangles": 60
+    },
+    {
+      "part": "Plane.042",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 39
+    },
+    {
+      "part": "Plane.046",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 57
+    },
+    {
+      "part": "Plane.047",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 57
+    },
+    {
+      "part": "Plane.050",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 57
+    },
+    {
+      "part": "Plane.051",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 57
+    },
+    {
+      "part": "Plane.014",
+      "room": "West study interior",
+      "intersected_source_triangles": 41
+    },
+    {
+      "part": "Plane.044",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 70
+    },
+    {
+      "part": "Plane.048",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 71
+    },
+    {
+      "part": "Plane.052",
+      "room": "East workshop interior",
+      "intersected_source_triangles": 70
+    },
+    {
+      "part": "Plane.056",
+      "room": "West study",
+      "intersected_source_triangles": 5
+    },
+    {
+      "part": "Plane.056",
+      "room": "West study interior",
+      "intersected_source_triangles": 101
+    },
+    {
+      "part": "Plane.061",
+      "room": "East workshop",
+      "intersected_source_triangles": 662
+    },
+    {
+      "part": "Plane.095",
+      "room": "West study",
+      "intersected_source_triangles": 178
+    },
+    {
+      "part": "Plane.095",
+      "room": "West study interior",
+      "intersected_source_triangles": 441
+    },
+    {
+      "part": "Plane.104",
+      "room": "West study",
+      "intersected_source_triangles": 12
+    },
+    {
+      "part": "Plane.106",
+      "room": "West study",
+      "intersected_source_triangles": 10
+    },
+    {
+      "part": "Plane.106",
+      "room": "West study interior",
+      "intersected_source_triangles": 107
+    },
+    {
+      "part": "Plane.106",
+      "room": "West study interior",
+      "intersected_source_triangles": 28
+    },
+    {
+      "part": "Plane.107",
+      "room": "West study",
+      "intersected_source_triangles": 132
+    },
+    {
+      "part": "Plane.107",
+      "room": "West study",
+      "intersected_source_triangles": 28
+    },
+    {
+      "part": "Plane.109",
+      "room": "West study",
+      "intersected_source_triangles": 236
+    },
+    {
+      "part": "Plane.114",
+      "room": "West study interior",
+      "intersected_source_triangles": 99
+    },
+    {
+      "part": "Plane.115",
+      "room": "West study interior",
+      "intersected_source_triangles": 13
+    },
+    {
+      "part": "Plane.116",
+      "room": "West study interior",
+      "intersected_source_triangles": 128
+    },
+    {
+      "part": "Plane.118",
+      "room": "West study interior",
+      "intersected_source_triangles": 187
+    },
+    {
+      "part": "Plane.141",
+      "room": "North timber hall interior",
+      "intersected_source_triangles": 41
+    },
+    {
+      "part": "Plane.204",
+      "room": "North timber hall interior",
+      "intersected_source_triangles": 12
+    },
+    {
+      "part": "Plane.226",
+      "room": "North timber hall interior",
+      "intersected_source_triangles": 29
+    },
+    {
+      "part": "Vert.005",
+      "room": "East workshop",
+      "intersected_source_triangles": 2
+    },
+    {
+      "part": "Vert.005",
+      "room": "North timber hall",
+      "intersected_source_triangles": 3
+    },
+    {
+      "part": "Vert.005",
+      "room": "West study",
+      "intersected_source_triangles": 3
+    },
+    {
+      "part": "Vert.006",
+      "room": "West study interior",
+      "intersected_source_triangles": 4
+    },
+    {
+      "part": "Vert.017",
+      "room": "North timber hall",
+      "intersected_source_triangles": 8
+    },
+    {
+      "part": "Vert.131",
+      "room": "East workshop",
+      "intersected_source_triangles": 162
+    },
+    {
+      "part": "Vert.135",
+      "room": "North timber hall interior",
+      "intersected_source_triangles": 30
+    },
+    {
+      "part": "Vert.139",
+      "room": "North timber hall interior",
+      "intersected_source_triangles": 16
+    }
+  ],
+  "surface_repairs": [
+    {
+      "part": "Circle.001",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 376,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.004",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 2806,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.007",
+      "source_material": 1,
+      "runtime_material": 1,
+      "projected_faces": 302,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.060",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 12
+    },
+    {
+      "part": "Circle.012",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 68,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.013",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 576,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.015",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 932,
+      "winding_fixes": 250
+    },
+    {
+      "part": "Plane.066",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Plane.067",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Plane.070",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Plane.071",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Plane.076",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Circle.025",
+      "source_material": 6,
+      "runtime_material": 6,
+      "projected_faces": 0,
+      "winding_fixes": 36
+    },
+    {
+      "part": "Circle.029",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 68,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.030",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 947,
+      "winding_fixes": 263
+    },
+    {
+      "part": "Plane.086",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Plane.087",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Plane.088",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Plane.089",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Plane.090",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 124,
+      "winding_fixes": 124
+    },
+    {
+      "part": "Circle.044",
+      "source_material": 13,
+      "runtime_material": 13,
+      "projected_faces": 4,
+      "winding_fixes": 2
+    },
+    {
+      "part": "Circle.045",
+      "source_material": 14,
+      "runtime_material": 14,
+      "projected_faces": 6,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.046",
+      "source_material": 14,
+      "runtime_material": 14,
+      "projected_faces": 4,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.047",
+      "source_material": 15,
+      "runtime_material": 15,
+      "projected_faces": 4,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.048",
+      "source_material": 16,
+      "runtime_material": 16,
+      "projected_faces": 0,
+      "winding_fixes": 48
+    },
+    {
+      "part": "Circle.050",
+      "source_material": 18,
+      "runtime_material": 18,
+      "projected_faces": 2,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.052",
+      "source_material": 20,
+      "runtime_material": 20,
+      "projected_faces": 4,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.054",
+      "source_material": 22,
+      "runtime_material": 22,
+      "projected_faces": 4,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.063",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 576,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.069",
+      "source_material": null,
+      "runtime_material": 2,
+      "projected_faces": 20,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.077",
+      "source_material": null,
+      "runtime_material": 2,
+      "projected_faces": 16,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.082",
+      "source_material": 39,
+      "runtime_material": 39,
+      "projected_faces": 4,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Circle.083",
+      "source_material": null,
+      "runtime_material": 4,
+      "projected_faces": 576,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.006",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.007",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.011",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.014",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.015",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.016",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.017",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.018",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.020",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.021",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.022",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.025",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.026",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.027",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.030",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.031",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.032",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.033",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.034",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.035",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.036",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.037",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.038",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.039",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.040",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.041",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.042",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.043",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.044",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.045",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.046",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.047",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.048",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.049",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.050",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.052",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.058",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.061",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.063",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.064",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.065",
+      "source_material": 45,
+      "runtime_material": 45,
+      "projected_faces": 2,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.066",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.067",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.068",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.069",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.070",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.071",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.072",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.098",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 66,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.099",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.101",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 64,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.104",
+      "source_material": null,
+      "runtime_material": 40,
+      "projected_faces": 76,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.107",
+      "source_material": 50,
+      "runtime_material": 0,
+      "projected_faces": 82,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Cube.116",
+      "source_material": 51,
+      "runtime_material": 51,
+      "projected_faces": 11,
+      "winding_fixes": 72
+    },
+    {
+      "part": "Icosphere.003",
+      "source_material": 52,
+      "runtime_material": 52,
+      "projected_faces": 0,
+      "winding_fixes": 154
+    },
+    {
+      "part": "Plane.001",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 1368,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.002",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 56,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.002",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 60,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.003",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.004",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 56,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.004",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 60,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.005",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.006",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 56,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.006",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 60,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.007",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.008",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 56,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.008",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 60,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.009",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.010",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.011",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 270,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.012",
+      "source_material": 55,
+      "runtime_material": 55,
+      "projected_faces": 1142,
+      "winding_fixes": 425
+    },
+    {
+      "part": "Plane.012",
+      "source_material": 50,
+      "runtime_material": 0,
+      "projected_faces": 36,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.033",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 48,
+      "winding_fixes": 48
+    },
+    {
+      "part": "Plane.035",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 60,
+      "winding_fixes": 60
+    },
+    {
+      "part": "Plane.041",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 104,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.042",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 92,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.046",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 140,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.047",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 140,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.050",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 140,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.051",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 142,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.013",
+      "source_material": 57,
+      "runtime_material": 57,
+      "projected_faces": 814,
+      "winding_fixes": 814
+    },
+    {
+      "part": "Plane.062",
+      "source_material": null,
+      "runtime_material": 3,
+      "projected_faces": 60,
+      "winding_fixes": 60
+    },
+    {
+      "part": "Plane.014",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 687,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.015",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.018",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 270,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.020",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 270,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.021",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 270,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.022",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 906,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.023",
+      "source_material": 58,
+      "runtime_material": 58,
+      "projected_faces": 660,
+      "winding_fixes": 660
+    },
+    {
+      "part": "Plane.024",
+      "source_material": 59,
+      "runtime_material": 59,
+      "projected_faces": 768,
+      "winding_fixes": 768
+    },
+    {
+      "part": "Plane.025",
+      "source_material": 60,
+      "runtime_material": 60,
+      "projected_faces": 404,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.026",
+      "source_material": null,
+      "runtime_material": 3,
+      "projected_faces": 333,
+      "winding_fixes": 90
+    },
+    {
+      "part": "Plane.027",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 46,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.029",
+      "source_material": 63,
+      "runtime_material": 63,
+      "projected_faces": 299,
+      "winding_fixes": 106
+    },
+    {
+      "part": "Plane.031",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 75,
+      "winding_fixes": 12
+    },
+    {
+      "part": "Plane.034",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 284,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.036",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 520,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.037",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 284,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.038",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 520,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.039",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 520,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.040",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 80,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.040",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 40,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.043",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.044",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 173,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.045",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.048",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 173,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.049",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.052",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 173,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.053",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.054",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 0,
+      "winding_fixes": 52
+    },
+    {
+      "part": "Plane.056",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 1668,
+      "winding_fixes": 646
+    },
+    {
+      "part": "Plane.058",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 0,
+      "winding_fixes": 52
+    },
+    {
+      "part": "Plane.059",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 12
+    },
+    {
+      "part": "Plane.063",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 168,
+      "winding_fixes": 168
+    },
+    {
+      "part": "Plane.064",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 520,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.065",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 520,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.068",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 520,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.069",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.072",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.073",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.074",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.075",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.078",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.079",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.080",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.081",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.082",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 56,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.082",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 60,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.083",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.084",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.085",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.094",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.095",
+      "source_material": 67,
+      "runtime_material": 67,
+      "projected_faces": 1584,
+      "winding_fixes": 657
+    },
+    {
+      "part": "Plane.096",
+      "source_material": 68,
+      "runtime_material": 68,
+      "projected_faces": 0,
+      "winding_fixes": 24
+    },
+    {
+      "part": "Plane.097",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.099",
+      "source_material": 4,
+      "runtime_material": 4,
+      "projected_faces": 600,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.100",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.101",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.102",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.103",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 34,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.104",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 170,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.105",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.106",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 40,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.108",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 160,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.110",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.111",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 236,
+      "winding_fixes": 236
+    },
+    {
+      "part": "Plane.112",
+      "source_material": 63,
+      "runtime_material": 63,
+      "projected_faces": 301,
+      "winding_fixes": 97
+    },
+    {
+      "part": "Plane.113",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 75,
+      "winding_fixes": 12
+    },
+    {
+      "part": "Plane.114",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 502,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.115",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 296,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.116",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 608,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.117",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 284,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.118",
+      "source_material": 53,
+      "runtime_material": 53,
+      "projected_faces": 581,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.119",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.120",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.125",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.126",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.128",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.129",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.132",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 2,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.134",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 2,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.135",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.141",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 961,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.145",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.152",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.155",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.172",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.177",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.178",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.179",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.180",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.181",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.182",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 1368,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.183",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 576,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.184",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 576,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.185",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 456,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.187",
+      "source_material": null,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.193",
+      "source_material": 61,
+      "runtime_material": 61,
+      "projected_faces": 46,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.204",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 580,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.207",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 360,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.211",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.217",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.218",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.219",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.221",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.222",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 24,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Plane.226",
+      "source_material": 64,
+      "runtime_material": 0,
+      "projected_faces": 1397,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Vert",
+      "source_material": 70,
+      "runtime_material": 70,
+      "projected_faces": 21,
+      "winding_fixes": 53
+    },
+    {
+      "part": "Vert.006",
+      "source_material": 70,
+      "runtime_material": 70,
+      "projected_faces": 6,
+      "winding_fixes": 99
+    },
+    {
+      "part": "Vert.017",
+      "source_material": 73,
+      "runtime_material": 71,
+      "projected_faces": 13,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Vert.017",
+      "source_material": 74,
+      "runtime_material": 3,
+      "projected_faces": 102,
+      "winding_fixes": 2
+    },
+    {
+      "part": "Vert.019",
+      "source_material": 73,
+      "runtime_material": 71,
+      "projected_faces": 99,
+      "winding_fixes": 80
+    },
+    {
+      "part": "Vert.045",
+      "source_material": null,
+      "runtime_material": 63,
+      "projected_faces": 16,
+      "winding_fixes": 16
+    },
+    {
+      "part": "Vert.046",
+      "source_material": null,
+      "runtime_material": 63,
+      "projected_faces": 16,
+      "winding_fixes": 16
+    },
+    {
+      "part": "Vert.048",
+      "source_material": 76,
+      "runtime_material": 76,
+      "projected_faces": 0,
+      "winding_fixes": 254
+    },
+    {
+      "part": "Vert.053",
+      "source_material": null,
+      "runtime_material": 63,
+      "projected_faces": 26,
+      "winding_fixes": 26
+    },
+    {
+      "part": "Vert.072",
+      "source_material": 77,
+      "runtime_material": 77,
+      "projected_faces": 0,
+      "winding_fixes": 530
+    },
+    {
+      "part": "Vert.078",
+      "source_material": 78,
+      "runtime_material": 63,
+      "projected_faces": 448,
+      "winding_fixes": 448
+    },
+    {
+      "part": "Vert.080",
+      "source_material": null,
+      "runtime_material": 63,
+      "projected_faces": 180,
+      "winding_fixes": 180
+    },
+    {
+      "part": "Vert.092",
+      "source_material": 79,
+      "runtime_material": 79,
+      "projected_faces": 0,
+      "winding_fixes": 972
+    },
+    {
+      "part": "Vert.126",
+      "source_material": null,
+      "runtime_material": 63,
+      "projected_faces": 180,
+      "winding_fixes": 180
+    },
+    {
+      "part": "Vert.131",
+      "source_material": 80,
+      "runtime_material": 80,
+      "projected_faces": 0,
+      "winding_fixes": 632
+    },
+    {
+      "part": "Vert.135",
+      "source_material": 78,
+      "runtime_material": 63,
+      "projected_faces": 412,
+      "winding_fixes": 372
+    },
+    {
+      "part": "Vert.139",
+      "source_material": null,
+      "runtime_material": 63,
+      "projected_faces": 11,
+      "winding_fixes": 0
+    },
+    {
+      "part": "Vert.198",
+      "source_material": null,
+      "runtime_material": 63,
+      "projected_faces": 148,
+      "winding_fixes": 148
+    },
+    {
+      "part": "Vert.216",
+      "source_material": null,
+      "runtime_material": 63,
+      "projected_faces": 26,
+      "winding_fixes": 26
+    },
+    {
+      "part": "Vert.255",
+      "source_material": 73,
+      "runtime_material": 71,
+      "projected_faces": 740,
+      "winding_fixes": 740
+    },
+    {
+      "part": "Vert.280",
+      "source_material": 73,
+      "runtime_material": 71,
+      "projected_faces": 2438,
+      "winding_fixes": 2400
+    },
+    {
+      "part": "Vert.285",
+      "source_material": 73,
+      "runtime_material": 71,
+      "projected_faces": 760,
+      "winding_fixes": 760
+    },
+    {
+      "part": "Vert.292",
+      "source_material": 81,
+      "runtime_material": 81,
+      "projected_faces": 0,
+      "winding_fixes": 26
+    },
+    {
+      "part": "Vert.293",
+      "source_material": 73,
+      "runtime_material": 71,
+      "projected_faces": 100,
+      "winding_fixes": 100
+    },
+    {
+      "part": "East workshop threshold",
+      "source_material": 2,
+      "runtime_material": 2,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "North timber hall threshold",
+      "source_material": 2,
+      "runtime_material": 2,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study threshold",
+      "source_material": 2,
+      "runtime_material": 2,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop floor",
+      "source_material": 2,
+      "runtime_material": 2,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop ceiling",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop front A",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop front B",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop back",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop side A",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop side B",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop lintel",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop workbench",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "East workshop bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "North timber hall floor",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "North timber hall workbench",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "North timber hall bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "North timber hall bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "North timber hall bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "North timber hall bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study floor",
+      "source_material": 2,
+      "runtime_material": 2,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study ceiling",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study front A",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study front B",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study back",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study side A",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study side B",
+      "source_material": 0,
+      "runtime_material": 0,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study workbench",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    },
+    {
+      "part": "West study bench leg",
+      "source_material": 3,
+      "runtime_material": 3,
+      "projected_faces": 12,
+      "winding_fixes": 0
+    }
+  ],
+  "interior_meshes": 34,
+  "note": "Source architecture preserved with deliberate ground-floor portals, liners, floors and benches. Inward faces corrected; invalid UVs regenerated; missing materials mapped to existing texture sets. All meshes double-sided."
 }
